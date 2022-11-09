@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import cl from './Header.module.scss';
 import Navbar from '../Navbar/Navbar';
 
 const Header = () => {
+  const [activeClass, setActiveClass] = useState(cl.container);
+
+  const scrollHandler = () => {
+    if (window.pageYOffset === 0) setActiveClass(cl.container);
+    else setActiveClass(`${cl.container} ${cl.container_scrolled}`);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollHandler);
+    return () => {
+      window.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
+
   return (
-    <header className={cl.container}>
+    <header className={activeClass}>
       <Navbar />
     </header>
   );
