@@ -1,12 +1,13 @@
+@import "../../../styleVariablesAndMixines/fontSizes.scss";
+
 .container {
   display: flex;
   flex-direction: row;
-  margin-right: 30px;
+  gap: 10px;
   .link {
     color: black;
-    font-size: 1.2rem;
+    font-size: $font-size-middle;
     transition: 0.3s;
-    margin: 0 5px;
     &_active {
       color: gray;
     }
