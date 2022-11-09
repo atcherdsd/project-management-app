@@ -1,0 +1,8 @@
+@import "../../../styleVariablesAndMixines/headerAndFooter.scss";
+
+.container {
+  @include base-style;
+  height: $footer-height;
+  margin-top: auto;
+  border-top: 2px solid black;
+}

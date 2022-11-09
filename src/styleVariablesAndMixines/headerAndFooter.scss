@@ -1,0 +1,7 @@
+$header-height: 50px;
+$footer-height: 50px;
+
+@mixin base-style {
+  width: 100%;
+  display: flex;
+}
