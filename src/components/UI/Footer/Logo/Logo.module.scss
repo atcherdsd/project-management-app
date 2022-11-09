@@ -1,0 +1,8 @@
+.logo {
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    transform: scale(1.1);
+    filter: invert(0.2);
+  }
+}

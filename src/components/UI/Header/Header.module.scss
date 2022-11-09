@@ -1,0 +1,16 @@
+@import "../../../styleVariablesAndMixines/headerAndFooter.scss";
+
+.container {
+  @include base-style;
+  height: $header-height;
+  margin-bottom: auto;
+  border-bottom: 2px solid black;
+  justify-content: end;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  transition: 0.3s;
+  &_scrolled {
+    background-color: teal;
+  }
+}
