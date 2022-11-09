@@ -11,13 +11,16 @@ const Navbar = () => {
   return (
     <nav className={cl.container}>
       <NavLink className={isActiveCheck} to={Paths.LogInPage}>
-        Sign In/Sign Up
+        Sign in/Sign up
       </NavLink>
       <NavLink className={isActiveCheck} to={Paths.WelcomePage}>
         Welcome
       </NavLink>
       <NavLink className={isActiveCheck} to={Paths.MainPage}>
         Main
+      </NavLink>
+      <NavLink className={isActiveCheck} to={Paths.EditProfilePage}>
+        Edit Profile
       </NavLink>
     </nav>
   );

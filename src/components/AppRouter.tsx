@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage/MainPage';
 import SignInUpPage from './pages/SignInUpPage/SignInUpPage';
 import WelcomePage from './pages/WelcomePage/WelcomePage';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
+import EditProfilePage from './pages/EditProfilePage/EditProfile.Page';
 
 const AppRouter = () => {
   return (
@@ -13,6 +14,7 @@ const AppRouter = () => {
       <Route path={Paths.WelcomePage} element={<WelcomePage />} />
       <Route path={Paths.LogInPage} element={<SignInUpPage />} />
       <Route path={Paths.MainPage} element={<MainPage />} />
+      <Route path={Paths.EditProfilePage} element={<EditProfilePage />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
