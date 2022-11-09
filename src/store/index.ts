@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import LanguageReducer from './reducers/LanguageReducer';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({ LanguageReducer });
 
 export const setupStore = () =>
   configureStore({
