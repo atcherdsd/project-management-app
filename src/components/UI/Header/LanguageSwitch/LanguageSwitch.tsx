@@ -9,8 +9,13 @@ const LanguageSwitch = () => {
   const dispatch = useAppDispatch();
 
   const onClickHandler = () => {
-    if (language === 'EN') dispatch(setLanguage('RU'));
-    else dispatch(setLanguage('EN'));
+    if (language === 'EN') {
+      dispatch(setLanguage('RU'));
+      localStorage.setItem('language', 'RU');
+    } else {
+      dispatch(setLanguage('EN'));
+      localStorage.setItem('language', 'EN');
+    }
   };
   return (
     <div className={cl.container}>
