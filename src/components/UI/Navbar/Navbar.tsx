@@ -33,6 +33,8 @@ const Navbar = () => {
       <NavLink className={isActiveCheck} to={Paths.EditProfilePage}>
         {T.edit}
       </NavLink>
+      <button className={cl.button}>{T.newboard}</button>
+      <button className={cl.button}>{T.signout}</button>
     </nav>
   );
 };

@@ -3,6 +3,8 @@ export interface INavbarLanguage {
   welcome: string;
   main: string;
   edit: string;
+  signout: string;
+  newboard: string;
 }
 
 export interface INavbar {
