@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { LanguageType } from '../../types/language.type';
+import { LanguageType } from '../../types/languageType';
 
 const initLanguage: LanguageType = (localStorage.getItem('language') as LanguageType) || 'EN';
 
