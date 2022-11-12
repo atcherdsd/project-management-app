@@ -1,0 +1,21 @@
+@import "../../../styleVariablesAndMixines/fontSizes.scss";
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  .link,
+  .button {
+    color: black;
+    font-size: $font-size-middle;
+    transition: 0.3s;
+    background-color: inherit;
+    line-height: $font-size-middle;
+    &_active {
+      color: gray;
+    }
+    &:hover {
+      color: darkgray;
+    }
+  }
+}

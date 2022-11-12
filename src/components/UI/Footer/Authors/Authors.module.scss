@@ -1,0 +1,16 @@
+@import "../../../../styleVariablesAndMixines/fontSizes.scss";
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  .author {
+    transition: 0.3s;
+    color: black;
+    font-size: $font-size-middle;
+    &:hover {
+      color: gray;
+      transform: scale(1.2);
+    }
+  }
+}

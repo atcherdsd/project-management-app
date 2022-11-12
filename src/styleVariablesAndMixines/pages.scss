@@ -1,0 +1,7 @@
+@import "./headerAndFooter.scss";
+
+@mixin page-properties {
+  width: 100%;
+  min-height: calc(100vh - $header-height - $footer-height);
+  padding-top: $header-height;
+}
