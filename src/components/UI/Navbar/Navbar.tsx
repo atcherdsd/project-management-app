@@ -21,8 +21,11 @@ const Navbar = () => {
 
   return (
     <nav className={cl.container}>
-      <NavLink className={isActiveCheck} to={Paths.LogInPage}>
-        {T.signinup}
+      <NavLink className={isActiveCheck} to={Paths.SignIn}>
+        {T.signin}
+      </NavLink>
+      <NavLink className={isActiveCheck} to={Paths.SignUp}>
+        {T.signup}
       </NavLink>
       <NavLink className={isActiveCheck} to={Paths.WelcomePage}>
         {T.welcome}

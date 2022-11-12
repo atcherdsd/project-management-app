@@ -1,5 +1,6 @@
 export interface INavbarLanguage {
-  signinup: string;
+  signin: string;
+  signup: string;
   welcome: string;
   main: string;
   edit: string;

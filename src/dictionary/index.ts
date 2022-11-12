@@ -3,7 +3,8 @@ import { Idictionary } from '../types/dictionaryTypes';
 const dictionary: Idictionary = {
   Navbar: {
     EN: {
-      signinup: 'Sign in / Sign up',
+      signin: 'Sign in',
+      signup: 'Sign Up',
       welcome: 'Welcome',
       main: 'Go to Main Page',
       edit: 'Edit Profile',
@@ -11,7 +12,8 @@ const dictionary: Idictionary = {
       newboard: 'Create new board',
     },
     RU: {
-      signinup: 'Войти / Зарегестрироваться',
+      signin: 'Войти',
+      signup: 'Зарегестрироваться',
       welcome: 'Добро пожаловать',
       main: 'Главная страница',
       edit: 'Профиль',
