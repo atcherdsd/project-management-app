@@ -11,7 +11,7 @@ export const authCalls = createApi({
     endpoints: (builder)=>({
         signUpAuth: builder.query<QueryProps,QueryProps>({
             query: (props) => {
-                if(props.patch){
+                if(props.patch.login){
                     return {
                         url: `${props.path}`,
                         method: 'POST',
