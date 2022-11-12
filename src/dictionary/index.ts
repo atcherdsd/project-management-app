@@ -5,7 +5,7 @@ const dictionary: Idictionary = {
     EN: {
       signinup: 'Sign in / Sign up',
       welcome: 'Welcome',
-      main: 'Main Page',
+      main: 'Go to Main Page',
       edit: 'Edit Profile',
       signout: 'Sign Out',
       newboard: 'Create new board',
