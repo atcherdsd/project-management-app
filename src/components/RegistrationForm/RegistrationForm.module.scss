@@ -36,6 +36,12 @@ $radius: 1rem;
       height: 3rem;
       margin-bottom: 1.5rem;
     }
+    &__login{
+      margin-top:3rem;
+      position: relative;
+      height: 3rem;
+      margin-bottom: 1.5rem;
+    }
   
     &__input {
       width: 100%;
@@ -70,6 +76,7 @@ $radius: 1rem;
     &__buttons{
         display: flex;
         justify-content: flex-end;
+        margin-top:3rem;
     }
   
     &__button {

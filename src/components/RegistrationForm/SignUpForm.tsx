@@ -1,20 +1,45 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FormValues } from '../../types/formTypes';
+import { FormValues, SignUpProps } from '../../types/formTypes';
 import cl from './RegistrationForm.module.scss';
-function SignUpForm() {
+function SignUpForm(props:SignUpProps) {
+  const {handlerSubmit} = props;
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FormValues>({ criteriaMode: 'all', mode: 'onChange' });
-  const onSubmit = handleSubmit((data) => console.log(data));
-  console.log(errors);
+  const onSubmit = handleSubmit(handlerSubmit);
   return (
     <form action="" className={cl.form} onSubmit={onSubmit}>
       <p className={cl.form__description}>Get unlimited access to your board</p>
       <div className={cl.form__group}>
+        <input
+          type="text"
+          id={cl.name}
+          className={cl.form__input}
+          placeholder=" "
+          autoComplete="off"
+          defaultValue={''}
+          {...register('name', {
+            required: { value: true, message: 'This field is required' },
+            pattern: {
+              value: /^[a-zA-Zа-я]+$/i,
+              message: 'Should contains only letters',
+            },
+          })}
+        ></input>
+        <label htmlFor={cl.name} className={cl.form__label}>
+          Name
+        </label>
+        {errors.name?.types &&
+          Object.entries(errors.name?.types).map(([type, message]) => (
+            <p key={type} className={cl.error}>
+              {message}
+            </p>
+          ))}
+      </div>
+      <div className={cl.form__login}>
         <input
           type="text"
           id={cl.login}
@@ -52,6 +77,7 @@ function SignUpForm() {
               value: /^[\w+а-я0-9]+$/i,
               message: 'Should contains letters and(or) numbers',
             },
+            minLength:{value:5,message:'Should contains greater then 5 symbols'}
           })}
         ></input>
         <label htmlFor={cl.password} className={cl.form__label}>
