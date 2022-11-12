@@ -2,8 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormValues, SignUpProps } from '../../types/formTypes';
 import cl from './RegistrationForm.module.scss';
-function SignUpForm(props:SignUpProps) {
-  const {handlerSubmit} = props;
+function SignUpForm(props: SignUpProps) {
+  const { handlerSubmit } = props;
   const {
     register,
     handleSubmit,
@@ -77,7 +77,7 @@ function SignUpForm(props:SignUpProps) {
               value: /^[\w+а-я0-9]+$/i,
               message: 'Should contains letters and(or) numbers',
             },
-            minLength:{value:5,message:'Should contains greater then 5 symbols'}
+            minLength: { value: 5, message: 'Should contains greater then 5 symbols' },
           })}
         ></input>
         <label htmlFor={cl.password} className={cl.form__label}>

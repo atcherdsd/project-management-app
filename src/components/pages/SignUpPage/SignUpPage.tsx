@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import cl from './SignUpPage.module.scss';
 import SignUpForm from '../../RegistrationForm/SignUpForm';
-import {FormValues} from '../../../types/formTypes';
-import {useSignUpAuthQuery} from '../../../store/features/authCalls';
+import { FormValues } from '../../../types/formTypes';
+import { useSignUpAuthQuery } from '../../../store/features/authCalls';
 const SignInPage = () => {
-  const [signUpData,setSignUpData] = useState<FormValues>({login:'',name:'',password:''});
-  const {data, isError} = useSignUpAuthQuery({path:'signup',patch:signUpData});
+  const [signUpData, setSignUpData] = useState<FormValues>({ login: '', name: '', password: '' });
+  const { data, isError } = useSignUpAuthQuery({ path: 'signup', patch: signUpData });
   console.log(data, isError);
-  function handleSubmit(data:FormValues){
+  function handleSubmit(data: FormValues) {
     setSignUpData(data);
   }
 
