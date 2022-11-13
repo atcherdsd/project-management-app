@@ -4,6 +4,7 @@
   width: 300px;
   height: calc(($font-size-small + $font-size-large) * 1.4);
   border: solid black 2px;
+  cursor: pointer;
   .title {
     font-size: $font-size-large;
   }
