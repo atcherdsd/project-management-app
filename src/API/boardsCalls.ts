@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { QueryPropsGet } from '../types/formTypes';
 import baseUrl from './baseUrl';
+import { IBoard } from '../types/boardType';
 
 export const boardsCalls = createApi({
   reducerPath: 'boardsCalls',
@@ -14,7 +15,7 @@ export const boardsCalls = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getAllBoards: builder.query<QueryPropsGet, QueryPropsGet>({
+    getAllBoards: builder.query<IBoard[], QueryPropsGet>({
       query: (props) => {
         if (props.path === 'boards') {
           return {

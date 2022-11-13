@@ -1,0 +1,13 @@
+@import "../../../styleVariablesAndMixines/fontSizes.scss";
+
+.container {
+  width: 300px;
+  height: calc(($font-size-small + $font-size-large) * 1.4);
+  border: solid black 2px;
+  .title {
+    font-size: $font-size-large;
+  }
+  .subtitle {
+    font-size: $font-size-small;
+  }
+}
