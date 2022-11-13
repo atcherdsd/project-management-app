@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FormValues, SignUpProps } from '../../types/formTypes';
 import cl from './RegistrationForm.module.scss';
@@ -6,7 +7,10 @@ import { useAppSelector } from '../../hooks/redux';
 import { useTranslate } from '../../hooks/useTranslate';
 import dictionary from '../../dictionary';
 import { INavbarLanguage } from 'types/dictionaryTypes';
+import { Paths } from '../../helpers/routerPaths';
 function SignUpForm(props: SignUpProps) {
+  // Navigate
+  const navigate = useNavigate();
   // Use Translate
   const { language } = useAppSelector((state) => state.LanguageReducer);
   const [T, setT] = useTranslate<INavbarLanguage>(dictionary.Navbar, language);
@@ -109,6 +113,7 @@ function SignUpForm(props: SignUpProps) {
           ))}
       </div>
       <div className={cl.form__buttons}>
+        <a onClick={() => navigate(`/${Paths.SignIn}`)}>{T.formRegistered}</a>
         <input type="submit" className={cl.form__button} value={T.formSignUp}></input>
       </div>
     </form>

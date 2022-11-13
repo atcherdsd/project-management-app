@@ -16,6 +16,7 @@ export interface INavbarLanguage {
   formMinLengthMsg:string;
   formLoginPatternMsg:string;
   formPasswordValidateMsg:string;
+  formRegistered:string;
 }
 
 export interface INavbar {

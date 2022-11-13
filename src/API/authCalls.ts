@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { QueryProps } from '../types/formTypes';
+import baseUrl from './baseUrl';
 export const authCalls = createApi({
   reducerPath: 'authCalls',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://enigmatic-reaches-84360.herokuapp.com/',
+    baseUrl: baseUrl,
     prepareHeaders: (headers) => {
       headers.set('Accept', 'application/json');
     },

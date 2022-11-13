@@ -20,6 +20,7 @@ const dictionary: Idictionary = {
       formMinLengthMsg: 'Should contains greater then 5 symbols',
       formLoginPatternMsg: 'Should contains english letters and(or) numbers',
       formPasswordValidateMsg: 'Should contains one or greater then numbers',
+      formRegistered: 'Already registered?',
     },
     RU: {
       signin: 'Войти',
@@ -39,6 +40,7 @@ const dictionary: Idictionary = {
       formMinLengthMsg: 'Должен содержать более 5 символов',
       formLoginPatternMsg: 'Должен содержать английские буквы и(или) цифры',
       formPasswordValidateMsg: 'Должен содержать одно или больше чисел',
+      formRegistered: 'Уже зарегистрированны?',
     },
   },
 };

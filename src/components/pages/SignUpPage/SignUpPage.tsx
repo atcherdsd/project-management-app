@@ -5,8 +5,8 @@ import { FormValues } from '../../../types/formTypes';
 import { useSignUpAuthQuery } from '../../../API/authCalls';
 const SignUpPage = () => {
   const [signUpData, setSignUpData] = useState<FormValues>({ login: '', name: '', password: '' });
-  const { data, isError } = useSignUpAuthQuery({ path: 'signup', patch: signUpData });
-  console.log(data, isError);
+  const { data, isError, error } = useSignUpAuthQuery({ path: 'auth/signup', patch: signUpData });
+  console.log(data, error);
   function handleSubmit(data: FormValues) {
     setSignUpData(data);
   }

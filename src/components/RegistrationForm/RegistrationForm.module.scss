@@ -75,8 +75,16 @@ $radius: 1rem;
 
     &__buttons{
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
         margin-top:5rem;
+        & a{
+          cursor: pointer;
+        }
+        & a:hover{
+          transition: 0.3s;
+          border-bottom: 2px solid $clr-primary-hover;
+        }
     }
   
     &__button {
