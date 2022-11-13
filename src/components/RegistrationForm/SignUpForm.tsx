@@ -24,9 +24,10 @@ function SignUpForm(props: SignUpProps) {
           {...register('name', {
             required: { value: true, message: 'This field is required' },
             pattern: {
-              value: /^[a-zA-Zа-я]+$/i,
+              value: /^[a-zA-Zа-я\s]+$/i,
               message: 'Should contains only letters',
             },
+            minLength: { value: 2, message: 'Should contains greater then 2 symbols' },
           })}
         ></input>
         <label htmlFor={cl.name} className={cl.form__label}>
@@ -50,9 +51,10 @@ function SignUpForm(props: SignUpProps) {
           {...register('login', {
             required: { value: true, message: 'This field is required' },
             pattern: {
-              value: /^[\w+а-я0-9]+$/i,
-              message: 'Should contains letters and(or) numbers',
+              value: /^[a-zA-Z0-9]+$/i,
+              message: 'Should contains english letters and(or) numbers',
             },
+            minLength: { value: 5, message: 'Should contains greater then 5 symbols' },
           })}
         ></input>
         <label htmlFor={cl.login} className={cl.form__label}>
@@ -78,6 +80,11 @@ function SignUpForm(props: SignUpProps) {
               message: 'Should contains letters and(or) numbers',
             },
             minLength: { value: 5, message: 'Should contains greater then 5 symbols' },
+            validate: (password: string) => {
+              const reg = /\d+/;
+              if (!reg.test(password) && password.length > 0)
+                return 'Should contains one or greater then numbers';
+            },
           })}
         ></input>
         <label htmlFor={cl.password} className={cl.form__label}>

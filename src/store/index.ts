@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { authCalls } from './features/authCalls';
+import { authCalls } from '../API/authCalls';
 const rootReducer = combineReducers({ [authCalls.reducerPath]: authCalls.reducer });
 
 export const setupStore = () =>

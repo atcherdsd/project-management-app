@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { QueryProps } from '../../types/formTypes';
+import { QueryProps } from '../types/formTypes';
 export const authCalls = createApi({
   reducerPath: 'authCalls',
   baseQuery: fetchBaseQuery({

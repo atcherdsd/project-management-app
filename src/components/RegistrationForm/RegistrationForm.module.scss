@@ -11,7 +11,7 @@ $clr-gray500: #425a65;
 $radius: 1rem;
 
 .form {
-    width: 24rem;
+    width: 26rem;
     padding: 2rem;
     border-radius: $radius;
     background-color: white;
@@ -76,7 +76,7 @@ $radius: 1rem;
     &__buttons{
         display: flex;
         justify-content: flex-end;
-        margin-top:3rem;
+        margin-top:5rem;
     }
   
     &__button {
