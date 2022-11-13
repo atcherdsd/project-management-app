@@ -6,17 +6,6 @@ export interface INavbarLanguage {
   edit: string;
   signout: string;
   newboard: string;
-  formWelcome:string;
-  formLabelName:string;
-  formLogin:string;
-  formPassword:string;
-  formSignUp:string;
-  formRequireMsg:string;
-  formOnlyLetter:string;
-  formMinLengthMsg:string;
-  formLoginPatternMsg:string;
-  formPasswordValidateMsg:string;
-  formRegistered:string;
 }
 
 export interface INavbar {
@@ -24,6 +13,27 @@ export interface INavbar {
   RU: INavbarLanguage;
 }
 
+export interface ISighUpFormLanguage {
+  formWelcome: string;
+  formLabelName: string;
+  formLogin: string;
+  formPassword: string;
+  formSignUp: string;
+  formRequireMsg: string;
+  formOnlyLetter: string;
+  formMinLegthNameMsg: string;
+  formMinLengthMsg: string;
+  formLoginPatternMsg: string;
+  formPasswordValidateMsg: string;
+  formRegistered: string;
+}
+
+export interface ISighUpForm {
+  EN: ISighUpFormLanguage;
+  RU: ISighUpFormLanguage;
+}
+
 export interface Idictionary {
   Navbar: INavbar;
+  SighUpForm: ISighUpForm;
 }

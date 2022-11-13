@@ -6,14 +6,15 @@ import cl from './RegistrationForm.module.scss';
 import { useAppSelector } from '../../hooks/redux';
 import { useTranslate } from '../../hooks/useTranslate';
 import dictionary from '../../dictionary';
-import { INavbarLanguage } from 'types/dictionaryTypes';
+import { ISighUpFormLanguage } from 'types/dictionaryTypes';
 import { Paths } from '../../helpers/routerPaths';
+
 function SignUpForm(props: SignUpProps) {
   // Navigate
   const navigate = useNavigate();
   // Use Translate
   const { language } = useAppSelector((state) => state.LanguageReducer);
-  const [T, setT] = useTranslate<INavbarLanguage>(dictionary.Navbar, language);
+  const [T, setT] = useTranslate<ISighUpFormLanguage>(dictionary.SighUpForm, language);
 
   useMemo(() => {
     setT();
@@ -43,7 +44,7 @@ function SignUpForm(props: SignUpProps) {
               value: /^[a-zA-Zа-я\s]+$/i,
               message: `${T.formOnlyLetter}`,
             },
-            minLength: { value: 5, message: `${T.formMinLengthMsg}` },
+            minLength: { value: 2, message: `${T.formMinLegthNameMsg}` },
           })}
         ></input>
         <label htmlFor={cl.name} className={cl.form__label}>
