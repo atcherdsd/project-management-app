@@ -6,6 +6,17 @@ export interface INavbarLanguage {
   edit: string;
   signout: string;
   newboard: string;
+  formWelcome:string;
+  formLabelName:string;
+  formLogin:string;
+  formPassword:string;
+  formSignUp:string;
+  formRequireMsg:string;
+  formOnlyLetter:string;
+  formMinLengthMsg:string;
+  formLoginPatternMsg:string;
+  formPasswordValidateMsg:string;
+  formRegistered:string;
 }
 
 export interface INavbar {
