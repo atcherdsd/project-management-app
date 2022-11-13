@@ -1,0 +1,22 @@
+@import "../../../../styleVariablesAndMixines/fontSizes.scss";
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-right: auto;
+}
+.link {
+    cursor: pointer;
+}
+.logo_title {
+    display: inline-block;
+    font-size: $font-size-large;
+    padding: 0.25rem 0 0 0.5rem;
+    font-weight: 700;
+    color: #fd9800;
+}
+.link:hover .logo_title {
+    color: #e28a06;
+    transition: 0.2s;
+}

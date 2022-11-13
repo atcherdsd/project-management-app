@@ -1,6 +1,10 @@
 @import "../../../styleVariablesAndMixines/pages.scss";
+@import "../../../styleVariablesAndMixines/fontSizes.scss";
 
 .container {
   @include page-properties;
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
 }

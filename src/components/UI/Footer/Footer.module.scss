@@ -2,7 +2,7 @@
 
 .container {
   @include base-style;
-  height: $footer-height;
+  min-height: $footer-height;
   margin-top: auto;
   border-top: 2px solid black;
   justify-content: space-between;

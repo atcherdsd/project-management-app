@@ -2,6 +2,7 @@
 
 @mixin page-properties {
   width: 100%;
-  min-height: calc(100vh - $header-height - $footer-height);
-  padding-top: $header-height;
+  max-width: 1280px;
+  min-height: calc(100vh - $header-height - $footer-height - 20px);
+  margin: 0 auto;
 }

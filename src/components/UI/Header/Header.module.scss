@@ -2,11 +2,11 @@
 
 .container {
   @include base-style;
-  height: $header-height;
+  min-height: $header-height;
   margin-bottom: auto;
   border-bottom: 2px solid black;
   justify-content: end;
-  position: fixed;
+  position: sticky;
   top: 0;
   background-color: white;
   gap: 15px;
