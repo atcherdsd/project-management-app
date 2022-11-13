@@ -1,0 +1,6 @@
+@import "../../../styleVariablesAndMixines/pages.scss";
+
+.container {
+  @include page-properties;
+  display: flex;
+}

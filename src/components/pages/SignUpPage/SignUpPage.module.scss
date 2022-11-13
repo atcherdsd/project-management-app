@@ -1,6 +1,7 @@
 @import "../../../styleVariablesAndMixines/pages.scss";
 
 .container {
+  @include page-properties;
   font-family: Montserrat, sans-serif;
   font-weight: 500;
   background-color: #79ceff;
@@ -10,9 +11,9 @@
     #dcb5ff 67%,
     #ffb8f0 100%
   );
-  height: 100vh;
   display: grid;
   justify-content: center;
   align-items: center;
   color: #425a65;
 }
+

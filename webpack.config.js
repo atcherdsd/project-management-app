@@ -5,6 +5,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   resolve: {
@@ -31,6 +32,7 @@ module.exports = {
       patterns: [{ from: './src/static', to: './', noErrorOnMissing: true }],
     }),
     new ESLintPlugin({ extensions: ['tsx', 'ts'] }),
+    new webpack.DefinePlugin({ 'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL) }),
   ],
   devServer: {
     port: 3000,

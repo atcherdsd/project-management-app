@@ -1,5 +1,7 @@
 export enum Paths {
   WelcomePage = 'welcome',
-  LogInPage = 'login',
+  SignIn = 'signin',
+  SignUp = 'signup',
   MainPage = 'main',
+  EditProfilePage = 'editprofile',
 }
