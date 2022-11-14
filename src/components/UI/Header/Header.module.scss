@@ -5,13 +5,16 @@
   min-height: $header-height;
   margin-bottom: auto;
   border-bottom: 2px solid black;
-  justify-content: end;
   position: sticky;
   top: 0;
   background-color: white;
-  gap: 15px;
   transition: 0.3s;
   &_scrolled {
     background-color: teal;
+  }
+  .wrapper {
+    @include base-wrapper;
+    gap: 15px;
+    justify-content: end;
   }
 }

@@ -5,5 +5,8 @@
   min-height: $footer-height;
   margin-top: auto;
   border-top: 2px solid black;
-  justify-content: space-between;
+  .wrapper {
+    @include base-wrapper;
+    justify-content: space-between;
+  }
 }

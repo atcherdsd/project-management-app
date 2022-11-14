@@ -3,11 +3,13 @@ $footer-height: 50px;
 
 @mixin base-style {
   width: 100%;
+  padding: 10px 30px;
+  user-select: none;
+}
+@mixin base-wrapper {
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  padding: 10px 30px;
-  user-select: none;
 }

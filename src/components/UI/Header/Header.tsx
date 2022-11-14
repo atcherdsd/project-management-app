@@ -21,9 +21,11 @@ const Header = () => {
 
   return (
     <header className={activeClass}>
-      <TeamLogo />
-      <Navbar />
-      <LanguageSwitch />
+      <div className={cl.wrapper}>
+        <TeamLogo />
+        <Navbar />
+        <LanguageSwitch />
+      </div>
     </header>
   );
 };
