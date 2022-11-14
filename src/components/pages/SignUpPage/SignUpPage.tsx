@@ -5,19 +5,22 @@ import { FormValues } from '../../../types/formTypes';
 import { useSignUpAuthQuery } from '../../../API/authCalls';
 import Modal from '../../../components/Modal/modal';
 import SuccsessModal from '../../../components/Modal/modals/succsessModal';
+
 const SignUpPage = () => {
   const [signUpData, setSignUpData] = useState<FormValues>({ login: '', name: '', password: '' });
-  const { data, isSuccess } = useSignUpAuthQuery({
-    path: 'auth/signup',
-    patch: signUpData,
-  });
-  console.log(data);
+  const { isSuccess, isLoading, isError } = useSignUpAuthQuery(
+    {
+      path: 'auth/signup',
+      patch: signUpData,
+    },
+    { skip: !signUpData.login }
+  );
   function handleSubmit(data: FormValues) {
     setSignUpData(data);
   }
   return (
     <div className={cl.container}>
-      <SignUpForm handlerSubmit={handleSubmit}></SignUpForm>
+      <SignUpForm handlerSubmit={handleSubmit} isLoading={isLoading} isError={isError}></SignUpForm>
       {isSuccess && (
         <Modal>
           <SuccsessModal></SuccsessModal>

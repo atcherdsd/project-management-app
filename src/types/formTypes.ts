@@ -11,6 +11,8 @@ export type FormValues = {
 
 export type SignUpProps = {
   handlerSubmit: (data: FormValues) => void;
+  isLoading: boolean;
+  isError: boolean;
 };
 type Body = {
   [key: string]: string;

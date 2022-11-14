@@ -2,12 +2,13 @@ import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FormValues, SignUpProps } from '../../types/formTypes';
-import cl from './RegistrationForm.module.scss';
+import cl from './SignUp.module.scss';
 import { useAppSelector } from '../../hooks/redux';
 import { useTranslate } from '../../hooks/useTranslate';
 import dictionary from '../../dictionary';
 import { ISighUpFormLanguage } from 'types/dictionaryTypes';
 import { Paths } from '../../helpers/routerPaths';
+import Spinner from '../UI/Spinner/Spinner';
 
 function SignUpForm(props: SignUpProps) {
   // Navigate
@@ -20,7 +21,7 @@ function SignUpForm(props: SignUpProps) {
     setT();
   }, [language]);
   // Use Form
-  const { handlerSubmit } = props;
+  const { handlerSubmit, isLoading, isError } = props;
   const {
     register,
     handleSubmit,
@@ -115,7 +116,13 @@ function SignUpForm(props: SignUpProps) {
       </div>
       <div className={cl.form__buttons}>
         <a onClick={() => navigate(`/${Paths.SignIn}`)}>{T.formRegistered}</a>
-        <input type="submit" className={cl.form__button} value={T.formSignUp}></input>
+        {isLoading && <Spinner></Spinner>}
+        <input
+          type="submit"
+          className={cl.form__button}
+          value={T.formSignUp}
+          disabled={isLoading ? true : false}
+        ></input>
       </div>
     </form>
   );
