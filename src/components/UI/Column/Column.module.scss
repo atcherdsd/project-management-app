@@ -1,5 +1,14 @@
+@import "../../../styleVariablesAndMixines/fontSizes.scss";
+
 .container {
   max-width: 300px;
   flex-grow: 1;
   border: 2px solid black;
+  .title {
+    font-size: $font-size-middle;
+  }
+  .tasksContainer {
+    width: 100%;
+    height: auto;
+  }
 }

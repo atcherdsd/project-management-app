@@ -1,16 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import baseUrl from './baseUrl';
 import { IBoard } from '../types/boardType';
+import token from './jwt';
 
 export const boardsCalls = createApi({
   reducerPath: 'boardsCalls',
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: (headers) => {
-      headers.set(
-        'authorization',
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzIyM2UyMDA1NTUxNzU0ZWRiMWNjMCIsImxvZ2luIjoiYWd0dWdjaGlrIiwiaWF0IjoxNjY4NDI1MDY4LCJleHAiOjE2Njg0NjgyNjh9.prRiTbieqZ2sL5t6ciFprKyJXOlwrEtdIG99eyDe5ok'
-      );
+      headers.set('authorization', `Bearer ${token}`);
     },
   }),
   tagTypes: ['Boards'],
