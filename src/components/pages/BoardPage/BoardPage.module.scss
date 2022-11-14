@@ -3,4 +3,9 @@
 .container {
   @include page-properties;
   display: flex;
+  flex-direction: column;
+  .button {
+    width: 90px;
+    height: 30px;
+  }
 }
