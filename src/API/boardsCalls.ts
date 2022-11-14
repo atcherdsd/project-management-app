@@ -23,14 +23,22 @@ export const boardsCalls = createApi({
       providesTags: () => ['Boards'],
     }),
     createNewBoard: builder.mutation({
-      query: (props) => ({
+      query: (body) => ({
         url: 'boards',
         method: 'POST',
-        body: props.body,
+        body: body,
+      }),
+      invalidatesTags: ['Boards'],
+    }),
+    deleteBoard: builder.mutation({
+      query: (id) => ({
+        url: `boards/${id}`,
+        method: 'DELETE',
       }),
       invalidatesTags: ['Boards'],
     }),
   }),
 });
 
-export const { useGetAllBoardsQuery, useCreateNewBoardMutation } = boardsCalls;
+export const { useGetAllBoardsQuery, useCreateNewBoardMutation, useDeleteBoardMutation } =
+  boardsCalls;

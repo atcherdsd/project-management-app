@@ -29,7 +29,7 @@ const Navbar = () => {
       owner: 'Artur',
       users: ['Artur'],
     };
-    createNewBoard({ body });
+    createNewBoard(body);
   };
 
   const signUp = async () => {
