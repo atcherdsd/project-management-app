@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import LanguageReducer from './reducers/LanguageReducer';
+import signUpDataReducer from './reducers/SignUpDataReducer';
 import { authCalls } from '../API/authCalls';
 
 const rootReducer = combineReducers({
   LanguageReducer,
+  signUpDataReducer,
   [authCalls.reducerPath]: authCalls.reducer,
 });
 

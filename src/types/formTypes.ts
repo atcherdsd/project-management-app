@@ -1,3 +1,5 @@
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+
 export type FormProps = {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -12,12 +14,19 @@ export type FormValues = {
 export type SignUpProps = {
   handlerSubmit: (data: FormValues) => void;
   isLoading: boolean;
-  isError: boolean;
 };
-type Body = {
+export type Body = {
   [key: string]: string;
 };
 export type QueryProps = {
   path: string;
   patch: Body;
+};
+
+export type StateSignUp = {
+  signUpData: FormValues;
+};
+
+export type ModalProp = {
+  error?: FetchBaseQueryError;
 };

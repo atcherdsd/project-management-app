@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import cl from './SignUpPage.module.scss';
 import SignUpForm from '../../SighUpForm/SignUpForm';
 import { FormValues } from '../../../types/formTypes';
 import { useSignUpAuthQuery } from '../../../API/authCalls';
 import Modal from '../../../components/Modal/modal';
-import SuccsessModal from '../../../components/Modal/modals/succsessModal';
+import ModalFormResponse from '../../Modal/modals/modalFormResponse';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { setSignUpData } from '../../../store/reducers/SignUpDataReducer';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 
 const SignUpPage = () => {
-  const [signUpData, setSignUpData] = useState<FormValues>({ login: '', name: '', password: '' });
-  const { isSuccess, isLoading, isError } = useSignUpAuthQuery(
+  const { signUpData } = useAppSelector((state) => state.signUpDataReducer);
+  const dispatch = useAppDispatch();
+  // const [signUpData, setSignUpData] = useState<FormValues>({ login: '', name: '', password: '' });
+  const { isSuccess, isLoading, isError, error } = useSignUpAuthQuery(
     {
       path: 'auth/signup',
       patch: signUpData,
@@ -16,14 +21,19 @@ const SignUpPage = () => {
     { skip: !signUpData.login }
   );
   function handleSubmit(data: FormValues) {
-    setSignUpData(data);
+    dispatch(setSignUpData(data));
   }
   return (
     <div className={cl.container}>
-      <SignUpForm handlerSubmit={handleSubmit} isLoading={isLoading} isError={isError}></SignUpForm>
-      {isSuccess && (
+      <SignUpForm handlerSubmit={handleSubmit} isLoading={isLoading}></SignUpForm>
+      {!isError && isSuccess && (
         <Modal>
-          <SuccsessModal></SuccsessModal>
+          <ModalFormResponse></ModalFormResponse>
+        </Modal>
+      )}
+      {isError && (
+        <Modal>
+          <ModalFormResponse error={error as FetchBaseQueryError}></ModalFormResponse>
         </Modal>
       )}
     </div>

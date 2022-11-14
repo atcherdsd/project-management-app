@@ -21,13 +21,21 @@ function SignUpForm(props: SignUpProps) {
     setT();
   }, [language]);
   // Use Form
-  const { handlerSubmit, isLoading, isError } = props;
+  const { handlerSubmit, isLoading } = props;
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormValues>({ criteriaMode: 'all', mode: 'onChange' });
-  const onSubmit = handleSubmit(handlerSubmit);
+  const onSubmit = handleSubmit((data) => {
+    handlerSubmit(data);
+    reset({
+      name: '',
+      login: '',
+      password: '',
+    });
+  });
   return (
     <form action="" className={cl.form} onSubmit={onSubmit}>
       <p className={cl.form__description}>{T.formWelcome}</p>
