@@ -13,6 +13,18 @@ export interface INavbar {
   RU: INavbarLanguage;
 }
 
+export interface IWelcomePageLanguage {
+  titleTagline: string;
+  titleProposal1: string;
+  titleProposal2: string;
+}
+
+export interface IWelcomePage {
+  EN: IWelcomePageLanguage;
+  RU: IWelcomePageLanguage;
+}
+
 export interface Idictionary {
   Navbar: INavbar;
+  WelcomePage: IWelcomePage;
 }

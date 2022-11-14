@@ -1,4 +1,6 @@
 @import "../../../../styleVariablesAndMixines/fontSizes.scss";
+$clr-title: #fd9800;
+$clr-title-hover: #e28a06;
 
 .container {
     display: flex;
@@ -14,9 +16,9 @@
     font-size: $font-size-large;
     padding: 0.25rem 0 0 0.5rem;
     font-weight: 700;
-    color: #fd9800;
+    color: $clr-title;
 }
 .link:hover .logo_title {
-    color: #e28a06;
+    color: $clr-title-hover;
     transition: 0.2s;
 }

@@ -1,4 +1,78 @@
+@import "../../../../styleVariablesAndMixines/fontSizes.scss";
+$clr-title: #fd9800;
+$clr-proposal: floralwhite;
+
 .container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 0;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
+  background-image: url('../../../../assets/time-planning.jpg');
+  min-height: 30rem;
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-size: 50%;
+  .title {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    color: $clr-title;
+  }
+  .tagline {
+    font-size: $font-size-large;
+    margin-bottom: 5rem;
+    color: $clr-title;
+  }
+  .proposal {
+    font-size: 2.3rem;
+    max-width: 45%;
+    line-height: 1.2;
+    color: $clr-proposal;
+  }
+  .proposal:nth-child(3) {
+  margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 1330px) {
+  .container {
+    background-size: contain;
+    min-height: 33rem;
+    .proposal {
+      max-width: 40%;
+    }
+  }
+}
+@media (max-width: 1210px) {
+  .container {
+    position: relative;
+    background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.5)), url('../../../../assets/time-planning.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    .title, 
+    .tagline {
+      text-align: right;
+    }
+    .proposal {
+      max-width: 50%;
+    }
+  }
+}
+@media (max-width: 910px) {
+  .container {
+    background: none;
+    min-height: 28rem;
+    .tagline {
+      margin-bottom: 3rem;
+    }
+    .title, 
+    .tagline {
+      text-align: left;
+    }
+    .proposal {
+      max-width: 100%;
+    }
+  }
 }

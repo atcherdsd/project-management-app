@@ -1,17 +1,16 @@
 @import "../../../styleVariablesAndMixines/pages.scss";
 @import "../../../styleVariablesAndMixines/fontSizes.scss";
+$clr-gradient-dark: #895338;
+$clr-gradient-light: #bf7d1d;
 
 .container {
   @include page-properties;
-  padding: 0 30px;
   .wrapper {
-    max-width: 1280px;
-    padding: 1rem 0;
+    padding: 0 30px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    background-color: darkorange;
-    margin: 0 auto;
+    background: linear-gradient(53deg, $clr-gradient-dark, $clr-gradient-light, $clr-gradient-dark);
     height: 100%;
   }
 }
