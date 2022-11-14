@@ -5,15 +5,13 @@ import { IBoard } from '../../../types/boardType';
 import Board from '../../UI/Board/Board';
 
 const MainPage = () => {
-  const { data } = useGetAllBoardsQuery({ path: 'boards' });
+  const { data } = useGetAllBoardsQuery(null);
   console.log(data);
   return (
     <div className={cl.container}>
       <h2 className={cl.title}>Boards</h2>
       <div className={cl.boardsContainer}>
-        {(data as IBoard[])?.map(({ _id, owner, title, users }) => (
-          <Board key={_id} id={_id} owner={owner} title={title} users={users} />
-        ))}
+        {data && (data as IBoard[]).map((board) => <Board key={board._id} board={board} />)}
       </div>
     </div>
   );

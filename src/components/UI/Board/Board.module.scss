@@ -2,7 +2,7 @@
 
 .container {
   width: 300px;
-  height: calc(($font-size-small + $font-size-large) * 1.4);
+  height: 150px;
   border: solid black 2px;
   cursor: pointer;
   .title {
@@ -10,5 +10,11 @@
   }
   .subtitle {
     font-size: $font-size-small;
+  }
+  .delete {
+    background-color: inherit;
+    border: 2px solid black;
+    width: 90px;
+    height: 30px;
   }
 }

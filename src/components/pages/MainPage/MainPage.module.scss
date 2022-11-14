@@ -1,10 +1,13 @@
 @import "../../../styleVariablesAndMixines/pages.scss";
 @import "../../../styleVariablesAndMixines/fontSizes.scss";
+@import "../../../styleVariablesAndMixines/headerAndFooter.scss";
 
 .container {
   @include page-properties;
+  height: calc(100vh - $footer-height);
   display: flex;
   flex-direction: column;
+  padding-bottom: 50px;
   .title {
     width: 100%;
     text-align: center;
@@ -12,6 +15,11 @@
     font-size: $font-size-large;
   }
   .boardsContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: start;
+    gap: 10px;
     width: 100%;
     height: 100%;
   }

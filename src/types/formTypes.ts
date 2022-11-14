@@ -19,7 +19,3 @@ export type QueryProps = {
   path: string;
   patch: Body;
 };
-
-export type QueryPropsGet = {
-  path: string;
-};
