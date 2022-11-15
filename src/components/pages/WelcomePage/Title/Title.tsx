@@ -14,11 +14,13 @@ const Title: React.FC = (): JSX.Element => {
   }, [language]);
 
   return (
-    <div className={cl.container}>
-      <h1 className={cl.title}>OneTeam</h1>
-      <div className={cl.tagline}>{T.titleTagline}</div>
-      <div className={cl.proposal}>{T.titleProposal1}</div>
-      <div className={cl.proposal}>{T.titleProposal2}</div>
+    <div className={cl.wrapper}>
+      <div className={cl.container}>
+        <h1 className={cl.title}>OneTeam</h1>
+        <div className={cl.tagline}>{T.titleTagline}</div>
+        <div className={cl.proposal}>{T.titleProposal1}</div>
+        <div className={cl.proposal}>{T.titleProposal2}</div>
+      </div>
     </div>
   );
 };

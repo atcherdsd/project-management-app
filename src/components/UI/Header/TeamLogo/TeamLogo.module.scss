@@ -1,6 +1,6 @@
-@import "../../../../styleVariablesAndMixines/fontSizes.scss";
 $clr-title: #fd9800;
 $clr-title-hover: #e28a06;
+$fs-logo: 2.3rem;
 
 .container {
     display: flex;
@@ -13,7 +13,7 @@ $clr-title-hover: #e28a06;
 }
 .logo_title {
     display: inline-block;
-    font-size: $font-size-large;
+    font-size: $fs-logo;
     padding: 0.25rem 0 0 0.5rem;
     font-weight: 700;
     color: $clr-title;
