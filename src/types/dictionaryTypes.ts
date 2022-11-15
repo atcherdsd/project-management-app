@@ -26,6 +26,7 @@ export interface ISighUpFormLanguage {
   formLoginPatternMsg: string;
   formPasswordValidateMsg: string;
   formRegistered: string;
+  formSignIn: string;
 }
 
 export interface ISighUpForm {

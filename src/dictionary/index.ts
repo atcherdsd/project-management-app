@@ -35,6 +35,7 @@ const dictionary: Idictionary = {
       formLoginPatternMsg: 'Should contains english letters and(or) numbers',
       formPasswordValidateMsg: 'Should contains one or greater then numbers',
       formRegistered: 'Already registered?',
+      formSignIn: 'SignIn',
     },
     RU: {
       formWelcome: 'Получите неограниченный доступ к вашей доске',
@@ -49,6 +50,7 @@ const dictionary: Idictionary = {
       formLoginPatternMsg: 'Должен содержать английские буквы и(или) цифры',
       formPasswordValidateMsg: 'Должен содержать одно или больше чисел',
       formRegistered: 'Уже зарегистрированны?',
+      formSignIn: 'Войти',
     },
   },
 };
