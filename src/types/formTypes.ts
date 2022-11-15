@@ -9,6 +9,7 @@ export type FormValues = {
   name?: string;
   login: string;
   password: string;
+  _id?: string;
 };
 
 export type SignUpProps = {

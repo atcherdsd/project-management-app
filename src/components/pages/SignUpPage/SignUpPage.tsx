@@ -8,18 +8,27 @@ import ModalFormResponse from '../../Modal/modals/modalFormResponse';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { setSignUpData } from '../../../store/reducers/SignUpDataReducer';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import setSignUpDataToLS from '../../../helpers/setSignUpDataToLS';
 
 const SignUpPage = () => {
   const { signUpData } = useAppSelector((state) => state.signUpDataReducer);
   const dispatch = useAppDispatch();
-  // const [signUpData, setSignUpData] = useState<FormValues>({ login: '', name: '', password: '' });
-  const { isSuccess, isLoading, isError, error } = useSignUpAuthQuery(
+  const {
+    isSuccess,
+    isLoading,
+    isError,
+    error,
+    data: responseData,
+  } = useSignUpAuthQuery(
     {
       path: 'auth/signup',
       patch: signUpData,
     },
     { skip: !signUpData.login }
   );
+  if (responseData) {
+    setSignUpDataToLS(responseData as unknown as FormValues);
+  }
   function handleSubmit(data: FormValues) {
     dispatch(setSignUpData(data));
   }
