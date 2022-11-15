@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cl from './SignUpPage.module.scss';
 import SignUpForm from '../../SighUpForm/SignUpForm';
 import { FormValues } from '../../../types/formTypes';
@@ -8,10 +8,10 @@ import ModalFormResponse from '../../Modal/modals/modalFormResponse';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { setSignUpData } from '../../../store/reducers/SignUpDataReducer';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
-import setSignUpDataToLS from '../../../helpers/setSignUpDataToLS';
 
 const SignUpPage = () => {
-  const { signUpData } = useAppSelector((state) => state.signUpDataReducer);
+  // const { signUpData } = useAppSelector((state) => state.signUpDataReducer);
+  const [signUpData, setSignUpData] = useState<FormValues>({ login: '', password: '', name: '' });
   const dispatch = useAppDispatch();
   const {
     isSuccess,
@@ -26,16 +26,14 @@ const SignUpPage = () => {
     },
     { skip: !signUpData.login }
   );
-  if (responseData) {
-    setSignUpDataToLS(responseData as unknown as FormValues);
-  }
   function handleSubmit(data: FormValues) {
-    dispatch(setSignUpData(data));
+    // dispatch(setSignUpData(data));
+    setSignUpData(data);
   }
   return (
     <div className={cl.container}>
       <SignUpForm handlerSubmit={handleSubmit} isLoading={isLoading}></SignUpForm>
-      {!isError && isSuccess && (
+      {isSuccess && (
         <Modal>
           <ModalFormResponse></ModalFormResponse>
         </Modal>

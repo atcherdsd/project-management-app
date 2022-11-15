@@ -1,27 +1,23 @@
-import Spinner from 'components/UI/Spinner/Spinner';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import dictionary from '../../dictionary/index';
-import { Paths } from '../../helpers/routerPaths';
 import { useAppSelector } from '../../hooks/redux';
 import { useTranslate } from '../../hooks/useTranslate';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { ISighUpFormLanguage } from 'types/dictionaryTypes';
 import { SignUpProps, FormValues } from 'types/formTypes';
 import cl from '../SighUpForm/SignUp.module.scss';
 
-function SignInForm() {
-  // Navigate
-  const navigate = useNavigate();
+function SignInForm(props: SignUpProps) {
+  const { signUpData } = useAppSelector((state) => state.signUpDataReducer);
+  const { handlerSubmit, isLoading } = props;
   // Use Translate
   const { language } = useAppSelector((state) => state.LanguageReducer);
   const [T, setT] = useTranslate<ISighUpFormLanguage>(dictionary.SighUpForm, language);
-
   useMemo(() => {
     setT();
   }, [language]);
   // Use Form
-  //   const { handlerSubmit, isLoading } = props;
   const {
     register,
     handleSubmit,
@@ -29,9 +25,8 @@ function SignInForm() {
     reset,
   } = useForm<FormValues>({ criteriaMode: 'all', mode: 'onChange' });
   const onSubmit = handleSubmit((data) => {
-    // handlerSubmit(data);
+    handlerSubmit(data);
     reset({
-      name: '',
       login: '',
       password: '',
     });
@@ -46,7 +41,7 @@ function SignInForm() {
           className={cl.form__input}
           placeholder=" "
           autoComplete="off"
-          defaultValue={''}
+          defaultValue={signUpData.login}
           {...register('login', {
             required: { value: true, message: `${T.formRequireMsg}` },
             pattern: {
@@ -72,6 +67,7 @@ function SignInForm() {
           id={cl.password}
           className={cl.form__input}
           placeholder=" "
+          defaultValue={signUpData.password}
           {...register('password', {
             required: { value: true, message: `${T.formRequireMsg}` },
             pattern: {
@@ -96,12 +92,12 @@ function SignInForm() {
           ))}
       </div>
       <div className={cl.form__signInButtons}>
-        {/* {isLoading && <Spinner></Spinner>} */}
+        {isLoading && <Spinner></Spinner>}
         <input
           type="submit"
           className={cl.form__button}
           value={T.formSignIn}
-          //   disabled={isLoading ? true : false}
+          disabled={isLoading ? true : false}
         ></input>
       </div>
     </form>

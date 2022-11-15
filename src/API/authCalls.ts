@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { QueryProps } from '../types/formTypes';
 import baseUrl from './baseUrl';
+
 export const authCalls = createApi({
   reducerPath: 'authCalls',
   baseQuery: fetchBaseQuery({
@@ -11,15 +12,11 @@ export const authCalls = createApi({
   }),
   endpoints: (builder) => ({
     signUpAuth: builder.query<QueryProps, QueryProps>({
-      query: (props) => {
-        if (props.patch.login) {
-          return {
-            url: `${props.path}`,
-            method: 'POST',
-            body: props.patch,
-          };
-        } else return 'false';
-      },
+      query: (props) => ({
+        url: `${props.path}`,
+        method: 'POST',
+        body: props.patch,
+      }),
     }),
     signInAuth: builder.query<QueryProps, QueryProps>({
       query: (props) => ({
