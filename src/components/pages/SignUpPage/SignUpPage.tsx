@@ -5,14 +5,11 @@ import { FormValues } from '../../../types/formTypes';
 import { useSignUpAuthQuery } from '../../../API/authCalls';
 import Modal from '../../../components/Modal/modal';
 import ModalFormResponse from '../../Modal/modals/modalFormResponse';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { setSignUpData } from '../../../store/reducers/SignUpDataReducer';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import setSignUpDataToLS from '../../../helpers/setSignUpDataToLS';
 
 const SignUpPage = () => {
-  // const { signUpData } = useAppSelector((state) => state.signUpDataReducer);
   const [signUpData, setSignUpData] = useState<FormValues>({ login: '', password: '', name: '' });
-  const dispatch = useAppDispatch();
   const {
     isSuccess,
     isLoading,
@@ -26,8 +23,10 @@ const SignUpPage = () => {
     },
     { skip: !signUpData.login }
   );
+  if (responseData) {
+    setSignUpDataToLS(responseData);
+  }
   function handleSubmit(data: FormValues) {
-    // dispatch(setSignUpData(data));
     setSignUpData(data);
   }
   return (

@@ -2,14 +2,13 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import dictionary from '../../dictionary/index';
 import { useAppSelector } from '../../hooks/redux';
 import { useTranslate } from '../../hooks/useTranslate';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { ISighUpFormLanguage } from 'types/dictionaryTypes';
 import { SignUpProps, FormValues } from 'types/formTypes';
 import cl from '../SighUpForm/SignUp.module.scss';
 
 function SignInForm(props: SignUpProps) {
-  const { signUpData } = useAppSelector((state) => state.signUpDataReducer);
   const { handlerSubmit, isLoading } = props;
   // Use Translate
   const { language } = useAppSelector((state) => state.LanguageReducer);
@@ -41,7 +40,7 @@ function SignInForm(props: SignUpProps) {
           className={cl.form__input}
           placeholder=" "
           autoComplete="off"
-          defaultValue={signUpData.login}
+          defaultValue={localStorage.getItem('login') ? String(localStorage.getItem('login')) : ''}
           {...register('login', {
             required: { value: true, message: `${T.formRequireMsg}` },
             pattern: {
@@ -67,7 +66,7 @@ function SignInForm(props: SignUpProps) {
           id={cl.password}
           className={cl.form__input}
           placeholder=" "
-          defaultValue={signUpData.password}
+          defaultValue={''}
           {...register('password', {
             required: { value: true, message: `${T.formRequireMsg}` },
             pattern: {

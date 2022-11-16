@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { QueryProps } from '../types/formTypes';
+import { QueryProps, FormValues } from '../types/formTypes';
 import baseUrl from './baseUrl';
 
 export const authCalls = createApi({
@@ -11,7 +11,7 @@ export const authCalls = createApi({
     },
   }),
   endpoints: (builder) => ({
-    signUpAuth: builder.query<QueryProps, QueryProps>({
+    signUpAuth: builder.query<FormValues, QueryProps>({
       query: (props) => ({
         url: `${props.path}`,
         method: 'POST',

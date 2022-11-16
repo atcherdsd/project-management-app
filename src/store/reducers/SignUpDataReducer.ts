@@ -14,11 +14,11 @@ export const signUpDataSlice = createSlice({
   name: 'signUpData',
   initialState,
   reducers: {
-    setSignUpData: (state, action: PayloadAction<FormValues>) => {
+    setSignUpDataToRedux: (state, action: PayloadAction<FormValues>) => {
       state.signUpData = action.payload;
     },
   },
 });
 
-export const { setSignUpData } = signUpDataSlice.actions;
+export const { setSignUpDataToRedux } = signUpDataSlice.actions;
 export default signUpDataSlice.reducer;
