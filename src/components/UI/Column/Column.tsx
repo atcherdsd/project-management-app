@@ -5,6 +5,7 @@ import { IColumn } from '../../../types/columnType';
 import { useDeleteColumnMutation } from '../../../API/columnsCalls';
 import { useGetAllTasksQuery, useCreateNewTaskMutation } from '../../../API/tasksCalls';
 import Task from '../Task/Task';
+import { Droppable } from 'react-beautiful-dnd';
 
 interface IColumnProps {
   column: IColumn;
@@ -36,12 +37,23 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
       <button onClick={deleteColumnOnClick}>Delete Column</button>
       <button onClick={createNewTaskOnClick}>Create Task</button>
       <h2>{title}</h2>
-      <div className={cl.tasksContainer}>
-        {data &&
-          (data as ITask[]).map((task) => (
-            <Task key={task._id} task={task} boardId={boardId} columnId={columnId} />
-          ))}
-      </div>
+      <Droppable droppableId={columnId}>
+        {(provided) => (
+          <div className={cl.tasksContainer} ref={provided.innerRef} {...provided.droppableProps}>
+            {data &&
+              (data as ITask[]).map((task, index) => (
+                <Task
+                  key={task._id}
+                  task={task}
+                  boardId={boardId}
+                  columnId={columnId}
+                  index={index}
+                />
+              ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     </div>
   );
 };

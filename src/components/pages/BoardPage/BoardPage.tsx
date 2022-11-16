@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useGetAllColumnsQuery, useCreateNewColumnMutation } from '../../../API/columnsCalls';
 import { IColumn } from '../../../types/columnType';
 import Column from '../../UI/Column/Column';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 const BoardPage = () => {
   const navigate = useNavigate();
@@ -23,20 +24,26 @@ const BoardPage = () => {
     });
   };
 
+  const onDragStart = () => {};
+  const onDragUpdate = () => {};
+  const onDragEnd = () => {};
+
   return (
-    <div className={cl.container}>
-      <h1 className={cl.title}>Board</h1>
-      <div className={cl.columnsContainer}>
-        {data &&
-          (data as IColumn[]).map((column) => (
-            <Column key={column._id} column={column} boardId={boardId} />
-          ))}
-        <button onClick={addColumnOnClick}>Add Column</button>
+    <DragDropContext onDragStart={onDragStart} onDragUpdate={onDragUpdate} onDragEnd={onDragEnd}>
+      <div className={cl.container}>
+        <h1 className={cl.title}>Board</h1>
+        <div className={cl.columnsContainer}>
+          {data &&
+            (data as IColumn[]).map((column) => (
+              <Column key={column._id} column={column} boardId={boardId} />
+            ))}
+          <button onClick={addColumnOnClick}>Add Column</button>
+        </div>
+        <button className={cl.button} onClick={boardOnClick}>
+          Back to Main
+        </button>
       </div>
-      <button className={cl.button} onClick={boardOnClick}>
-        Back to Main
-      </button>
-    </div>
+    </DragDropContext>
   );
 };
 
