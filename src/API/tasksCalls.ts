@@ -35,7 +35,20 @@ export const tasksCalls = createApi({
       }),
       invalidatesTags: ['Tasks'],
     }),
+    patchTasksSet: builder.mutation({
+      query: (body) => ({
+        url: `tasksSet`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Tasks'],
+    }),
   }),
 });
 
-export const { useGetAllTasksQuery, useCreateNewTaskMutation, useDeleteTaskMutation } = tasksCalls;
+export const {
+  useGetAllTasksQuery,
+  useCreateNewTaskMutation,
+  useDeleteTaskMutation,
+  usePatchTasksSetMutation,
+} = tasksCalls;

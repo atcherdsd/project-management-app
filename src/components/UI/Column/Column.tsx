@@ -25,7 +25,7 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
   const createNewTaskOnClick = () => {
     const body = {
       title: Date.now(),
-      order: 0,
+      order: (data as []).length,
       description: 'string',
       userId: 0,
       users: ['string'],
@@ -41,15 +41,17 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
         {(provided) => (
           <div className={cl.tasksContainer} ref={provided.innerRef} {...provided.droppableProps}>
             {data &&
-              (data as ITask[]).map((task, index) => (
-                <Task
-                  key={task._id}
-                  task={task}
-                  boardId={boardId}
-                  columnId={columnId}
-                  index={index}
-                />
-              ))}
+              [...(data as ITask[])]
+                .sort((a, b) => a.order - b.order)
+                .map((task, index) => (
+                  <Task
+                    key={task._id}
+                    task={task}
+                    boardId={boardId}
+                    columnId={columnId}
+                    index={index}
+                  />
+                ))}
             {provided.placeholder}
           </div>
         )}
