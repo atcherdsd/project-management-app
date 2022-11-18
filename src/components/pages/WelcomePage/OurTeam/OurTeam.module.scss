@@ -1,5 +1,21 @@
+@import "../../../../styleVariablesAndMixines/fontSizes.scss";
+
 .container {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
+  text-align: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 30px;
 }
-  
+.title {
+  font-size: $font-size-large;
+  margin: 2.5rem 0 3rem;
+  font-weight: 600;
+}
+.content_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}

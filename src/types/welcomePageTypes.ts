@@ -6,3 +6,13 @@ export interface IBenefit {
 }
 
 export type Benefits = IBenefit[];
+
+export type TeamMembersData = {
+  nameEn: string;
+  nameRu: string;
+  roleEn: string;
+  roleRu: string;
+  githubNickname: string;
+  githubLink: string;
+  linkedinLink: string;
+}[];

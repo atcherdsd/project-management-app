@@ -1,12 +1,14 @@
 @import "../../../../styleVariablesAndMixines/fontSizes.scss";
+
 $clr-gradient-dark: #895338;
-$clr-gradient-light: #bf7d1d;
+$clr-gradient-light: #b17f37;
 $clr-title: #fd9800;
 $clr-proposal: floralwhite;
 
 .wrapper {
   background: linear-gradient(53deg, $clr-gradient-dark, $clr-gradient-light, $clr-gradient-dark);
   padding: 0 30px;
+  width: 100%;
   .container {
     max-width: 1280px;
     width: 100%;

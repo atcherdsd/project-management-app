@@ -13,7 +13,7 @@ $fs-benefits-title: 3rem;
   margin: 0 auto;
   padding: 0 30px;
   .subtitle {
-    margin: 2.8rem 0 1.4rem;
+    margin: 2.5rem 0 1.4rem;
     font-family: Consolas, Courier, monospace;
     letter-spacing: 0.2rem;
     font-size: $font-size-middle;
@@ -29,7 +29,7 @@ $fs-benefits-title: 3rem;
     line-height: 1.8rem;
     max-width: 57rem;
     margin: 0 auto;
-    padding-bottom: 1.5rem;
+    padding-bottom: 2.5rem;
   }
   .benefits_container {
     .line {
@@ -39,7 +39,7 @@ $fs-benefits-title: 3rem;
       }
     .benefits_title {
       font-size: $fs-benefits-title;
-      margin: 1rem 0 3rem;
+      margin: 2rem 0 3rem;
       color: $clr-main;
     }
     .benefits_items_container {
@@ -53,5 +53,8 @@ $fs-benefits-title: 3rem;
 @media (max-width: 910px) {
   .benefits_items_container {
     flex-direction: column;
+  }
+  .container .benefits_container .benefits_title {
+    font-size: 2.5rem;
   }
 }

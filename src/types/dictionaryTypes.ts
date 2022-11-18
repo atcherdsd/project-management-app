@@ -29,6 +29,7 @@ export interface IWelcomePageLanguage {
   descriptBenefitContent3: string;
   descriptBenefitTitle4: string;
   descriptBenefitContent4: string;
+  ourTeam: string;
 }
 
 export interface IWelcomePage {

@@ -1,5 +1,5 @@
 import { Idictionary } from '../types/dictionaryTypes';
-import { benefits } from '../components/pages/WelcomePage/Description/benefits';
+import { benefits } from '../components/pages/WelcomePage/Description/benefitsData';
 
 const dictionary: Idictionary = {
   Navbar: {
@@ -41,6 +41,7 @@ const dictionary: Idictionary = {
       descriptBenefitContent3: benefits[2].descriptionEn,
       descriptBenefitTitle4: benefits[3].titleEn,
       descriptBenefitContent4: benefits[3].descriptionEn,
+      ourTeam: 'Application development team',
     },
     RU: {
       titleTagline: 'Легко создавать, легко следовать',
@@ -60,6 +61,7 @@ const dictionary: Idictionary = {
       descriptBenefitContent3: benefits[2].descriptionRu,
       descriptBenefitTitle4: benefits[3].titleRu,
       descriptBenefitContent4: benefits[3].descriptionRu,
+      ourTeam: 'Команда разработчиков приложения',
     },
   },
 };
