@@ -26,8 +26,9 @@ const SignInPage = () => {
     { skip: !signInData.login }
   );
   if (isSuccess) {
-    const { token } = responseData as unknown as Body;
+    const { token, _id } = responseData as unknown as Body;
     localStorage.setItem('token', token);
+    localStorage.setItem('id', _id);
     setTimeout(() => {
       navigate(`/${Paths.MainPage}`);
     }, 1000);
