@@ -28,7 +28,8 @@ const BoardPage = () => {
   };
 
   const onDragStart = () => {};
-  const onDragUpdate = (result: DragUpdate) => {
+  const onDragUpdate = async (result: DragUpdate) => {};
+  const onDragEnd = async (result: DropResult) => {
     const { source, destination, draggableId } = result;
 
     if (!destination) return;
@@ -36,44 +37,47 @@ const BoardPage = () => {
     if (destination.droppableId === source.droppableId && destination.index === source.index)
       return;
 
-    // const patchedTasks = [];
+    if (destination.droppableId === source.droppableId) {
+      const column = await getColumnItemsAxios(boardId, source.droppableId);
+      column.sort((a, b) => a.order - b.order);
+      const replaceableItem = column.splice(source.index, 1);
+      column.splice(destination.index, 0, replaceableItem[0]);
 
-    // const sourceItems = await getColumnItemsAxios(boardId, source.droppableId);
-    // const destinationItems = await getColumnItemsAxios(boardId, destination.droppableId);
+      const newOrderedColumn = column.map((item, index) => ({
+        _id: item._id,
+        order: index,
+        columnId: item.columnId,
+      }));
 
-    // sourceItems.map((item) => {
-    //   if (item._id !== draggableId) {
-    //     if (item.order > source.index)
-    //       patchedTasks.push({ _id: item._id, order: item.order - 1, columnId: item.columnId });
-    //     else if (item.order < source.index)
-    //       patchedTasks.push({ _id: item._id, order: item.order, columnId: item.columnId });
-    //   }
-    // });
+      patchTasks(newOrderedColumn);
+      return;
+    } else if (destination.droppableId !== source.droppableId) {
+      const columns = await Promise.all([
+        getColumnItemsAxios(boardId, source.droppableId),
+        getColumnItemsAxios(boardId, destination.droppableId),
+      ]);
+      const columnSource = columns[0];
+      const columnDestination = columns[1];
+      columnSource.sort((a, b) => a.order - b.order);
+      columnDestination.sort((a, b) => a.order - b.order);
+      const replaceableItem = columnSource.splice(source.index, 1);
+      replaceableItem[0].columnId = destination.droppableId;
+      columnDestination.splice(destination.index, 0, replaceableItem[0]);
 
-    patchTasks([{ _id: draggableId, order: destination.index, columnId: destination.droppableId }]);
+      const newOrderedColumnSource = columnSource.map((item, index) => ({
+        _id: item._id,
+        order: index,
+        columnId: item.columnId,
+      }));
+      const newOrderedColumnDestination = columnDestination.map((item, index) => ({
+        _id: item._id,
+        order: index,
+        columnId: item.columnId,
+      }));
 
-    // console.log(sourceItems);
-    // console.log(destinationItems);
-  };
-  const onDragEnd = async (result: DropResult) => {
-    // const { source, destination, draggableId } = result;
-    // if (!destination) return;
-    // if (destination.droppableId === source.droppableId && destination.index === source.index)
-    //   return;
-    // const patchedTasks = [];
-    // const sourceItems = await getColumnItemsAxios(boardId, source.droppableId);
-    // const destinationItems = await getColumnItemsAxios(boardId, destination.droppableId);
-    // sourceItems.map((item) => {
-    //   if (item._id !== draggableId) {
-    //     if (item.order > source.index)
-    //       patchedTasks.push({ _id: item._id, order: item.order - 1, columnId: item.columnId });
-    //     else if (item.order < source.index)
-    //       patchedTasks.push({ _id: item._id, order: item.order, columnId: item.columnId });
-    //   }
-    // });
-    // patchTasks([{ _id: draggableId, order: destination.index, columnId: destination.droppableId }]);
-    // console.log(sourceItems);
-    // console.log(destinationItems);
+      patchTasks([...newOrderedColumnSource, ...newOrderedColumnDestination]);
+      return;
+    }
   };
 
   return (
