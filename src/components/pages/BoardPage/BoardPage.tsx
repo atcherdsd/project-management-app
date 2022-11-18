@@ -1,12 +1,16 @@
 import React from 'react';
 import cl from './BoardPage.module.scss';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useGetAllColumnsQuery, useCreateNewColumnMutation } from '../../../API/columnsCalls';
+import {
+  useGetAllColumnsQuery,
+  useCreateNewColumnMutation,
+  usePatchColumnsSetMutation,
+} from '../../../API/columnsCalls';
 import { IColumn } from '../../../types/columnType';
 import Column from '../../UI/Column/Column';
-import { DragDropContext, DragUpdate, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { usePatchTasksSetMutation } from '../../../API/tasksCalls';
-import getColumnItemsAxios from '../../../helpers/getColumnnItemsAxios';
+import { getColumnItemsAxios, getBoardColumnsAxios } from '../../../helpers/axiosCalls';
 
 const BoardPage = () => {
   const navigate = useNavigate();
@@ -15,6 +19,7 @@ const BoardPage = () => {
   const { data } = useGetAllColumnsQuery(boardId);
   const [createNewColumn, {}] = useCreateNewColumnMutation();
   const [patchTasks, {}] = usePatchTasksSetMutation();
+  const [patchColumns, {}] = usePatchColumnsSetMutation();
 
   const boardOnClick = () => {
     navigate(`/main`);
@@ -28,14 +33,27 @@ const BoardPage = () => {
   };
 
   const onDragStart = () => {};
-  const onDragUpdate = async (result: DragUpdate) => {};
+  const onDragUpdate = async () => {};
   const onDragEnd = async (result: DropResult) => {
-    const { source, destination, draggableId } = result;
+    const { source, destination, type } = result;
 
     if (!destination) return;
 
     if (destination.droppableId === source.droppableId && destination.index === source.index)
       return;
+
+    if (type === 'column') {
+      const columns = await getBoardColumnsAxios(boardId);
+      columns.sort((a, b) => a.order - b.order);
+      const replaceableItem = columns.splice(source.index, 1);
+      columns.splice(destination.index, 0, replaceableItem[0]);
+      const newOrderedColumns = columns.map((item, index) => ({
+        _id: item._id,
+        order: index,
+      }));
+      patchColumns(newOrderedColumns);
+      return;
+    }
 
     if (destination.droppableId === source.droppableId) {
       const column = await getColumnItemsAxios(boardId, source.droppableId);
@@ -84,17 +102,26 @@ const BoardPage = () => {
     <DragDropContext onDragStart={onDragStart} onDragUpdate={onDragUpdate} onDragEnd={onDragEnd}>
       <div className={cl.container}>
         <h1 className={cl.title}>Board</h1>
-        <div className={cl.columnsContainer}>
-          {data &&
-            (data as IColumn[]).map((column) => (
-              <Column key={column._id} column={column} boardId={boardId} />
-            ))}
-          <button onClick={addColumnOnClick}>Add Column</button>
-        </div>
-        <button className={cl.button} onClick={boardOnClick}>
-          Back to Main
-        </button>
+        <Droppable droppableId={boardId} direction="horizontal" type="column">
+          {(provided) => (
+            <div
+              className={cl.columnsContainer}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {data &&
+                [...(data as IColumn[])]
+                  .sort((a, b) => a.order - b.order)
+                  .map((column) => <Column key={column._id} column={column} boardId={boardId} />)}
+              {provided.placeholder}
+              <button onClick={addColumnOnClick}>Add Column</button>
+            </div>
+          )}
+        </Droppable>
       </div>
+      <button className={cl.button} onClick={boardOnClick}>
+        Back to Main
+      </button>
     </DragDropContext>
   );
 };

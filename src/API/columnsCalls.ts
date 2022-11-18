@@ -35,8 +35,20 @@ export const columnsCalls = createApi({
       }),
       invalidatesTags: ['Columns'],
     }),
+    patchColumnsSet: builder.mutation({
+      query: (body) => ({
+        url: 'columnsSet',
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Columns'],
+    }),
   }),
 });
 
-export const { useGetAllColumnsQuery, useCreateNewColumnMutation, useDeleteColumnMutation } =
-  columnsCalls;
+export const {
+  useGetAllColumnsQuery,
+  useCreateNewColumnMutation,
+  useDeleteColumnMutation,
+  usePatchColumnsSetMutation,
+} = columnsCalls;
