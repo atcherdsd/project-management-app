@@ -6,7 +6,7 @@ import {
   useCreateNewColumnMutation,
   usePatchColumnsSetMutation,
 } from '../../../API/columnsCalls';
-import { IColumn } from '../../../types/columnType';
+import { IColumn } from '../../../types/boardTypes';
 import Column from '../../UI/Column/Column';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { usePatchTasksSetMutation } from '../../../API/tasksCalls';

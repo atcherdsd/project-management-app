@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import cl from './Column.module.scss';
-import { ITask } from '../../../types/taskType';
-import { IColumn } from '../../../types/columnType';
+import { IColumn, ITask } from '../../../types/boardTypes';
 import { useDeleteColumnMutation } from '../../../API/columnsCalls';
 import { useGetAllTasksQuery, useCreateNewTaskMutation } from '../../../API/tasksCalls';
 import Task from '../Task/Task';

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import baseUrl from './baseUrl';
-import { IColumn } from '../types/columnType';
+import { IColumn } from '../types/boardTypes';
 import token from './jwt';
 
 export const columnsCalls = createApi({

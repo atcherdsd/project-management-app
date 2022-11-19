@@ -1,7 +1,7 @@
 import React from 'react';
 import cl from './MainPage.module.scss';
 import { useGetAllBoardsQuery } from '../../../API/boardsCalls';
-import { IBoard } from '../../../types/boardType';
+import { IBoard } from '../../../types/boardTypes';
 import Board from '../../UI/Board/Board';
 
 const MainPage = () => {

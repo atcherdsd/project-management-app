@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import baseUrl from './baseUrl';
-import { ITask } from '../types/taskType';
+import { ITask } from '../types/boardTypes';
 import token from './jwt';
 
 export const tasksCalls = createApi({

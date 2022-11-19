@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import baseUrl from './baseUrl';
-import { IBoard } from '../types/boardType';
+import { IBoard } from '../types/boardTypes';
 import token from './jwt';
 
 export const boardsCalls = createApi({

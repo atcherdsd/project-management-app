@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ITask } from '../../../types/taskType';
+import { ITask } from '../../../types/boardTypes';
 import cl from './Task.module.scss';
 import { useDeleteTaskMutation } from '../../../API/tasksCalls';
 import { Draggable } from 'react-beautiful-dnd';

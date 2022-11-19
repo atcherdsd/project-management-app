@@ -1,8 +1,7 @@
 import token from '../API/jwt';
 import baseUrl from '../API/baseUrl';
 import axios from 'axios';
-import { ITask } from '../types/taskType';
-import { IColumn } from '../types/columnType';
+import { IColumn, ITask } from '../types/boardTypes';
 
 export const getColumnItemsAxios = async (boardId: string, columnId: string): Promise<ITask[]> => {
   const tasks = await axios.get(`${baseUrl}/boards/${boardId}/columns/${columnId}/tasks`, {
