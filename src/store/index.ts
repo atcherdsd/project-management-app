@@ -5,6 +5,9 @@ import { authCalls } from '../API/authCalls';
 import { boardsCalls } from '../API/boardsCalls';
 import { columnsCalls } from '../API/columnsCalls';
 import { tasksCalls } from '../API/tasksCalls';
+import { enableMapSet } from 'immer';
+
+enableMapSet();
 
 const rootReducer = combineReducers({
   LanguageReducer,
@@ -19,7 +22,9 @@ export const setupStore = () =>
   configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware()
+      getDefaultMiddleware({
+        serializableCheck: false,
+      })
         .concat(authCalls.middleware)
         .concat(boardsCalls.middleware)
         .concat(columnsCalls.middleware)

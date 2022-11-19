@@ -6,11 +6,13 @@ import {
   useCreateNewColumnMutation,
   usePatchColumnsSetMutation,
 } from '../../../API/columnsCalls';
-import { IColumn } from '../../../types/boardTypes';
+import { IColumn, ITask } from '../../../types/boardTypes';
 import Column from '../../UI/Column/Column';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { usePatchTasksSetMutation } from '../../../API/tasksCalls';
 import { getColumnItemsAxios, getBoardColumnsAxios } from '../../../helpers/axiosCalls';
+import { BoardSlice } from '../../../store/reducers/BoardReducer';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 
 const BoardPage = () => {
   const navigate = useNavigate();
@@ -20,6 +22,9 @@ const BoardPage = () => {
   const [createNewColumn, {}] = useCreateNewColumnMutation();
   const [patchTasks, {}] = usePatchTasksSetMutation();
   const [patchColumns, {}] = usePatchColumnsSetMutation();
+  const { columns } = useAppSelector((state) => state.BoardReducer);
+  const { setLocalColumn } = BoardSlice.actions;
+  const dispatch = useAppDispatch();
 
   const backToMainOnClick = () => {
     navigate(`/main`);
@@ -54,10 +59,21 @@ const BoardPage = () => {
     }
 
     if (destination.droppableId === source.droppableId) {
-      const column = await getColumnItemsAxios(boardId, source.droppableId);
+      const column = [...(columns.get(source.droppableId) as ITask[])];
       column.sort((a, b) => a.order - b.order);
       const replaceableItem = column.splice(source.index, 1);
       column.splice(destination.index, 0, replaceableItem[0]);
+
+      dispatch(
+        setLocalColumn([
+          source.droppableId,
+          column.map((item, index) => {
+            const newItem = { ...item };
+            newItem.order = index;
+            return newItem;
+          }),
+        ])
+      );
 
       const newOrderedColumn = column.map((item, index) => ({
         _id: item._id,

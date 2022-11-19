@@ -9,7 +9,7 @@ export const BoardSlice = createSlice({
   name: 'boardsLocalState',
   initialState,
   reducers: {
-    seLocalColumn(state, action: PayloadAction<ColumnPayloadProps>) {
+    setLocalColumn(state, action: PayloadAction<ColumnPayloadProps>) {
       state.columns.set(action.payload[0], action.payload[1]);
     },
   },

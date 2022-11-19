@@ -1,10 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import cl from './Column.module.scss';
 import { IColumn, ITask } from '../../../types/boardTypes';
 import { useDeleteColumnMutation } from '../../../API/columnsCalls';
 import { useGetAllTasksQuery, useCreateNewTaskMutation } from '../../../API/tasksCalls';
 import Task from '../Task/Task';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { BoardSlice } from '../../../store/reducers/BoardReducer';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 
 interface IColumnProps {
   column: IColumn;
@@ -16,6 +18,14 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
   const [deleteColumn, {}] = useDeleteColumnMutation();
   const { data } = useGetAllTasksQuery({ boardId, columnId });
   const [createNewTask, {}] = useCreateNewTaskMutation();
+  const { setLocalColumn } = BoardSlice.actions;
+  const dispatch = useAppDispatch();
+  const { columns } = useAppSelector((state) => state.BoardReducer);
+  useEffect(() => {
+    if (data) dispatch(setLocalColumn([columnId, [...(data as ITask[])]]));
+    // console.log(data);
+    // console.log(columns);
+  }, [data]);
 
   const deleteColumnOnClick = () => {
     deleteColumn({ boardId, columnId });
@@ -30,6 +40,7 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
       users: ['string'],
     };
     createNewTask({ boardId, columnId, body });
+    // console.log(columns);
   };
   return (
     <Draggable draggableId={columnId} index={order}>
@@ -45,8 +56,8 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
-                {data &&
-                  [...(data as ITask[])]
+                {columns.get(columnId) &&
+                  [...(columns.get(columnId) as ITask[])]
                     .sort((a, b) => a.order - b.order)
                     .map((task, index) => (
                       <Task
