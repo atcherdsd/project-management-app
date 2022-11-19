@@ -37,7 +37,7 @@ const BoardPage = () => {
     });
   };
 
-  const onDragEnd = async (result: DropResult) => {
+  const onDragEnd = (result: DropResult) => {
     const { source, destination, type } = result;
 
     if (!destination) return;
@@ -46,15 +46,15 @@ const BoardPage = () => {
       return;
 
     if (type === 'column') {
-      const columns = await getBoardColumnsAxios(boardId);
-      columns.sort((a, b) => a.order - b.order);
-      const replaceableItem = columns.splice(source.index, 1);
-      columns.splice(destination.index, 0, replaceableItem[0]);
-      const newOrderedColumns = columns.map((item, index) => ({
-        _id: item._id,
-        order: index,
-      }));
-      patchColumns(newOrderedColumns);
+      // const columns = await getBoardColumnsAxios(boardId);
+      // columns.sort((a, b) => a.order - b.order);
+      // const replaceableItem = columns.splice(source.index, 1);
+      // columns.splice(destination.index, 0, replaceableItem[0]);
+      // const newOrderedColumns = columns.map((item, index) => ({
+      //   _id: item._id,
+      //   order: index,
+      // }));
+      // patchColumns(newOrderedColumns);
       return;
     }
 
@@ -84,27 +84,45 @@ const BoardPage = () => {
       patchTasks(newOrderedColumn);
       return;
     } else if (destination.droppableId !== source.droppableId) {
-      const columns = await Promise.all([
-        getColumnItemsAxios(boardId, source.droppableId),
-        getColumnItemsAxios(boardId, destination.droppableId),
-      ]);
-      const columnSource = columns[0];
-      const columnDestination = columns[1];
+      const columnSource = [...(columns.get(source.droppableId) as ITask[])];
+      const columnDestination = [...(columns.get(destination.droppableId) as ITask[])];
       columnSource.sort((a, b) => a.order - b.order);
       columnDestination.sort((a, b) => a.order - b.order);
       const replaceableItem = columnSource.splice(source.index, 1);
-      replaceableItem[0].columnId = destination.droppableId;
       columnDestination.splice(destination.index, 0, replaceableItem[0]);
+
+      dispatch(
+        setLocalColumn([
+          source.droppableId,
+          columnSource.map((item, index) => {
+            const newItem = { ...item };
+            newItem.order = index;
+            return newItem;
+          }),
+        ])
+      );
+
+      dispatch(
+        setLocalColumn([
+          destination.droppableId,
+          columnDestination.map((item, index) => {
+            const newItem = { ...item };
+            if (index === destination.index) newItem.columnId = destination.droppableId;
+            newItem.order = index;
+            return newItem;
+          }),
+        ])
+      );
 
       const newOrderedColumnSource = columnSource.map((item, index) => ({
         _id: item._id,
         order: index,
-        columnId: item.columnId,
+        columnId: source.droppableId,
       }));
       const newOrderedColumnDestination = columnDestination.map((item, index) => ({
         _id: item._id,
         order: index,
-        columnId: item.columnId,
+        columnId: destination.droppableId,
       }));
 
       patchTasks([...newOrderedColumnSource, ...newOrderedColumnDestination]);
