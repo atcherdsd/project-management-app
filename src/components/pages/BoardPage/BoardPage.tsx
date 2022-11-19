@@ -21,7 +21,7 @@ const BoardPage = () => {
   const [patchTasks, {}] = usePatchTasksSetMutation();
   const [patchColumns, {}] = usePatchColumnsSetMutation();
 
-  const boardOnClick = () => {
+  const backToMainOnClick = () => {
     navigate(`/main`);
   };
 
@@ -32,8 +32,6 @@ const BoardPage = () => {
     });
   };
 
-  const onDragStart = () => {};
-  const onDragUpdate = async () => {};
   const onDragEnd = async (result: DropResult) => {
     const { source, destination, type } = result;
 
@@ -99,7 +97,7 @@ const BoardPage = () => {
   };
 
   return (
-    <DragDropContext onDragStart={onDragStart} onDragUpdate={onDragUpdate} onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd}>
       <div className={cl.container}>
         <h1 className={cl.title}>Board</h1>
         <Droppable droppableId={boardId} direction="horizontal" type="column">
@@ -119,7 +117,7 @@ const BoardPage = () => {
           )}
         </Droppable>
       </div>
-      <button className={cl.button} onClick={boardOnClick}>
+      <button className={cl.button} onClick={backToMainOnClick}>
         Back to Main
       </button>
     </DragDropContext>
