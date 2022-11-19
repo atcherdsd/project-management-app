@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import LanguageReducer from './reducers/LanguageReducer';
+import BoardReducer from './reducers/BoardReducer';
 import { authCalls } from '../API/authCalls';
 import { boardsCalls } from '../API/boardsCalls';
 import { columnsCalls } from '../API/columnsCalls';
@@ -7,6 +8,7 @@ import { tasksCalls } from '../API/tasksCalls';
 
 const rootReducer = combineReducers({
   LanguageReducer,
+  BoardReducer,
   [authCalls.reducerPath]: authCalls.reducer,
   [boardsCalls.reducerPath]: boardsCalls.reducer,
   [columnsCalls.reducerPath]: columnsCalls.reducer,
