@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import cl from './BoardPage.module.scss';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
@@ -10,7 +10,6 @@ import { IColumn, ITask } from '../../../types/boardTypes';
 import Column from '../../UI/Column/Column';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { usePatchTasksSetMutation } from '../../../API/tasksCalls';
-import { getColumnItemsAxios, getBoardColumnsAxios } from '../../../helpers/axiosCalls';
 import { BoardSlice } from '../../../store/reducers/BoardReducer';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 
@@ -22,9 +21,13 @@ const BoardPage = () => {
   const [createNewColumn, {}] = useCreateNewColumnMutation();
   const [patchTasks, {}] = usePatchTasksSetMutation();
   const [patchColumns, {}] = usePatchColumnsSetMutation();
-  const { columnsTasks } = useAppSelector((state) => state.BoardReducer);
-  const { setLocalColumnTasks } = BoardSlice.actions;
+  const { columnsTasks, boardColumns } = useAppSelector((state) => state.BoardReducer);
+  const { setLocalColumnTasks, setLocalBoardColumns } = BoardSlice.actions;
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (data) dispatch(setLocalBoardColumns([boardId, [...(data as IColumn[])]]));
+  }, [data]);
 
   const backToMainOnClick = () => {
     navigate(`/main`);
@@ -46,15 +49,25 @@ const BoardPage = () => {
       return;
 
     if (type === 'column') {
-      // const columns = await getBoardColumnsAxios(boardId);
-      // columns.sort((a, b) => a.order - b.order);
-      // const replaceableItem = columns.splice(source.index, 1);
-      // columns.splice(destination.index, 0, replaceableItem[0]);
-      // const newOrderedColumns = columns.map((item, index) => ({
-      //   _id: item._id,
-      //   order: index,
-      // }));
-      // patchColumns(newOrderedColumns);
+      const columns = [...(boardColumns.get(boardId) as IColumn[])];
+      columns.sort((a, b) => a.order - b.order);
+      const replaceableItem = columns.splice(source.index, 1);
+      columns.splice(destination.index, 0, replaceableItem[0]);
+      dispatch(
+        setLocalBoardColumns([
+          source.droppableId,
+          columns.map((column, index) => {
+            const newColumn = { ...column };
+            newColumn.order = index;
+            return newColumn;
+          }),
+        ])
+      );
+      const newOrderedColumns = columns.map((item, index) => ({
+        _id: item._id,
+        order: index,
+      }));
+      patchColumns(newOrderedColumns);
       return;
     }
 
@@ -141,8 +154,8 @@ const BoardPage = () => {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {data &&
-                [...(data as IColumn[])]
+              {boardColumns.get(boardId) &&
+                [...(boardColumns.get(boardId) as IColumn[])]
                   .sort((a, b) => a.order - b.order)
                   .map((column) => <Column key={column._id} column={column} boardId={boardId} />)}
               {provided.placeholder}

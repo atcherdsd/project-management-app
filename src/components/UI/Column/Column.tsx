@@ -22,6 +22,7 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
   const dispatch = useAppDispatch();
   const { columnsTasks } = useAppSelector((state) => state.BoardReducer);
   useEffect(() => {
+    console.log(columnsTasks.get(columnId));
     if (data) dispatch(setLocalColumnTasks([columnId, [...(data as ITask[])]]));
   }, [data]);
 
