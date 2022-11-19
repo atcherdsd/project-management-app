@@ -22,8 +22,8 @@ const BoardPage = () => {
   const [createNewColumn, {}] = useCreateNewColumnMutation();
   const [patchTasks, {}] = usePatchTasksSetMutation();
   const [patchColumns, {}] = usePatchColumnsSetMutation();
-  const { columns } = useAppSelector((state) => state.BoardReducer);
-  const { setLocalColumn } = BoardSlice.actions;
+  const { columnsTasks } = useAppSelector((state) => state.BoardReducer);
+  const { setLocalColumnTasks } = BoardSlice.actions;
   const dispatch = useAppDispatch();
 
   const backToMainOnClick = () => {
@@ -59,13 +59,13 @@ const BoardPage = () => {
     }
 
     if (destination.droppableId === source.droppableId) {
-      const column = [...(columns.get(source.droppableId) as ITask[])];
+      const column = [...(columnsTasks.get(source.droppableId) as ITask[])];
       column.sort((a, b) => a.order - b.order);
       const replaceableItem = column.splice(source.index, 1);
       column.splice(destination.index, 0, replaceableItem[0]);
 
       dispatch(
-        setLocalColumn([
+        setLocalColumnTasks([
           source.droppableId,
           column.map((item, index) => {
             const newItem = { ...item };
@@ -84,15 +84,15 @@ const BoardPage = () => {
       patchTasks(newOrderedColumn);
       return;
     } else if (destination.droppableId !== source.droppableId) {
-      const columnSource = [...(columns.get(source.droppableId) as ITask[])];
-      const columnDestination = [...(columns.get(destination.droppableId) as ITask[])];
+      const columnSource = [...(columnsTasks.get(source.droppableId) as ITask[])];
+      const columnDestination = [...(columnsTasks.get(destination.droppableId) as ITask[])];
       columnSource.sort((a, b) => a.order - b.order);
       columnDestination.sort((a, b) => a.order - b.order);
       const replaceableItem = columnSource.splice(source.index, 1);
       columnDestination.splice(destination.index, 0, replaceableItem[0]);
 
       dispatch(
-        setLocalColumn([
+        setLocalColumnTasks([
           source.droppableId,
           columnSource.map((item, index) => {
             const newItem = { ...item };
@@ -103,7 +103,7 @@ const BoardPage = () => {
       );
 
       dispatch(
-        setLocalColumn([
+        setLocalColumnTasks([
           destination.droppableId,
           columnDestination.map((item, index) => {
             const newItem = { ...item };

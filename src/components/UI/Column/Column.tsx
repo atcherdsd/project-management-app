@@ -18,13 +18,11 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
   const [deleteColumn, {}] = useDeleteColumnMutation();
   const { data } = useGetAllTasksQuery({ boardId, columnId });
   const [createNewTask, {}] = useCreateNewTaskMutation();
-  const { setLocalColumn } = BoardSlice.actions;
+  const { setLocalColumnTasks } = BoardSlice.actions;
   const dispatch = useAppDispatch();
-  const { columns } = useAppSelector((state) => state.BoardReducer);
+  const { columnsTasks } = useAppSelector((state) => state.BoardReducer);
   useEffect(() => {
-    if (data) dispatch(setLocalColumn([columnId, [...(data as ITask[])]]));
-    // console.log(data);
-    // console.log(columns);
+    if (data) dispatch(setLocalColumnTasks([columnId, [...(data as ITask[])]]));
   }, [data]);
 
   const deleteColumnOnClick = () => {
@@ -56,8 +54,8 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
-                {columns.get(columnId) &&
-                  [...(columns.get(columnId) as ITask[])]
+                {columnsTasks.get(columnId) &&
+                  [...(columnsTasks.get(columnId) as ITask[])]
                     .sort((a, b) => a.order - b.order)
                     .map((task, index) => (
                       <Task
