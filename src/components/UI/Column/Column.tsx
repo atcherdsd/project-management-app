@@ -22,7 +22,6 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
   const dispatch = useAppDispatch();
   const { columnsTasks } = useAppSelector((state) => state.BoardReducer);
   useEffect(() => {
-    console.log(columnsTasks.get(columnId));
     if (data) dispatch(setLocalColumnTasks([columnId, [...(data as ITask[])]]));
   }, [data]);
 
@@ -39,7 +38,6 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
       users: ['string'],
     };
     createNewTask({ boardId, columnId, body });
-    // console.log(columns);
   };
   return (
     <Draggable draggableId={columnId} index={order}>
