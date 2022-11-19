@@ -12,6 +12,7 @@ function SignInForm(props: SignUpProps) {
   const { handlerSubmit, isLoading } = props;
   // Use Translate
   const { language } = useAppSelector((state) => state.LanguageReducer);
+  const { login } = useAppSelector((state) => state.SignUpDataReducer.signUpData);
   const [T, setT] = useTranslate<ISighUpFormLanguage>(dictionary.SighUpForm, language);
   useMemo(() => {
     setT();
@@ -40,7 +41,7 @@ function SignInForm(props: SignUpProps) {
           className={cl.form__input}
           placeholder=" "
           autoComplete="off"
-          defaultValue={localStorage.getItem('login') ? String(localStorage.getItem('login')) : ''}
+          defaultValue={login ? login : ''}
           {...register('login', {
             required: { value: true, message: `${T.formRequireMsg}` },
             pattern: {
