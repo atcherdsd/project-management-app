@@ -121,10 +121,10 @@ const BoardPage = () => {
             </div>
           )}
         </Droppable>
+        <button className={cl.button} onClick={backToMainOnClick}>
+          Back to Main
+        </button>
       </div>
-      <button className={cl.button} onClick={backToMainOnClick}>
-        Back to Main
-      </button>
     </DragDropContext>
   );
 };

@@ -43,9 +43,9 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
     <Draggable draggableId={columnId} index={order}>
       {(provided) => (
         <div className={cl.container} {...provided.draggableProps} ref={provided.innerRef}>
+          <h2 {...provided.dragHandleProps}>{title}</h2>
           <button onClick={deleteColumnOnClick}>Delete Column</button>
           <button onClick={createNewTaskOnClick}>Create Task</button>
-          <h2 {...provided.dragHandleProps}>{title}</h2>
           <Droppable droppableId={columnId} type="task">
             {(provided) => (
               <div
