@@ -112,7 +112,7 @@ $radius: 1rem;
       border: none;
       cursor: pointer;
       transition: background-color 200ms ease-in;
-  
+      text-align: center;
       &:hover {
         background-color: $clr-primary-dark;
       }
@@ -130,7 +130,7 @@ $radius: 1rem;
       border: none;
       cursor: pointer;
       transition: background-color 200ms ease-in;
-  
+      text-align: center;
       &:hover {
         background-color: $clr-primary-dark;
       } 

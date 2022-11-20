@@ -43,7 +43,9 @@ export type UpdateProps = {
   isSuccess: boolean;
   isUpdating: boolean;
   handlerSubmit: (data: FormValues) => void;
-  deleteUser: () => void;
+  deleteUser: (e: React.MouseEvent<HTMLElement>) => void;
+  confirmDeleteUser: (e: React.MouseEvent<HTMLElement>) => void;
   name: string;
   login: string;
+  isModalOpen: boolean;
 };

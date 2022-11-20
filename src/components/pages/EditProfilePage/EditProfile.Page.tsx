@@ -14,11 +14,11 @@ import ModalFormResponse from '../../Modal/modals/modalFormResponse';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
-import GenericModal from 'components/Modal/modals/genericModal';
 
 const EditProfilePage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [isModalOpen, setModalOpen] = useState(false);
   const {
     isSuccess,
     isLoading,
@@ -54,12 +54,28 @@ const EditProfilePage = () => {
   }
   // Удаление пользователя
   /////////////////////////////////
-  function deleteUserHandler() {
-    deleteUser({ path: `users/${localStorage.getItem('id')}` });
-    navigate(`/${Paths.SignUp}`);
-    localStorage.removeItem('token');
-    localStorage.removeItem('id');
+  function deleteUserHandler(e: React.MouseEvent<HTMLElement>) {
+    setModalOpen(true);
   }
+  function confirmDeleteUser(e: React.MouseEvent<HTMLElement>) {
+    const target = (e.target as HTMLElement).closest('input');
+    const value = target?.value;
+    if (value == 'No') {
+      setModalOpen(false);
+    } else {
+      setModalOpen(false);
+      deleteUser({ path: `users/${localStorage.getItem('id')}` })
+        .unwrap()
+        .then(() => {
+          navigate(`/${Paths.SignUp}`);
+          dispatch(setSignUpDataToRedux({ login: '', _id: '', name: '' }));
+          refetch();
+          localStorage.removeItem('token');
+          localStorage.removeItem('id');
+        });
+    }
+  }
+
   return (
     <div className={cl.container}>
       <UpdateUserForm
@@ -70,6 +86,8 @@ const EditProfilePage = () => {
         isSuccess={isSuccess}
         isUpdating={isUpdating}
         deleteUser={deleteUserHandler}
+        isModalOpen={isModalOpen}
+        confirmDeleteUser={confirmDeleteUser}
       ></UpdateUserForm>
       {isErrorUpdating && (
         <Modal>

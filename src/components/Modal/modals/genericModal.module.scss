@@ -1,4 +1,4 @@
-.modal-container{
+.modal__container{
     background-color: rgba(0,0,0,0.4);
     position: fixed;
     top: 0;
@@ -11,7 +11,7 @@
     justify-content: center;
 }
 
-.modal-content{
+.modal__content{
     padding: 20px;
     border-radius: 12px;
     background-color: white;
@@ -19,9 +19,31 @@
     // height: 700px;
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
     gap:1rem;
+    &__buttons{
+        display: flex;
+    }
 }
 
+.confirmButton{
+    display: block;
+      margin-left: 1rem;
+      padding: 0.75rem 2rem;
+      background-color: #9dedff;
+      font-family: inherit;
+      font-weight: inherit;
+      border-radius: 0.5rem;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      transition: background-color 200ms ease-in;
+      text-align: center;
+      &:hover {
+        background-color: #7bdff6;
+      }
+}
 
 
 @media only screen and (max-width: 769px){
