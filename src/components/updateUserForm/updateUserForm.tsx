@@ -41,7 +41,7 @@ function UpdateUserForm(props: UpdateProps) {
   return (
     <>
       <form action="" className={cl.form} onSubmit={onSubmit}>
-        <p className={cl.form__description}>{T.formWelcome}</p>
+        <p className={cl.form__description}>{T.edit}</p>
         {isSuccess && (
           <div className={cl.form__group}>
             <input
@@ -138,13 +138,13 @@ function UpdateUserForm(props: UpdateProps) {
             <input
               type="submit"
               className={cl.form__button}
-              defaultValue={'Update'}
+              value={T.updateBtn}
               disabled={isUpdating ? true : false}
             ></input>
             <input
-              type="input"
+              type="button"
               className={cl.form__deleteButton}
-              defaultValue={'Delete'}
+              defaultValue={T.deleteBtn}
               disabled={isLoading ? true : false}
               onClick={deleteUser}
             ></input>

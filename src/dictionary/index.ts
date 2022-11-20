@@ -36,6 +36,9 @@ const dictionary: Idictionary = {
       formPasswordValidateMsg: 'Should contains one or greater then numbers',
       formRegistered: 'Already registered?',
       formSignIn: 'SignIn',
+      edit: 'Edit profile',
+      updateBtn: 'Update',
+      deleteBtn: 'Delete',
     },
     RU: {
       formWelcome: 'Получите неограниченный доступ к вашей доске',
@@ -51,6 +54,21 @@ const dictionary: Idictionary = {
       formPasswordValidateMsg: 'Должен содержать одно или больше чисел',
       formRegistered: 'Уже зарегистрированны?',
       formSignIn: 'Войти',
+      edit: 'Редактировать профиль',
+      updateBtn: 'Обновить',
+      deleteBtn: 'Удалить',
+    },
+  },
+  Modal: {
+    EN: {
+      warning: 'Are you sure?',
+      confirmBtn: 'Yes',
+      disconfirmBtn: 'No',
+    },
+    RU: {
+      warning: 'Вы уверены?',
+      confirmBtn: 'Да',
+      disconfirmBtn: 'Нет',
     },
   },
 };

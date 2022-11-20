@@ -22,8 +22,6 @@ const EditProfilePage = () => {
   const {
     isSuccess,
     isLoading,
-    isError,
-    error,
     data: responseData,
     refetch,
   } = useGetUserQuery(
@@ -54,15 +52,16 @@ const EditProfilePage = () => {
   }
   // Удаление пользователя
   /////////////////////////////////
-  function deleteUserHandler(e: React.MouseEvent<HTMLElement>) {
+  function deleteUserHandler() {
     setModalOpen(true);
   }
   function confirmDeleteUser(e: React.MouseEvent<HTMLElement>) {
     const target = (e.target as HTMLElement).closest('input');
     const value = target?.value;
-    if (value == 'No') {
+    if (value == 'No' || value == 'Нет') {
       setModalOpen(false);
-    } else {
+    }
+    if (value == 'Yes' || value == 'Да') {
       setModalOpen(false);
       deleteUser({ path: `users/${localStorage.getItem('id')}` })
         .unwrap()

@@ -1,3 +1,5 @@
+import { warning } from '@remix-run/router';
+
 export interface INavbarLanguage {
   signin: string;
   signup: string;
@@ -27,6 +29,9 @@ export interface ISighUpFormLanguage {
   formPasswordValidateMsg: string;
   formRegistered: string;
   formSignIn: string;
+  edit?: string;
+  updateBtn?: string;
+  deleteBtn?: string;
 }
 
 export interface ISighUpForm {
@@ -34,7 +39,19 @@ export interface ISighUpForm {
   RU: ISighUpFormLanguage;
 }
 
+export interface IModal {
+  EN: IModalLanguage;
+  RU: IModalLanguage;
+}
+
+export interface IModalLanguage {
+  warning: string;
+  confirmBtn: string;
+  disconfirmBtn: string;
+}
+
 export interface Idictionary {
   Navbar: INavbar;
   SighUpForm: ISighUpForm;
+  Modal: IModal;
 }
