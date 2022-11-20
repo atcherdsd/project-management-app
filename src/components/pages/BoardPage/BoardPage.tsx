@@ -12,6 +12,7 @@ import {
   useSetLocalColumnTasks,
   useSetLocalBoardColumns,
 } from '../../../hooks/useSetLocalStateBoards';
+import { sortColumnOrBoard, sortColumnsTasks } from '../../../helpers/sortColumnsTasksState';
 
 const BoardPage = () => {
   const navigate = useNavigate();
@@ -49,10 +50,11 @@ const BoardPage = () => {
       return;
 
     if (type === 'column') {
-      const columns = [...(boardColumns.get(boardId) as IColumn[])];
-      columns.sort((a, b) => a.order - b.order);
-      const replaceableItem = columns.splice(source.index, 1);
-      columns.splice(destination.index, 0, replaceableItem[0]);
+      const columns = sortColumnOrBoard(
+        boardColumns.get(boardId) as IColumn[],
+        source.index,
+        destination.index
+      ) as IColumn[];
 
       reorderLocalColumnsState(source.droppableId, columns);
 
@@ -62,10 +64,11 @@ const BoardPage = () => {
     }
 
     if (destination.droppableId === source.droppableId) {
-      const column = [...(columnsTasks.get(source.droppableId) as ITask[])];
-      column.sort((a, b) => a.order - b.order);
-      const replaceableItem = column.splice(source.index, 1);
-      column.splice(destination.index, 0, replaceableItem[0]);
+      const column = sortColumnOrBoard(
+        columnsTasks.get(source.droppableId) as ITask[],
+        source.index,
+        destination.index
+      ) as ITask[];
 
       reorderLocalTasksState(source.droppableId, column);
 
@@ -73,12 +76,12 @@ const BoardPage = () => {
 
       return;
     } else if (destination.droppableId !== source.droppableId) {
-      const columnSource = [...(columnsTasks.get(source.droppableId) as ITask[])];
-      const columnDestination = [...(columnsTasks.get(destination.droppableId) as ITask[])];
-      columnSource.sort((a, b) => a.order - b.order);
-      columnDestination.sort((a, b) => a.order - b.order);
-      const replaceableItem = columnSource.splice(source.index, 1);
-      columnDestination.splice(destination.index, 0, replaceableItem[0]);
+      const [columnSource, columnDestination] = sortColumnsTasks(
+        columnsTasks.get(source.droppableId) as ITask[],
+        columnsTasks.get(destination.droppableId) as ITask[],
+        source.index,
+        destination.index
+      );
 
       reorderLocalTasksState(
         source.droppableId,
