@@ -9,8 +9,12 @@ import UpdateUserForm from '../../updateUserForm/updateUserForm';
 import { FormValues } from 'types/formTypes';
 import { useAppDispatch } from '../../../hooks/redux';
 import { setSignUpDataToRedux } from '../../../store/reducers/SignUpDataReducer';
+import Modal from '../../../components/Modal/modal';
+import ModalFormResponse from '../../Modal/modals/modalFormResponse';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 
 const EditProfilePage = () => {
+  const dispatch = useAppDispatch();
   const {
     isSuccess,
     isLoading,
@@ -24,19 +28,25 @@ const EditProfilePage = () => {
     },
     { refetchOnMountOrArgChange: true }
   );
-  const [updateUser, { isLoading: isUpdating, data: updatingData }] = useUpdateUserMutation();
+  const [updateUser, { isLoading: isUpdating, isError: isErrorUpdating, error: updateError }] =
+    useUpdateUserMutation();
   const [deleteUser] = useDeleteUserMutation();
-  const dispatch = useAppDispatch();
+  // Обновление пользователя
+  ////////////////////////////////////
   function handlerSubmit(data: FormValues) {
-    // setUpdateData(data);
     updateUser({
       path: `users/${localStorage.getItem('id')}`,
       patch: data,
     })
       .unwrap()
-      .then((data) => dispatch(setSignUpDataToRedux(data)));
+      .then((data) => dispatch(setSignUpDataToRedux(data)))
+      .catch((err) => {
+        throw new Error(err.data.message);
+      });
     refetch();
   }
+  // Удаление пользователя
+  /////////////////////////////////
   function deleteUserR() {
     deleteUser({ path: `users/${localStorage.getItem('id')}` });
     localStorage.removeItem('token');
@@ -53,6 +63,11 @@ const EditProfilePage = () => {
         isUpdating={isUpdating}
         deleteUser={deleteUserR}
       ></UpdateUserForm>
+      {isErrorUpdating && (
+        <Modal>
+          <ModalFormResponse error={updateError as FetchBaseQueryError}></ModalFormResponse>
+        </Modal>
+      )}
     </div>
   );
 };
