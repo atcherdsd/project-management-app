@@ -1,0 +1,34 @@
+.modal-container{
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    left:0;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content{
+    padding: 20px;
+    border-radius: 12px;
+    background-color: white;
+    // width: 700px;
+    // height: 700px;
+    display: flex;
+    justify-content: space-between;
+    gap:1rem;
+}
+
+
+
+@media only screen and (max-width: 769px){
+    .modal-content{
+        flex-direction:column;
+        & .close-modal{
+            margin-left: auto;
+        }
+    }
+}

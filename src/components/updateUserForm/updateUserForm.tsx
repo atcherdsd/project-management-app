@@ -130,7 +130,7 @@ function UpdateUserForm(props: UpdateProps) {
           ></input>
           <input
             type="input"
-            className={cl.form__button}
+            className={cl.form__deleteButton}
             defaultValue={'Delete'}
             disabled={isLoading ? true : false}
             onClick={deleteUser}

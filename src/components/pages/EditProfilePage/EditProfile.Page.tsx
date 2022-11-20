@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cl from './EditProfilePage.module.scss';
 import {
   useGetUserQuery,
@@ -14,6 +14,7 @@ import ModalFormResponse from '../../Modal/modals/modalFormResponse';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
+import GenericModal from 'components/Modal/modals/genericModal';
 
 const EditProfilePage = () => {
   const dispatch = useAppDispatch();
@@ -28,8 +29,8 @@ const EditProfilePage = () => {
   } = useGetUserQuery(
     {
       path: `users/${localStorage.getItem('id')}`,
-    },
-    { refetchOnMountOrArgChange: true }
+    }
+    // { refetchOnMountOrArgChange: true }
   );
   const [updateUser, { isLoading: isUpdating, isError: isErrorUpdating, error: updateError }] =
     useUpdateUserMutation();
@@ -44,16 +45,16 @@ const EditProfilePage = () => {
       .unwrap()
       .then((data) => {
         dispatch(setSignUpDataToRedux(data));
+        refetch();
         navigate(`/${Paths.SignIn}`);
       })
       .catch((err) => {
         throw new Error(err.data.message);
       });
-    refetch();
   }
   // Удаление пользователя
   /////////////////////////////////
-  function deleteUserR() {
+  function deleteUserHandler() {
     deleteUser({ path: `users/${localStorage.getItem('id')}` });
     navigate(`/${Paths.SignUp}`);
     localStorage.removeItem('token');
@@ -62,13 +63,13 @@ const EditProfilePage = () => {
   return (
     <div className={cl.container}>
       <UpdateUserForm
-        name={isSuccess ? String(responseData?.name) : ''}
-        login={isSuccess ? String(responseData?.login) : ''}
+        name={String(responseData?.name)}
+        login={String(responseData?.login)}
         isLoading={isLoading}
         handlerSubmit={handlerSubmit}
         isSuccess={isSuccess}
         isUpdating={isUpdating}
-        deleteUser={deleteUserR}
+        deleteUser={deleteUserHandler}
       ></UpdateUserForm>
       {isErrorUpdating && (
         <Modal>
