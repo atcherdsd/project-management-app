@@ -21,13 +21,29 @@ export type Body = {
 };
 export type QueryProps = {
   path: string;
-  patch: Body;
+  patch?: Body;
+};
+
+export type ResponseStateSignUp = {
+  name: string;
+  login: string;
+  _id: string;
 };
 
 export type StateSignUp = {
-  signUpData: FormValues;
+  signUpData: ResponseStateSignUp;
 };
 
 export type ModalProp = {
   error?: FetchBaseQueryError;
+};
+
+export type UpdateProps = {
+  isLoading: boolean;
+  isSuccess: boolean;
+  isUpdating: boolean;
+  handlerSubmit: (data: FormValues) => void;
+  deleteUser: () => void;
+  name: string;
+  login: string;
 };

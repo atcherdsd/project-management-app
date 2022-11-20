@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cl from './SignUpPage.module.scss';
 import SignUpForm from '../../SighUpForm/SignUpForm';
-import { FormValues } from '../../../types/formTypes';
+import { ResponseStateSignUp, FormValues } from '../../../types/formTypes';
 import { useSignUpAuthQuery } from '../../../API/authCalls';
 import Modal from '../../../components/Modal/modal';
 import ModalFormResponse from '../../Modal/modals/modalFormResponse';
@@ -30,7 +30,7 @@ const SignUpPage = () => {
   );
   if (responseData) {
     setTimeout(() => {
-      dispatch(setSignUpDataToRedux(responseData as FormValues));
+      dispatch(setSignUpDataToRedux(responseData as ResponseStateSignUp));
       navigate(`/${Paths.SignIn}`);
     }, 3000);
   }

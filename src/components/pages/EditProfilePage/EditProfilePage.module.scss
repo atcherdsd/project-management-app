@@ -3,4 +3,5 @@
 .container {
   @include page-properties;
   display: flex;
+  justify-content: center;
 }
