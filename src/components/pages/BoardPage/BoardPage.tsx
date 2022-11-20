@@ -8,6 +8,10 @@ import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { BoardSlice } from '../../../store/reducers/BoardReducer';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { reorderTasksCall, reorderColumnsCall } from '../../../helpers/tasksColumnsReorderCalls';
+import {
+  useSetLocalColumnTasks,
+  useSetLocalBoardColumns,
+} from '../../../hooks/useSetLocalStateBoards';
 
 const BoardPage = () => {
   const navigate = useNavigate();
@@ -16,8 +20,10 @@ const BoardPage = () => {
   const { data } = useGetAllColumnsQuery(boardId);
   const [createNewColumn, {}] = useCreateNewColumnMutation();
   const { columnsTasks, boardColumns } = useAppSelector((state) => state.BoardReducer);
-  const { setLocalColumnTasks, setLocalBoardColumns } = BoardSlice.actions;
+  const { setLocalBoardColumns } = BoardSlice.actions;
   const dispatch = useAppDispatch();
+  const reorderLocalTasksState = useSetLocalColumnTasks();
+  const reorderLocalColumnsState = useSetLocalBoardColumns();
 
   useEffect(() => {
     if (data) dispatch(setLocalBoardColumns([boardId, [...(data as IColumn[])]]));
@@ -48,16 +54,7 @@ const BoardPage = () => {
       const replaceableItem = columns.splice(source.index, 1);
       columns.splice(destination.index, 0, replaceableItem[0]);
 
-      dispatch(
-        setLocalBoardColumns([
-          source.droppableId,
-          columns.map((column, index) => {
-            const newColumn = { ...column };
-            newColumn.order = index;
-            return newColumn;
-          }),
-        ])
-      );
+      reorderLocalColumnsState(source.droppableId, columns);
 
       reorderColumnsCall(columns);
 
@@ -70,16 +67,7 @@ const BoardPage = () => {
       const replaceableItem = column.splice(source.index, 1);
       column.splice(destination.index, 0, replaceableItem[0]);
 
-      dispatch(
-        setLocalColumnTasks([
-          source.droppableId,
-          column.map((item, index) => {
-            const newItem = { ...item };
-            newItem.order = index;
-            return newItem;
-          }),
-        ])
-      );
+      reorderLocalTasksState(source.droppableId, column);
 
       reorderTasksCall(column, source.droppableId);
 
@@ -92,27 +80,11 @@ const BoardPage = () => {
       const replaceableItem = columnSource.splice(source.index, 1);
       columnDestination.splice(destination.index, 0, replaceableItem[0]);
 
-      dispatch(
-        setLocalColumnTasks([
-          source.droppableId,
-          columnSource.map((item, index) => {
-            const newItem = { ...item };
-            newItem.order = index;
-            return newItem;
-          }),
-        ])
-      );
-
-      dispatch(
-        setLocalColumnTasks([
-          destination.droppableId,
-          columnDestination.map((item, index) => {
-            const newItem = { ...item };
-            if (index === destination.index) newItem.columnId = destination.droppableId;
-            newItem.order = index;
-            return newItem;
-          }),
-        ])
+      reorderLocalTasksState(
+        source.droppableId,
+        columnSource,
+        destination.droppableId,
+        columnDestination
       );
 
       reorderTasksCall(
