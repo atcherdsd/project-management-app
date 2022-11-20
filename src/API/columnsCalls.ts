@@ -41,6 +41,7 @@ export const columnsCalls = createApi({
         method: 'PATCH',
         body,
       }),
+      invalidatesTags: ['Columns'],
     }),
   }),
 });

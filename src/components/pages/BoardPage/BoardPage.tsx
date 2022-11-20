@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react';
 import cl from './BoardPage.module.scss';
 import { useNavigate, useLocation } from 'react-router-dom';
-import {
-  useGetAllColumnsQuery,
-  useCreateNewColumnMutation,
-  usePatchColumnsSetMutation,
-} from '../../../API/columnsCalls';
+import { useGetAllColumnsQuery, useCreateNewColumnMutation } from '../../../API/columnsCalls';
 import { IColumn, ITask } from '../../../types/boardTypes';
 import Column from '../../UI/Column/Column';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
-import { usePatchTasksSetMutation } from '../../../API/tasksCalls';
 import { BoardSlice } from '../../../store/reducers/BoardReducer';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { reorderTasksCall, reorderColumnsCall } from '../../../helpers/tasksColumnsReorderCalls';
 
 const BoardPage = () => {
   const navigate = useNavigate();
@@ -19,8 +15,6 @@ const BoardPage = () => {
   const boardId = location.pathname.replace('/main/', '');
   const { data } = useGetAllColumnsQuery(boardId);
   const [createNewColumn, {}] = useCreateNewColumnMutation();
-  const [patchTasks, {}] = usePatchTasksSetMutation();
-  const [patchColumns, {}] = usePatchColumnsSetMutation();
   const { columnsTasks, boardColumns } = useAppSelector((state) => state.BoardReducer);
   const { setLocalColumnTasks, setLocalBoardColumns } = BoardSlice.actions;
   const dispatch = useAppDispatch();
@@ -53,6 +47,7 @@ const BoardPage = () => {
       columns.sort((a, b) => a.order - b.order);
       const replaceableItem = columns.splice(source.index, 1);
       columns.splice(destination.index, 0, replaceableItem[0]);
+
       dispatch(
         setLocalBoardColumns([
           source.droppableId,
@@ -63,11 +58,9 @@ const BoardPage = () => {
           }),
         ])
       );
-      const newOrderedColumns = columns.map((item, index) => ({
-        _id: item._id,
-        order: index,
-      }));
-      patchColumns(newOrderedColumns);
+
+      reorderColumnsCall(columns);
+
       return;
     }
 
@@ -88,13 +81,8 @@ const BoardPage = () => {
         ])
       );
 
-      const newOrderedColumn = column.map((item, index) => ({
-        _id: item._id,
-        order: index,
-        columnId: item.columnId,
-      }));
+      reorderTasksCall(column, source.droppableId);
 
-      patchTasks(newOrderedColumn);
       return;
     } else if (destination.droppableId !== source.droppableId) {
       const columnSource = [...(columnsTasks.get(source.droppableId) as ITask[])];
@@ -127,18 +115,13 @@ const BoardPage = () => {
         ])
       );
 
-      const newOrderedColumnSource = columnSource.map((item, index) => ({
-        _id: item._id,
-        order: index,
-        columnId: source.droppableId,
-      }));
-      const newOrderedColumnDestination = columnDestination.map((item, index) => ({
-        _id: item._id,
-        order: index,
-        columnId: destination.droppableId,
-      }));
+      reorderTasksCall(
+        columnSource,
+        source.droppableId,
+        columnDestination,
+        destination.droppableId
+      );
 
-      patchTasks([...newOrderedColumnSource, ...newOrderedColumnDestination]);
       return;
     }
   };

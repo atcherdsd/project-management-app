@@ -41,6 +41,7 @@ export const tasksCalls = createApi({
         method: 'PATCH',
         body,
       }),
+      invalidatesTags: ['Tasks'],
     }),
   }),
 });
