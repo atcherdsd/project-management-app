@@ -12,9 +12,12 @@ import { setSignUpDataToRedux } from '../../../store/reducers/SignUpDataReducer'
 import Modal from '../../../components/Modal/modal';
 import ModalFormResponse from '../../Modal/modals/modalFormResponse';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import { useNavigate } from 'react-router-dom';
+import { Paths } from '../../../helpers/routerPaths';
 
 const EditProfilePage = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const {
     isSuccess,
     isLoading,
@@ -39,7 +42,10 @@ const EditProfilePage = () => {
       patch: data,
     })
       .unwrap()
-      .then((data) => dispatch(setSignUpDataToRedux(data)))
+      .then((data) => {
+        dispatch(setSignUpDataToRedux(data));
+        navigate(`/${Paths.SignIn}`);
+      })
       .catch((err) => {
         throw new Error(err.data.message);
       });
@@ -49,6 +55,7 @@ const EditProfilePage = () => {
   /////////////////////////////////
   function deleteUserR() {
     deleteUser({ path: `users/${localStorage.getItem('id')}` });
+    navigate(`/${Paths.SignUp}`);
     localStorage.removeItem('token');
     localStorage.removeItem('id');
   }
