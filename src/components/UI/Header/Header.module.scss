@@ -1,4 +1,6 @@
 @import "../../../styleVariablesAndMixines/headerAndFooter.scss";
+$bg-base: #764a23;
+$bg-scroll: #9b612e;
 
 .container {
   @include base-style;
@@ -8,14 +10,14 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: white;
+  background-color: $bg-base;
   transition: 0.3s;
   &_scrolled {
-    background-color: #9b612e;
+    background-color: $bg-scroll;
   }
   .wrapper {
     @include base-wrapper;
-    gap: 15px;
+    gap: 2rem;
     justify-content: end;
   }
 }

@@ -58,3 +58,8 @@ $fs-benefits-title: 3rem;
     font-size: 2.5rem;
   }
 }
+@media (max-width: 400px) {
+  .container .benefits_container .benefits_title {
+    font-size: $font-size-large;
+  }
+}

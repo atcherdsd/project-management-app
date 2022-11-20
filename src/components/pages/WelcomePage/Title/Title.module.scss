@@ -93,3 +93,12 @@ $clr-proposal: floralwhite;
     }
   }
 }
+@media (max-width: 400px) {
+  .wrapper {
+    .container {
+    .proposal {
+      font-size: $font-size-large;
+      }
+    }
+  }
+}

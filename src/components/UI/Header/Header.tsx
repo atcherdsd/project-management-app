@@ -3,6 +3,7 @@ import cl from './Header.module.scss';
 import Navbar from '../Navbar/Navbar';
 import LanguageSwitch from './LanguageSwitch/LanguageSwitch';
 import TeamLogo from './TeamLogo/TeamLogo';
+import BurgerSwitch from './BurgerSwitch/BurgerSwitch';
 
 const Header = () => {
   const [activeClass, setActiveClass] = useState(cl.container);
@@ -25,6 +26,7 @@ const Header = () => {
         <TeamLogo />
         <Navbar />
         <LanguageSwitch />
+        <BurgerSwitch />
       </div>
     </header>
   );
