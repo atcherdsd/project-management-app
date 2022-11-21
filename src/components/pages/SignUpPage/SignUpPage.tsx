@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cl from './SignUpPage.module.scss';
 import SignUpForm from '../../SighUpForm/SignUpForm';
 import { FormValues } from '../../../types/formTypes';
@@ -28,12 +28,13 @@ const SignUpPage = () => {
     },
     { skip: !signUpData.login }
   );
-  if (responseData) {
-    setTimeout(() => {
+  useEffect(() => {
+    if (responseData) {
       dispatch(setSignUpDataToRedux(responseData as FormValues));
       navigate(`/${Paths.SignIn}`);
-    }, 3000);
-  }
+    }
+  }, [responseData]);
+
   function handleSubmit(data: FormValues) {
     setSignUpData(data);
   }
