@@ -1,7 +1,7 @@
 import dictionary from '../../../../dictionary';
 import { useAppSelector } from '../../../../hooks/redux';
 import { useTranslate } from '../../../../hooks/useTranslate';
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { IWelcomePageLanguage } from 'types/dictionaryTypes';
 import cl from './Description.module.scss';
 import Benefit from '../../../../components/UI/Benefit/Benefit';
@@ -10,9 +10,9 @@ const Description: React.FC = (): JSX.Element => {
   const { language } = useAppSelector((state) => state.LanguageReducer);
   const [T, setT] = useTranslate<IWelcomePageLanguage>(dictionary.WelcomePage, language);
 
-  useMemo(() => {
+  useEffect(() => {
     setT();
-  }, [language]);
+  }, [language, setT]);
 
   return (
     <section className={cl.container}>

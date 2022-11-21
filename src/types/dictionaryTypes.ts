@@ -37,7 +37,19 @@ export interface IWelcomePage {
   RU: IWelcomePageLanguage;
 }
 
+export interface INotFoundPageLanguage {
+  declaration: string;
+  exitMessage: string;
+  seconds: string;
+}
+
+export interface INotFoundPage {
+  EN: INotFoundPageLanguage;
+  RU: INotFoundPageLanguage;
+}
+
 export interface Idictionary {
   Navbar: INavbar;
   WelcomePage: IWelcomePage;
+  NotFoundPage: INotFoundPage;
 }

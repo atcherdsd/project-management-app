@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import cl from './Navbar.module.scss';
 import { NavLink } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
@@ -24,9 +24,9 @@ const Navbar = () => {
     isOpenedMenu ? dispatch(setMenu(!isOpenedMenu)) : null;
   };
 
-  useMemo(() => {
+  useEffect(() => {
     setT();
-  }, [language]);
+  }, [language, setT]);
 
   return (
     <div className={isOpenedMenu ? `${cl.overlay}` : ''} onClick={handleMenuClick}>

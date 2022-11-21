@@ -64,6 +64,18 @@ const dictionary: Idictionary = {
       ourTeam: 'Команда разработчиков приложения',
     },
   },
+  NotFoundPage: {
+    EN: {
+      declaration: 'Requested page not found',
+      exitMessage: "You'll be redirected to the home page via",
+      seconds: 'sec',
+    },
+    RU: {
+      declaration: 'Запрашиваемая страница не найдена',
+      exitMessage: 'Вы будете перенаправлены на домашнюю страницу через',
+      seconds: 'сек',
+    },
+  },
 };
 
 export default dictionary;

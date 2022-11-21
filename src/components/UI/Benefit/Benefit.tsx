@@ -1,7 +1,7 @@
 import dictionary from '../../../dictionary';
 import { useAppSelector } from '../../../hooks/redux';
 import { useTranslate } from '../../../hooks/useTranslate';
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { IWelcomePageLanguage } from 'types/dictionaryTypes';
 import cl from './Benefit.module.scss';
 import team from '../../../assets/team-flexibility-150x150.svg';
@@ -13,9 +13,9 @@ const Benefit: React.FC = (): JSX.Element => {
   const { language } = useAppSelector((state) => state.LanguageReducer);
   const [T, setT] = useTranslate<IWelcomePageLanguage>(dictionary.WelcomePage, language);
 
-  useMemo(() => {
+  useEffect(() => {
     setT();
-  }, [language]);
+  }, [language, setT]);
 
   return (
     <>
