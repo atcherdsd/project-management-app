@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useUpdateTitleMutation } from '../../../../../API/columnsCalls';
+import cl from './ColumnTitleInput.module.scss';
 
 interface IColumnTitleInputProps {
   title: string;
@@ -20,6 +21,7 @@ const ColumnTitleInput: FC<IColumnTitleInputProps> = ({
   const [updateTitle, {}] = useUpdateTitleMutation();
   return (
     <form
+      className={cl.container}
       onSubmit={(e) => {
         e.preventDefault();
         callback(inputTitle);

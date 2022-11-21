@@ -20,6 +20,12 @@ export const boardsCalls = createApi({
       }),
       providesTags: () => ['Boards'],
     }),
+    getBoard: builder.query<IBoard, string>({
+      query: (boardId) => ({
+        url: `boards/${boardId}`,
+        method: 'GET',
+      }),
+    }),
     createNewBoard: builder.mutation({
       query: (body) => ({
         url: 'boards',
@@ -38,5 +44,9 @@ export const boardsCalls = createApi({
   }),
 });
 
-export const { useGetAllBoardsQuery, useCreateNewBoardMutation, useDeleteBoardMutation } =
-  boardsCalls;
+export const {
+  useGetAllBoardsQuery,
+  useCreateNewBoardMutation,
+  useDeleteBoardMutation,
+  useGetBoardQuery,
+} = boardsCalls;

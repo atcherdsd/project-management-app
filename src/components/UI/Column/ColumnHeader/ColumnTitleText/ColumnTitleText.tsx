@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import cl from './ColumnTitleText.module.scss';
 
 interface IColumnTitleTextProps {
   title: string;
@@ -6,7 +7,11 @@ interface IColumnTitleTextProps {
 }
 
 const ColumnTitleText: FC<IColumnTitleTextProps> = ({ title, callback }) => {
-  return <h2 onClick={callback}>{title}</h2>;
+  return (
+    <h2 className={cl.container} onClick={callback}>
+      {title}
+    </h2>
+  );
 };
 
 export default ColumnTitleText;

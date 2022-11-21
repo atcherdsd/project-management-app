@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import cl from './BoardPage.module.scss';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useGetAllColumnsQuery, useCreateNewColumnMutation } from '../../../API/columnsCalls';
-import { IColumn, ITask } from '../../../types/boardTypes';
+import { IBoard, IColumn, ITask } from '../../../types/boardTypes';
 import Column from '../../UI/Column/Column';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { BoardSlice } from '../../../store/reducers/BoardReducer';
@@ -13,12 +13,14 @@ import {
   useSetLocalBoardColumns,
 } from '../../../hooks/useSetLocalStateBoards';
 import { sortColumnOrBoard, sortColumnsTasks } from '../../../helpers/sortColumnsTasksState';
+import { useGetBoardQuery } from '../../../API/boardsCalls';
 
 const BoardPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const boardId = location.pathname.replace('/main/', '');
   const { data } = useGetAllColumnsQuery(boardId);
+  const { data: boardProps } = useGetBoardQuery(boardId);
   const [createNewColumn, {}] = useCreateNewColumnMutation();
   const { columnsTasks, boardColumns } = useAppSelector((state) => state.BoardReducer);
   const { setLocalBoardColumns } = BoardSlice.actions;
@@ -104,7 +106,7 @@ const BoardPage = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={cl.container}>
-        <h1 className={cl.title}>Board</h1>
+        <h1 className={cl.title}>Board {boardProps && (boardProps as IBoard).title}</h1>
         <Droppable droppableId={boardId} direction="horizontal" type="column">
           {(provided) => (
             <div

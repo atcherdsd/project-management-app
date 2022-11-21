@@ -1,7 +1,8 @@
-import React, { FC, SetStateAction } from 'react';
+import React, { FC, SetStateAction, Fragment } from 'react';
 import ColumnTitleText from './ColumnTitleText/ColumnTitleText';
 import ColumnTitleInput from './ColumnTitleInput/ColumnTitleInput';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
+import cl from './ColumnHeader.module.scss';
 
 interface IColumnHeaderProps {
   status: 'title' | 'input';
@@ -32,24 +33,31 @@ const ColumnHeader: FC<IColumnHeaderProps> = ({
   dragHandleProps,
 }) => {
   return (
-    <div {...dragHandleProps}>
-      {status === 'title' ? (
-        <ColumnTitleText
-          title={titleStatusValue}
-          callback={() => setTitleStatus({ status: 'input', value: titleStatusValue })}
-        />
-      ) : (
-        <ColumnTitleInput
-          title={titleStatusValue}
-          callback={(value: string) => setTitleStatus({ status: 'title', value })}
-          columnId={columnId}
-          boardId={boardId}
-          order={order}
-        />
-      )}
-      <button onClick={deleteColumnOnClick}>Delete Column</button>
-      <button onClick={createNewTaskOnClick}>Create Task</button>
-    </div>
+    <Fragment>
+      <div {...dragHandleProps} className={cl.container}>
+        {status === 'title' ? (
+          <ColumnTitleText
+            title={titleStatusValue}
+            callback={() => setTitleStatus({ status: 'input', value: titleStatusValue })}
+          />
+        ) : (
+          <ColumnTitleInput
+            title={titleStatusValue}
+            callback={(value: string) => setTitleStatus({ status: 'title', value })}
+            columnId={columnId}
+            boardId={boardId}
+            order={order}
+          />
+        )}
+        <button className={cl.buttonDeleteColumn} onClick={deleteColumnOnClick}>
+          Delete Column
+        </button>
+        <button className={cl.buttonCreateTask} onClick={createNewTaskOnClick}>
+          Create Task
+        </button>
+      </div>
+      <div className={cl.placeholder} />
+    </Fragment>
   );
 };
 
