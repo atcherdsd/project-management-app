@@ -9,7 +9,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
 import { useAppDispatch } from '../../../hooks/redux';
-import { setSignUpDataToRedux } from '../../../store/reducers/SignUpDataReducer';
+import { setSignUpDataResponse } from '../../../store/reducers/SignUpDataReducer';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const SignUpPage = () => {
   );
   useEffect(() => {
     if (responseData) {
-      dispatch(setSignUpDataToRedux(responseData as FormValues));
+      dispatch(setSignUpDataResponse(responseData as FormValues));
       navigate(`/${Paths.SignIn}`);
     }
   }, [responseData]);
