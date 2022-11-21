@@ -38,3 +38,9 @@
   filter: invert(0.5);
   transition: 0.3s;
 }
+@media (max-width: 400px) {
+  .photo {
+    width: 12rem;
+    margin: 0 auto;
+  }
+}

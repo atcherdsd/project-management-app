@@ -18,4 +18,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 0 10px;
+  }
 }
