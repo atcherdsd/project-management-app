@@ -9,7 +9,7 @@ import UpdateUserForm from '../../updateUserForm/updateUserForm';
 import { FormValues } from 'types/formTypes';
 import { useAppDispatch } from '../../../hooks/redux';
 import { setSignUpDataResponse } from '../../../store/reducers/SignUpDataReducer';
-import Modal from '../../../components/Modal/modal';
+import { Modal } from '../../../components/Modal/modal';
 import ModalFormResponse from '../../Modal/modals/modalFormResponse';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { useNavigate } from 'react-router-dom';

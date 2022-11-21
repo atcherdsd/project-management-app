@@ -3,7 +3,7 @@ import cl from './SignUpPage.module.scss';
 import SignUpForm from '../../SighUpForm/SignUpForm';
 import { ResponseStateSignUp, FormValues } from '../../../types/formTypes';
 import { useSignUpAuthQuery } from '../../../API/authCalls';
-import Modal from '../../../components/Modal/modal';
+import { Modal } from '../../../components/Modal/modal';
 import ModalFormResponse from '../../Modal/modals/modalFormResponse';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { useNavigate } from 'react-router-dom';

@@ -8,7 +8,7 @@ import { ISighUpFormLanguage } from 'types/dictionaryTypes';
 import { UpdateProps, FormValues } from 'types/formTypes';
 import cl from '../updateUserForm/UpdateForm.module.scss';
 import ConfirmModal from '../Modal/modals/confirmModal';
-import Modal from '../Modal/modal';
+import { Modal } from '../Modal/modal';
 
 function UpdateUserForm(props: UpdateProps) {
   const {
@@ -22,6 +22,7 @@ function UpdateUserForm(props: UpdateProps) {
     isModalOpen,
     confirmDeleteUser,
   } = props;
+
   // Use Translate
   const { language } = useAppSelector((state) => state.LanguageReducer);
   const [T, setT] = useTranslate<ISighUpFormLanguage>(dictionary.SighUpForm, language);

@@ -1,28 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-const modalRoot = document.getElementById('modal-root') as HTMLElement;
-type Props = {
-  [key: string]: JSX.Element;
+type IProps = {
+  className?: string;
+  el?: string;
+  children: React.ReactNode;
 };
-export default class Modal extends React.Component<Props> {
-  el: HTMLDivElement;
-  constructor(props: Props) {
-    super(props);
-    this.el = document.createElement('div');
-  }
 
-  componentDidMount() {
-    modalRoot.appendChild(this.el);
+const modalRoot = document.getElementById('modal-root') as HTMLElement;
+
+export const Modal = ({ children, className, el = 'div' }: IProps) => {
+  const [container] = useState(document.createElement(el));
+
+  if (className) container.classList.add(className);
+
+  useEffect(() => {
+    modalRoot.appendChild(container);
     document.body.style.overflow = 'hidden';
-  }
+    document.body.classList.add('enableBlur');
+    return () => {
+      modalRoot.removeChild(container);
+      document.body.style.overflow = '';
+    };
+  }, []);
 
-  componentWillUnmount() {
-    modalRoot.removeChild(this.el);
-    document.body.style.overflow = '';
-  }
-
-  render() {
-    return ReactDOM.createPortal(this.props.children, this.el);
-  }
-}
+  return ReactDOM.createPortal(children, container);
+};
