@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import cl from './Column.module.scss';
 import { IColumn, ITask } from '../../../types/boardTypes';
 import { useDeleteColumnMutation } from '../../../API/columnsCalls';
@@ -7,20 +7,24 @@ import Task from '../Task/Task';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { BoardSlice } from '../../../store/reducers/BoardReducer';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import ColumnHeader from './ColumnHeader/ColumnHeader';
 
 interface IColumnProps {
   column: IColumn;
-  boardId: string;
 }
 
-const Column: FC<IColumnProps> = ({ column, boardId }) => {
-  const { title, _id: columnId, order } = column;
+const Column: FC<IColumnProps> = ({ column }) => {
+  const { title, _id: columnId, order, boardId } = column;
   const [deleteColumn, {}] = useDeleteColumnMutation();
   const { data } = useGetAllTasksQuery({ boardId, columnId });
   const [createNewTask, {}] = useCreateNewTaskMutation();
   const { setLocalColumnTasks } = BoardSlice.actions;
   const dispatch = useAppDispatch();
   const { columnsTasks } = useAppSelector((state) => state.BoardReducer);
+  const [titleStatus, setTitleStatus] = useState<{ status: 'title' | 'input'; value: string }>({
+    status: 'title',
+    value: title,
+  });
   useEffect(() => {
     if (data) dispatch(setLocalColumnTasks([columnId, [...(data as ITask[])]]));
   }, [data]);
@@ -43,9 +47,17 @@ const Column: FC<IColumnProps> = ({ column, boardId }) => {
     <Draggable draggableId={columnId} index={order}>
       {(provided) => (
         <div className={cl.container} {...provided.draggableProps} ref={provided.innerRef}>
-          <h2 {...provided.dragHandleProps}>{title}</h2>
-          <button onClick={deleteColumnOnClick}>Delete Column</button>
-          <button onClick={createNewTaskOnClick}>Create Task</button>
+          <ColumnHeader
+            status={titleStatus.status}
+            titleStatusValue={titleStatus.value}
+            setTitleStatus={setTitleStatus}
+            columnId={columnId}
+            boardId={boardId}
+            order={order}
+            deleteColumnOnClick={deleteColumnOnClick}
+            createNewTaskOnClick={createNewTaskOnClick}
+            dragHandleProps={provided.dragHandleProps}
+          />
           <Droppable droppableId={columnId} type="task">
             {(provided) => (
               <div

@@ -115,7 +115,7 @@ const BoardPage = () => {
               {boardColumns.get(boardId) &&
                 [...(boardColumns.get(boardId) as IColumn[])]
                   .sort((a, b) => a.order - b.order)
-                  .map((column) => <Column key={column._id} column={column} boardId={boardId} />)}
+                  .map((column) => <Column key={column._id} column={column} />)}
               {provided.placeholder}
               <button onClick={addColumnOnClick}>Add Column</button>
             </div>

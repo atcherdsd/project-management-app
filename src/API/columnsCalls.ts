@@ -43,6 +43,14 @@ export const columnsCalls = createApi({
       }),
       invalidatesTags: ['Columns'],
     }),
+    updateTitle: builder.mutation({
+      query: ({ body, boardId, columnId }) => ({
+        url: `/boards/${boardId}/columns/${columnId}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['Columns'],
+    }),
   }),
 });
 
@@ -51,4 +59,5 @@ export const {
   useCreateNewColumnMutation,
   useDeleteColumnMutation,
   usePatchColumnsSetMutation,
+  useUpdateTitleMutation,
 } = columnsCalls;
