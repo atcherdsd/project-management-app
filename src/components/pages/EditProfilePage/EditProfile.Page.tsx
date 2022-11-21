@@ -8,7 +8,7 @@ import {
 import UpdateUserForm from '../../updateUserForm/updateUserForm';
 import { FormValues } from 'types/formTypes';
 import { useAppDispatch } from '../../../hooks/redux';
-import { setSignUpDataToRedux } from '../../../store/reducers/SignUpDataReducer';
+import { setSignUpDataResponse } from '../../../store/reducers/SignUpDataReducer';
 import Modal from '../../../components/Modal/modal';
 import ModalFormResponse from '../../Modal/modals/modalFormResponse';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
@@ -42,7 +42,7 @@ const EditProfilePage = () => {
     })
       .unwrap()
       .then((data) => {
-        dispatch(setSignUpDataToRedux(data));
+        dispatch(setSignUpDataResponse(data));
         refetch();
         navigate(`/${Paths.SignIn}`);
       })
@@ -67,7 +67,7 @@ const EditProfilePage = () => {
         .unwrap()
         .then(() => {
           navigate(`/${Paths.SignUp}`);
-          dispatch(setSignUpDataToRedux({ login: '', _id: '', name: '' }));
+          dispatch(setSignUpDataResponse({ login: '', _id: '', name: '' }));
           refetch();
           localStorage.removeItem('token');
           localStorage.removeItem('id');

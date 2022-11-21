@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cl from './SignUpPage.module.scss';
 import SignUpForm from '../../SighUpForm/SignUpForm';
 import { ResponseStateSignUp, FormValues } from '../../../types/formTypes';
@@ -9,7 +9,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
 import { useAppDispatch } from '../../../hooks/redux';
-import { setSignUpDataToRedux } from '../../../store/reducers/SignUpDataReducer';
+import { setSignUpDataResponse } from '../../../store/reducers/SignUpDataReducer';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -28,12 +28,12 @@ const SignUpPage = () => {
     },
     { skip: !signUpData.login }
   );
-  if (responseData) {
-    setTimeout(() => {
-      dispatch(setSignUpDataToRedux(responseData as ResponseStateSignUp));
+  useEffect(() => {
+    if (responseData) {
+      dispatch(setSignUpDataResponse(responseData as ResponseStateSignUp));
       navigate(`/${Paths.SignIn}`);
-    }, 3000);
-  }
+    }
+  }, [responseData]);
   function handleSubmit(data: FormValues) {
     setSignUpData(data);
   }

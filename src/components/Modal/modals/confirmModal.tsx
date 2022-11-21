@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-import cl from './genericModal.module.scss';
+import cl from './confirmModal.module.scss';
 import { ModalProp } from 'types/modalType';
 import dictionary from '../../../dictionary/index';
 import { useTranslate } from '../../../hooks/useTranslate';
 import { useAppSelector } from '../../../hooks/redux';
 import { IModalLanguage } from 'types/dictionaryTypes';
 
-export default function GenericModal(props: ModalProp) {
+export default function ConfirmModal(props: ModalProp) {
   const { handler } = props;
   // Use Translate
   const { language } = useAppSelector((state) => state.LanguageReducer);
