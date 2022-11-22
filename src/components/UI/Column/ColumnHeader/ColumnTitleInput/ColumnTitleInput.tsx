@@ -36,6 +36,10 @@ const ColumnTitleInput: FC<IColumnTitleInputProps> = ({
         }}
         autoFocus
       />
+      <button type="submit">submit</button>
+      <button type="submit" onClick={() => setInputTitle(title)}>
+        cancel
+      </button>
     </form>
   );
 };

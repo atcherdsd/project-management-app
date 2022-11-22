@@ -3,8 +3,11 @@
 .container {
   height: 20px;
   grid-area: title;
+  display: flex;
+  flex-direction: row;
   input {
     height: 100%;
+    text-overflow: ellipsis;
     font-size: $font-size-middle;
     line-height: $font-size-middle;
   }
