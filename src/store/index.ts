@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import LanguageReducer from './reducers/LanguageReducer';
 import BoardReducer from './reducers/BoardReducer';
+import SearchbarReducer from './reducers/SearchbarReducer';
 import { authCalls } from '../API/authCalls';
 import { boardsCalls } from '../API/boardsCalls';
 import { columnsCalls } from '../API/columnsCalls';
@@ -12,6 +13,7 @@ enableMapSet();
 const rootReducer = combineReducers({
   LanguageReducer,
   BoardReducer,
+  SearchbarReducer,
   [authCalls.reducerPath]: authCalls.reducer,
   [boardsCalls.reducerPath]: boardsCalls.reducer,
   [columnsCalls.reducerPath]: columnsCalls.reducer,
