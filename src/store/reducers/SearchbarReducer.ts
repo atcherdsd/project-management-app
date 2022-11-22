@@ -12,7 +12,6 @@ export const SearchbarSlice = createSlice({
   reducers: {
     setSearchbar(state, action: PayloadAction<string>) {
       state.searchbar = action.payload;
-      console.log(action.payload);
     },
   },
 });
