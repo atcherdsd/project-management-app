@@ -32,7 +32,7 @@ function SignInForm(props: SignUpProps) {
     });
   });
   return (
-    <form action="" className={cl.form} onSubmit={onSubmit}>
+    <form className={cl.form} onSubmit={onSubmit}>
       <p className={cl.form__description}>{T.formWelcome}</p>
       <div className={cl.form__login}>
         <input

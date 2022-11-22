@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { QueryProps, ResponseStateSignUp } from '../types/formTypes';
 import baseUrl from './baseUrl';
 
-export const getUser = createApi({
-  reducerPath: 'getUser',
+export const editProfileCalls = createApi({
+  reducerPath: 'editProfileCalls',
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: (headers) => {
@@ -11,12 +11,14 @@ export const getUser = createApi({
       headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
     },
   }),
+  tagTypes: ['update'],
   endpoints: (builder) => ({
     getUser: builder.query<ResponseStateSignUp, QueryProps>({
       query: (props) => ({
         url: `${props.path}`,
         method: 'GET',
       }),
+      providesTags: () => ['update'],
     }),
     updateUser: builder.mutation<ResponseStateSignUp, QueryProps>({
       query: (props) => ({
@@ -24,6 +26,7 @@ export const getUser = createApi({
         method: 'PUT',
         body: props.patch,
       }),
+      invalidatesTags: ['update'],
     }),
     deleteUser: builder.mutation<ResponseStateSignUp, QueryProps>({
       query: (props) => ({
@@ -31,8 +34,9 @@ export const getUser = createApi({
         method: 'DELETE',
         body: props.patch,
       }),
+      invalidatesTags: ['update'],
     }),
   }),
 });
 
-export const { useGetUserQuery, useUpdateUserMutation, useDeleteUserMutation } = getUser;
+export const { useGetUserQuery, useUpdateUserMutation, useDeleteUserMutation } = editProfileCalls;

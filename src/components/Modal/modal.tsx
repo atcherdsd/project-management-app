@@ -17,7 +17,6 @@ export const Modal = ({ children, className, el = 'div' }: IProps) => {
   useEffect(() => {
     modalRoot.appendChild(container);
     document.body.style.overflow = 'hidden';
-    document.body.classList.add('enableBlur');
     return () => {
       modalRoot.removeChild(container);
       document.body.style.overflow = '';

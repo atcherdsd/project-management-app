@@ -23,7 +23,6 @@ const EditProfilePage = () => {
     isSuccess,
     isLoading,
     data: responseData,
-    refetch,
   } = useGetUserQuery(
     {
       path: `users/${localStorage.getItem('id')}`,
@@ -43,8 +42,6 @@ const EditProfilePage = () => {
       .unwrap()
       .then((data) => {
         dispatch(setSignUpDataResponse(data));
-        refetch();
-        navigate(`/${Paths.SignIn}`);
       })
       .catch((err) => {
         throw new Error(err.data.message);
@@ -68,7 +65,6 @@ const EditProfilePage = () => {
         .then(() => {
           navigate(`/${Paths.SignUp}`);
           dispatch(setSignUpDataResponse({ login: '', _id: '', name: '' }));
-          refetch();
           localStorage.removeItem('token');
           localStorage.removeItem('id');
         });

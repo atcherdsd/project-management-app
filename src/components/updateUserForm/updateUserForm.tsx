@@ -41,7 +41,7 @@ function UpdateUserForm(props: UpdateProps) {
   });
   return (
     <>
-      <form action="" className={cl.form} onSubmit={onSubmit}>
+      <form className={cl.form} onSubmit={onSubmit}>
         <p className={cl.form__description}>{T.edit}</p>
         {isSuccess && (
           <div className={cl.form__group}>
