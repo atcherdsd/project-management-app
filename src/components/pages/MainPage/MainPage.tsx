@@ -7,13 +7,19 @@ import { useTranslate } from '../../../hooks/useTranslate';
 
 const MainPage = () => {
   const T = useTranslate();
-  const { data } = useGetAllBoardsQuery(null);
+  const { data, isLoading } = useGetAllBoardsQuery(null);
   return (
     <div className={cl.container}>
       <h1 className={cl.title}>{T('MainPage.boards')}</h1>
-      <div className={cl.boardsContainer}>
-        {data && (data as IBoard[]).map((board) => <Board key={board._id} board={board} />)}
-      </div>
+      {isLoading ? (
+        <h2 style={{ margin: 'auto' }}>Loading...</h2>
+      ) : (
+        <div className={cl.boardsContainer}>
+          {(data as IBoard[]).map((board) => (
+            <Board key={board._id} board={board} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

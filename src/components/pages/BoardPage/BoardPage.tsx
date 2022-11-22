@@ -20,8 +20,8 @@ const BoardPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const boardId = location.pathname.replace('/main/', '');
-  const { data } = useGetAllColumnsQuery(boardId);
-  const { data: boardProps } = useGetBoardQuery(boardId);
+  const { data, isLoading: isLoadingData } = useGetAllColumnsQuery(boardId);
+  const { data: boardProps, isLoading: isLoadingBoardProps } = useGetBoardQuery(boardId);
   const [createNewColumn, {}] = useCreateNewColumnMutation();
   const { columnsTasks, boardColumns } = useAppSelector((state) => state.BoardReducer);
   const { setLocalBoardColumns } = BoardSlice.actions;
@@ -107,30 +107,35 @@ const BoardPage = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className={cl.container}>
-        <h1 className={cl.title}>
-          {T('BoardPage.board')} {boardProps && (boardProps as IBoard).title}
-        </h1>
-        <Droppable droppableId={boardId} direction="horizontal" type="column">
-          {(provided) => (
-            <div
-              className={cl.columnsContainer}
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {boardColumns.get(boardId) &&
-                [...(boardColumns.get(boardId) as IColumn[])]
+      {isLoadingData || isLoadingBoardProps ? (
+        <h2 style={{ margin: 'auto' }}>Loading...</h2>
+      ) : (
+        <div className={cl.container}>
+          <h1 className={cl.title}>
+            {T('BoardPage.board')} {boardProps && (boardProps as IBoard).title}
+          </h1>
+          <Droppable droppableId={boardId} direction="horizontal" type="column">
+            {(provided) => (
+              <div
+                className={cl.columnsContainer}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {[...(boardColumns.get(boardId) as IColumn[])]
                   .sort((a, b) => a.order - b.order)
-                  .map((column) => <Column key={column._id} column={column} />)}
-              {provided.placeholder}
-              <button onClick={addColumnOnClick}>{T('BoardPage.addColumn')}</button>
-            </div>
-          )}
-        </Droppable>
-        <button className={cl.button} onClick={backToMainOnClick}>
-          {T('BoardPage.back')}
-        </button>
-      </div>
+                  .map((column) => (
+                    <Column key={column._id} column={column} />
+                  ))}
+                {provided.placeholder}
+                <button onClick={addColumnOnClick}>{T('BoardPage.addColumn')}</button>
+              </div>
+            )}
+          </Droppable>
+          <button className={cl.button} onClick={backToMainOnClick}>
+            {T('BoardPage.back')}
+          </button>
+        </div>
+      )}
     </DragDropContext>
   );
 };
