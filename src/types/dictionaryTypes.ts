@@ -1,4 +1,4 @@
-export interface INavbarLanguage {
+interface INavbarLanguage {
   signin: string;
   signup: string;
   welcome: string;
@@ -6,6 +6,9 @@ export interface INavbarLanguage {
   edit: string;
   signout: string;
   newboard: string;
+}
+
+interface ISignUpFormLanguage {
   formWelcome: string;
   formLabelName: string;
   formLogin: string;
@@ -19,11 +22,12 @@ export interface INavbarLanguage {
   formRegistered: string;
 }
 
-export interface INavbar {
-  EN: INavbarLanguage;
-  RU: INavbarLanguage;
+export interface ILanguage {
+  Navbar: INavbarLanguage;
+  SignUpForm: ISignUpFormLanguage;
 }
 
 export interface Idictionary {
-  Navbar: INavbar;
+  EN: ILanguage;
+  RU: ILanguage;
 }

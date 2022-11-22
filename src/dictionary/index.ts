@@ -1,8 +1,8 @@
 import { Idictionary } from '../types/dictionaryTypes';
 
 const dictionary: Idictionary = {
-  Navbar: {
-    EN: {
+  EN: {
+    Navbar: {
       signin: 'Sign in',
       signup: 'Sign Up',
       welcome: 'Welcome',
@@ -10,6 +10,8 @@ const dictionary: Idictionary = {
       edit: 'Edit Profile',
       signout: 'Sign Out',
       newboard: 'Create new board',
+    },
+    SignUpForm: {
       formWelcome: 'Get unlimited access to your board',
       formLabelName: 'Name',
       formLogin: 'Login',
@@ -22,7 +24,9 @@ const dictionary: Idictionary = {
       formPasswordValidateMsg: 'Should contains one or greater then numbers',
       formRegistered: 'Already registered?',
     },
-    RU: {
+  },
+  RU: {
+    Navbar: {
       signin: 'Войти',
       signup: 'Зарегестрироваться',
       welcome: 'Добро пожаловать',
@@ -30,6 +34,8 @@ const dictionary: Idictionary = {
       edit: 'Профиль',
       signout: 'Выйти',
       newboard: 'Новая доска',
+    },
+    SignUpForm: {
       formWelcome: 'Получите неограниченный доступ к вашей доске',
       formLabelName: 'Имя',
       formLogin: 'Логин',
