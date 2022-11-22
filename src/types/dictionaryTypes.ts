@@ -22,9 +22,38 @@ interface ISignUpFormLanguage {
   formRegistered: string;
 }
 
-export interface ILanguage {
+interface IMainPageLanguage {
+  boards: string;
+}
+
+interface IBoardLanguage {
+  created: string;
+  delete: string;
+}
+
+interface IBorardPageLanguage {
+  board: string;
+  addColumn: string;
+  back: string;
+}
+
+interface IColumnHeaderLanguage {
+  deleteCol: string;
+  createTask: string;
+}
+
+interface ITaskLanguage {
+  deleteTask: string;
+}
+
+interface ILanguage {
   Navbar: INavbarLanguage;
   SignUpForm: ISignUpFormLanguage;
+  MainPage: IMainPageLanguage;
+  Board: IBoardLanguage;
+  BoardPage: IBorardPageLanguage;
+  ColumnHeader: IColumnHeaderLanguage;
+  Task: ITaskLanguage;
 }
 
 export interface Idictionary {

@@ -14,6 +14,7 @@ import {
 } from '../../../hooks/useSetLocalStateBoards';
 import { sortColumnOrBoard, sortColumnsTasks } from '../../../helpers/sortColumnsTasksState';
 import { useGetBoardQuery } from '../../../API/boardsCalls';
+import { useTranslate } from '../../../hooks/useTranslate';
 
 const BoardPage = () => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const BoardPage = () => {
   const dispatch = useAppDispatch();
   const reorderLocalTasksState = useSetLocalColumnTasks();
   const reorderLocalColumnsState = useSetLocalBoardColumns();
+  const T = useTranslate();
 
   useEffect(() => {
     if (data) dispatch(setLocalBoardColumns([boardId, [...(data as IColumn[])]]));
@@ -106,7 +108,9 @@ const BoardPage = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={cl.container}>
-        <h1 className={cl.title}>Board {boardProps && (boardProps as IBoard).title}</h1>
+        <h1 className={cl.title}>
+          {T('BoardPage.board')} {boardProps && (boardProps as IBoard).title}
+        </h1>
         <Droppable droppableId={boardId} direction="horizontal" type="column">
           {(provided) => (
             <div
@@ -119,12 +123,12 @@ const BoardPage = () => {
                   .sort((a, b) => a.order - b.order)
                   .map((column) => <Column key={column._id} column={column} />)}
               {provided.placeholder}
-              <button onClick={addColumnOnClick}>Add Column</button>
+              <button onClick={addColumnOnClick}>{T('BoardPage.addColumn')}</button>
             </div>
           )}
         </Droppable>
         <button className={cl.button} onClick={backToMainOnClick}>
-          Back to Main
+          {T('BoardPage.back')}
         </button>
       </div>
     </DragDropContext>

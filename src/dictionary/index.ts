@@ -24,6 +24,25 @@ const dictionary: Idictionary = {
       formPasswordValidateMsg: 'Should contains one or greater then numbers',
       formRegistered: 'Already registered?',
     },
+    MainPage: {
+      boards: 'Boards',
+    },
+    Board: {
+      created: 'Created by',
+      delete: 'Delete',
+    },
+    BoardPage: {
+      board: 'Board',
+      addColumn: 'Add Column',
+      back: 'Back to Main',
+    },
+    ColumnHeader: {
+      deleteCol: 'Delete column',
+      createTask: 'Create task',
+    },
+    Task: {
+      deleteTask: 'Delete task',
+    },
   },
   RU: {
     Navbar: {
@@ -47,6 +66,25 @@ const dictionary: Idictionary = {
       formLoginPatternMsg: 'Должен содержать английские буквы и(или) цифры',
       formPasswordValidateMsg: 'Должен содержать одно или больше чисел',
       formRegistered: 'Уже зарегистрированны?',
+    },
+    MainPage: {
+      boards: 'Доски',
+    },
+    Board: {
+      created: 'Создал',
+      delete: 'Удалить',
+    },
+    BoardPage: {
+      board: 'Доска',
+      addColumn: 'Добавить колонку',
+      back: 'На главную',
+    },
+    ColumnHeader: {
+      deleteCol: 'Удалить колонку',
+      createTask: 'Создать задание',
+    },
+    Task: {
+      deleteTask: 'Удалить задание',
     },
   },
 };

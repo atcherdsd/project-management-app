@@ -2,6 +2,7 @@ import React, { FC, MouseEvent } from 'react';
 import cl from './Board.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteBoardMutation } from '../../../API/boardsCalls';
+import { useTranslate } from '../../../hooks/useTranslate';
 
 interface IBoardProps {
   board: {
@@ -16,6 +17,7 @@ const Board: FC<IBoardProps> = ({ board }) => {
   const { _id: id, owner, title } = board;
   const navigate = useNavigate();
   const [deleteBoard, {}] = useDeleteBoardMutation();
+  const T = useTranslate();
 
   const boardOnClick = () => {
     navigate(`/main/${id}`);
@@ -29,9 +31,11 @@ const Board: FC<IBoardProps> = ({ board }) => {
   return (
     <div className={cl.container} onClick={boardOnClick}>
       <h3 className={cl.title}>{title}</h3>
-      <h4 className={cl.subtitle}>Created by {owner}</h4>
+      <h4 className={cl.subtitle}>
+        {T('Board.created')} {owner}
+      </h4>
       <button className={cl.delete} onClick={(e) => deleteOnClick(e)}>
-        Delete
+        {T('Board.delete')}
       </button>
     </div>
   );

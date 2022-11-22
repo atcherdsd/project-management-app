@@ -3,6 +3,7 @@ import ColumnTitleText from './ColumnTitleText/ColumnTitleText';
 import ColumnTitleInput from './ColumnTitleInput/ColumnTitleInput';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import cl from './ColumnHeader.module.scss';
+import { useTranslate } from '../../../../hooks/useTranslate';
 
 interface IColumnHeaderProps {
   status: 'title' | 'input';
@@ -32,6 +33,7 @@ const ColumnHeader: FC<IColumnHeaderProps> = ({
   createNewTaskOnClick,
   dragHandleProps,
 }) => {
+  const T = useTranslate();
   return (
     <Fragment>
       <div {...dragHandleProps} className={cl.container}>
@@ -50,10 +52,10 @@ const ColumnHeader: FC<IColumnHeaderProps> = ({
           />
         )}
         <button className={cl.buttonDeleteColumn} onClick={deleteColumnOnClick}>
-          Delete Column
+          {T('ColumnHeader.deleteCol')}
         </button>
         <button className={cl.buttonCreateTask} onClick={createNewTaskOnClick}>
-          Create Task
+          {T('ColumnHeader.createTask')}
         </button>
       </div>
       <div className={cl.placeholder} />
