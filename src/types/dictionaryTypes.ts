@@ -1,4 +1,4 @@
-export interface INavbarLanguage {
+interface INavbarLanguage {
   signin: string;
   signup: string;
   welcome: string;
@@ -8,12 +8,45 @@ export interface INavbarLanguage {
   newboard: string;
 }
 
-export interface INavbar {
-  EN: INavbarLanguage;
-  RU: INavbarLanguage;
+interface ISignUpFormLanguage {
+  formWelcome: string;
+  formLabelName: string;
+  formLogin: string;
+  formPassword: string;
+  formSignUp: string;
+  formRequireMsg: string;
+  formOnlyLetter: string;
+  formMinLengthMsg: string;
+  formLoginPatternMsg: string;
+  formPasswordValidateMsg: string;
+  formRegistered: string;
 }
 
-export interface IWelcomePageLanguage {
+interface IMainPageLanguage {
+  boards: string;
+}
+
+interface IBoardLanguage {
+  created: string;
+  delete: string;
+}
+
+interface IBorardPageLanguage {
+  board: string;
+  addColumn: string;
+  back: string;
+}
+
+interface IColumnHeaderLanguage {
+  deleteCol: string;
+  createTask: string;
+}
+
+interface ITaskLanguage {
+  deleteTask: string;
+}
+
+interface IWelcomePageLanguage {
   titleTagline: string;
   titleProposal1: string;
   titleProposal2: string;
@@ -32,24 +65,25 @@ export interface IWelcomePageLanguage {
   ourTeam: string;
 }
 
-export interface IWelcomePage {
-  EN: IWelcomePageLanguage;
-  RU: IWelcomePageLanguage;
-}
-
-export interface INotFoundPageLanguage {
+interface INotFoundPageLanguage {
   declaration: string;
   exitMessage: string;
   seconds: string;
 }
 
-export interface INotFoundPage {
-  EN: INotFoundPageLanguage;
-  RU: INotFoundPageLanguage;
+interface ILanguage {
+  Navbar: INavbarLanguage;
+  SignUpForm: ISignUpFormLanguage;
+  MainPage: IMainPageLanguage;
+  Board: IBoardLanguage;
+  BoardPage: IBorardPageLanguage;
+  ColumnHeader: IColumnHeaderLanguage;
+  Task: ITaskLanguage;
+  WelcomePage: IWelcomePageLanguage;
+  NotFoundPage: INotFoundPageLanguage;
 }
 
 export interface Idictionary {
-  Navbar: INavbar;
-  WelcomePage: IWelcomePage;
-  NotFoundPage: INotFoundPage;
+  EN: ILanguage;
+  RU: ILanguage;
 }
