@@ -63,6 +63,10 @@ const dictionary: Idictionary = {
       descriptBenefitTitle4: benefits[3].titleEn,
       descriptBenefitContent4: benefits[3].descriptionEn,
       ourTeam: 'Application development team',
+      aboutCourse1:
+        'This application was created by students of the RS School React 2022Q3 course, which started in September 2022. You can view the work of our team members, as well as contact us using the links above.',
+      aboutCourse2:
+        'Everyone can study at RS School, regardless of age, professional employment, or place of residence. School partner is EPAM',
     },
     NotFoundPage: {
       declaration: 'Requested page not found',
@@ -131,6 +135,10 @@ const dictionary: Idictionary = {
       descriptBenefitTitle4: benefits[3].titleRu,
       descriptBenefitContent4: benefits[3].descriptionRu,
       ourTeam: 'Команда разработчиков приложения',
+      aboutCourse1:
+        'Приложение создано студентами курса RS School React 2022Q3, стартовавшего в сентябре 2022 года. Посмотреть работы членов нашей команды, а также связаться с нами можно по указанным выше ссылкам.',
+      aboutCourse2:
+        'Учиться в RS School могут все желающие, независимо от возраста, профессиональной занятости и места жительства. Партнером школы является EPAM',
     },
     NotFoundPage: {
       declaration: 'Запрашиваемая страница не найдена',

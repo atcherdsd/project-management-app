@@ -12,6 +12,8 @@ const OurTeam: React.FC = (): JSX.Element => {
       <div className={cl.content_container}>
         <TeamMember />
       </div>
+      <div className={cl.about_course}>{T('WelcomePage.aboutCourse1')}</div>
+      <div className={cl.about_course}>{T('WelcomePage.aboutCourse2')}</div>
     </section>
   );
 };

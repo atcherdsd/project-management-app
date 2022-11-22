@@ -63,6 +63,8 @@ interface IWelcomePageLanguage {
   descriptBenefitTitle4: string;
   descriptBenefitContent4: string;
   ourTeam: string;
+  aboutCourse1: string;
+  aboutCourse2: string;
 }
 
 interface INotFoundPageLanguage {
