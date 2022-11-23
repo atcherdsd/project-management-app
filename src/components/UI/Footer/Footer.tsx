@@ -7,9 +7,11 @@ import Logo from './Logo/Logo';
 const Footer = () => {
   return (
     <footer className={cl.container}>
-      <Logo />
-      <Authors />
-      <Copyright />
+      <div className={cl.wrapper}>
+        <Logo />
+        <Authors />
+        <Copyright />
+      </div>
     </footer>
   );
 };

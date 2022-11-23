@@ -1,22 +1,16 @@
 import Spinner from '../../components/UI/Spinner/Spinner';
-import dictionary from '../../dictionary/index';
-import { useAppSelector } from '../../hooks/redux';
 import { useTranslate } from '../../hooks/useTranslate';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { ISighUpFormLanguage } from 'types/dictionaryTypes';
 import { SignUpProps, FormValues } from 'types/formTypes';
 import cl from '../SighUpForm/SignUp.module.scss';
+import { useAppSelector } from '../../hooks/redux';
 
 function SignInForm(props: SignUpProps) {
   const { handlerSubmit, isLoading } = props;
   // Use Translate
-  const { language } = useAppSelector((state) => state.LanguageReducer);
   const { login } = useAppSelector((state) => state.SignUpDataReducer.signUpData);
-  const [T, setT] = useTranslate<ISighUpFormLanguage>(dictionary.SighUpForm, language);
-  useMemo(() => {
-    setT();
-  }, [language]);
+  const T = useTranslate();
   // Use Form
   const {
     register,
@@ -33,7 +27,7 @@ function SignInForm(props: SignUpProps) {
   });
   return (
     <form className={cl.form} onSubmit={onSubmit}>
-      <p className={cl.form__description}>{T.formWelcome}</p>
+      <p className={cl.form__description}>{T('SignUpForm.formWelcome')}</p>
       <div className={cl.form__login}>
         <input
           type="text"
@@ -43,16 +37,16 @@ function SignInForm(props: SignUpProps) {
           autoComplete="off"
           defaultValue={login ? login : ''}
           {...register('login', {
-            required: { value: true, message: `${T.formRequireMsg}` },
+            required: { value: true, message: `${T('SignUpForm.formRequireMsg')}` },
             pattern: {
               value: /^[a-zA-Z0-9]+$/i,
-              message: `${T.formLoginPatternMsg}`,
+              message: `${T('SignUpForm.formLoginPatternMsg')}`,
             },
-            minLength: { value: 5, message: `${T.formMinLengthMsg}` },
+            minLength: { value: 5, message: `${T('SignUpForm.formMinLengthMsg')}` },
           })}
         ></input>
         <label htmlFor={cl.login} className={cl.form__label}>
-          {T.formLogin}
+          {T('SignUpForm.formLogin')}
         </label>
         {errors.login?.types &&
           Object.entries(errors.login?.types).map(([type, message]) => (
@@ -69,20 +63,21 @@ function SignInForm(props: SignUpProps) {
           placeholder=" "
           defaultValue={''}
           {...register('password', {
-            required: { value: true, message: `${T.formRequireMsg}` },
+            required: { value: true, message: `${T('SignUpForm.formRequireMsg')}` },
             pattern: {
               value: /^[\w+а-я0-9]+$/i,
-              message: `${T.formLoginPatternMsg}`,
+              message: `${T('SignUpForm.formLoginPatternMsg')}`,
             },
-            minLength: { value: 5, message: `${T.formMinLengthMsg}` },
+            minLength: { value: 5, message: `${T('SignUpForm.formMinLengthMsg')}` },
             validate: (password: string) => {
               const reg = /\d+/;
-              if (!reg.test(password) && password.length > 0) return `${T.formPasswordValidateMsg}`;
+              if (!reg.test(password) && password.length > 0)
+                return `${T('SignUpForm.formPasswordValidateMsg')}`;
             },
           })}
         ></input>
         <label htmlFor={cl.password} className={cl.form__label}>
-          {T.formPassword}
+          {T('SignUpForm.formPassword')}
         </label>
         {errors.password?.types &&
           Object.entries(errors.password?.types).map(([type, message]) => (
@@ -96,7 +91,7 @@ function SignInForm(props: SignUpProps) {
         <input
           type="submit"
           className={cl.form__button}
-          value={T.formSignIn}
+          value={T('SignUpForm.formSignIn')}
           disabled={isLoading ? true : false}
         ></input>
       </div>

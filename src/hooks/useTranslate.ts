@@ -1,16 +1,20 @@
-import { useState } from 'react';
-import { LanguageType } from '../types/languageType';
+import { useCallback } from 'react';
+import { useAppSelector } from './redux';
+import dictionary from '../dictionary';
 
-export const useTranslate = <N>(
-  element: { EN: N; RU: N },
-  language: LanguageType
-): [N, () => void] => {
-  const [translate, setTranslate] = useState<N>({} as N);
-
-  const setLanguage = () => {
-    const dictionaryLanguage = element[language];
-    setTranslate(dictionaryLanguage as N);
-  };
-
-  return [translate as N, setLanguage];
+export const useTranslate = () => {
+  const { language } = useAppSelector((state) => state.LanguageReducer);
+  const T = useCallback(
+    (key: string) => {
+      const translate = key
+        .split('.')
+        .reduce(
+          (acc, current) => (acc as Record<string, string>)[current],
+          dictionary[language] as unknown
+        );
+      return translate as string;
+    },
+    [language]
+  );
+  return T;
 };

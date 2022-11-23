@@ -6,7 +6,7 @@ export default function ModalFormResponse(props: ModalProp) {
   return (
     <div className={cl.modal__container}>
       <p className={errorStatus ? cl.error__block : cl.succsess__block}>
-        {errorStatus ? errorStatus : 'Succsess'}
+        {errorStatus ? errorStatus : 'Success'}
       </p>
     </div>
   );

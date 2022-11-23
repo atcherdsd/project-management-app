@@ -1,4 +1,4 @@
-export interface INavbarLanguage {
+interface INavbarLanguage {
   signin: string;
   signup: string;
   welcome: string;
@@ -6,11 +6,6 @@ export interface INavbarLanguage {
   edit: string;
   signout: string;
   newboard: string;
-}
-
-export interface INavbar {
-  EN: INavbarLanguage;
-  RU: INavbarLanguage;
 }
 
 export interface ISighUpFormLanguage {
@@ -32,24 +27,77 @@ export interface ISighUpFormLanguage {
   deleteBtn?: string;
 }
 
-export interface ISighUpForm {
-  EN: ISighUpFormLanguage;
-  RU: ISighUpFormLanguage;
+interface IMainPageLanguage {
+  boards: string;
 }
 
-export interface IModal {
-  EN: IModalLanguage;
-  RU: IModalLanguage;
+interface IBoardLanguage {
+  created: string;
+  delete: string;
 }
 
-export interface IModalLanguage {
+interface IBorardPageLanguage {
+  board: string;
+  addColumn: string;
+  back: string;
+}
+
+interface IColumnHeaderLanguage {
+  deleteCol: string;
+  createTask: string;
+}
+
+interface ITaskLanguage {
+  deleteTask: string;
+}
+
+interface IWelcomePageLanguage {
+  titleTagline: string;
+  titleProposal1: string;
+  titleProposal2: string;
+  descriptSubtitle: string;
+  descriptDeclarationTitle: string;
+  descriptDeclarationContent: string;
+  descriptBenefitsTitle: string;
+  descriptBenefitTitle1: string;
+  descriptBenefitContent1: string;
+  descriptBenefitTitle2: string;
+  descriptBenefitContent2: string;
+  descriptBenefitTitle3: string;
+  descriptBenefitContent3: string;
+  descriptBenefitTitle4: string;
+  descriptBenefitContent4: string;
+  ourTeam: string;
+  aboutCourse1: string;
+  aboutCourse2: string;
+}
+
+interface INotFoundPageLanguage {
+  declaration: string;
+  exitMessage: string;
+  seconds: string;
+}
+
+interface IModalLanguage {
   warning: string;
   confirmBtn: string;
   disconfirmBtn: string;
 }
 
+interface ILanguage {
+  Navbar: INavbarLanguage;
+  SignUpForm: ISighUpFormLanguage;
+  MainPage: IMainPageLanguage;
+  Board: IBoardLanguage;
+  BoardPage: IBorardPageLanguage;
+  ColumnHeader: IColumnHeaderLanguage;
+  Task: ITaskLanguage;
+  WelcomePage: IWelcomePageLanguage;
+  NotFoundPage: INotFoundPageLanguage;
+  Modal: IModalLanguage;
+}
+
 export interface Idictionary {
-  Navbar: INavbar;
-  SighUpForm: ISighUpForm;
-  Modal: IModal;
+  EN: ILanguage;
+  RU: ILanguage;
 }
