@@ -8,7 +8,7 @@ interface INavbarLanguage {
   newboard: string;
 }
 
-interface ISignUpFormLanguage {
+export interface ISighUpFormLanguage {
   formWelcome: string;
   formLabelName: string;
   formLogin: string;
@@ -16,10 +16,15 @@ interface ISignUpFormLanguage {
   formSignUp: string;
   formRequireMsg: string;
   formOnlyLetter: string;
+  formMinLegthNameMsg: string;
   formMinLengthMsg: string;
   formLoginPatternMsg: string;
   formPasswordValidateMsg: string;
   formRegistered: string;
+  formSignIn: string;
+  edit?: string;
+  updateBtn?: string;
+  deleteBtn?: string;
 }
 
 interface IMainPageLanguage {
@@ -73,9 +78,15 @@ interface INotFoundPageLanguage {
   seconds: string;
 }
 
+interface IModalLanguage {
+  warning: string;
+  confirmBtn: string;
+  disconfirmBtn: string;
+}
+
 interface ILanguage {
   Navbar: INavbarLanguage;
-  SignUpForm: ISignUpFormLanguage;
+  SignUpForm: ISighUpFormLanguage;
   MainPage: IMainPageLanguage;
   Board: IBoardLanguage;
   BoardPage: IBorardPageLanguage;
@@ -83,6 +94,7 @@ interface ILanguage {
   Task: ITaskLanguage;
   WelcomePage: IWelcomePageLanguage;
   NotFoundPage: INotFoundPageLanguage;
+  Modal: IModalLanguage;
 }
 
 export interface Idictionary {
