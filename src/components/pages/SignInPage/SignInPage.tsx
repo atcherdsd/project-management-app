@@ -1,7 +1,7 @@
 import SignInForm from '../../SignInForm/SignInForm';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cl from '../SignUpPage/SignUpPage.module.scss';
-import { FormValues, Body } from 'types/formTypes';
+import { FormValues } from 'types/formTypes';
 import { useSignInAuthQuery } from '../../../API/authCalls';
 import { Modal } from '../../../components/Modal/modal';
 import ModalFormResponse from '../../Modal/modals/modalFormResponse';
@@ -12,27 +12,18 @@ import { Paths } from '../../../helpers/routerPaths';
 const SignInPage = () => {
   const [signInData, setSignInData] = useState<FormValues>({ login: '', password: '' });
   const navigate = useNavigate();
-  const {
-    isSuccess,
-    isLoading,
-    isError,
-    error,
-    data: responseData,
-  } = useSignInAuthQuery(
+  const { isSuccess, isLoading, isError, error } = useSignInAuthQuery(
     {
       path: 'auth/signin',
       patch: signInData,
     },
     { skip: !signInData.login }
   );
-  if (isSuccess) {
-    const { token, _id } = responseData as unknown as Body;
-    localStorage.setItem('token', token);
-    localStorage.setItem('id', _id);
-    setTimeout(() => {
+  useEffect(() => {
+    if (isSuccess) {
       navigate(`/${Paths.MainPage}`);
-    }, 1000);
-  }
+    }
+  });
   function handleSubmit(data: FormValues) {
     setSignInData(data);
   }

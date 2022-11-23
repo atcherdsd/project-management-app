@@ -49,3 +49,8 @@ export type UpdateProps = {
   login: string;
   isModalOpen: boolean;
 };
+
+export type SighInResponse = {
+  token: string;
+  _id: string;
+};

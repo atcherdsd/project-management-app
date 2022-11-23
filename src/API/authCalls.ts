@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { QueryProps, FormValues } from '../types/formTypes';
+import { QueryProps, FormValues, SighInResponse } from '../types/formTypes';
 import baseUrl from './baseUrl';
 
 export const authCalls = createApi({
@@ -18,12 +18,18 @@ export const authCalls = createApi({
         body: props.patch,
       }),
     }),
-    signInAuth: builder.query<QueryProps, QueryProps>({
+    signInAuth: builder.query<SighInResponse, QueryProps>({
       query: (props) => ({
         url: `${props.path}`,
         method: 'POST',
         body: props.patch,
       }),
+      transformResponse: (response: SighInResponse) => {
+        const { token, _id } = response;
+        localStorage.setItem('token', token);
+        localStorage.setItem('id', _id);
+        return response;
+      },
     }),
   }),
 });
