@@ -63,7 +63,9 @@ const Navbar = () => {
         <NavLink className={isActiveCheck} to={Paths.EditProfilePage}>
           {T('Navbar.edit')}
         </NavLink>
-        <button className={cl.button}>{T('Navbar.newboard')}</button>
+        <button className={cl.button} onClick={onClickCreateNewBoard}>
+          {T('Navbar.newboard')}
+        </button>
         <button className={cl.button} onClick={signUp}>
           {T('Navbar.signout')}
         </button>
