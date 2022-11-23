@@ -31,3 +31,8 @@ export type StateSignUp = {
 export type ModalProp = {
   error?: FetchBaseQueryError;
 };
+
+export type SighInResponse = {
+  token: string;
+  _id: string;
+};
