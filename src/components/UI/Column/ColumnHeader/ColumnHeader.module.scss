@@ -1,0 +1,23 @@
+$column-header-height: 40px;
+
+.container {
+  position: fixed;
+  min-height: 40px;
+  width: 280px;
+  background: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "title title"
+    "btndelcol btncrttsk";
+  .buttonDeleteColumn {
+    grid-area: btndelcol;
+  }
+  .buttonCreateTask {
+    grid-area: btncrttsk;
+  }
+}
+.placeholder {
+  min-height: 40px;
+}

@@ -19,6 +19,7 @@ export type SignUpProps = {
 export type Body = {
   [key: string]: string;
 };
+
 export type QueryProps = {
   path: string;
   patch?: Body;
