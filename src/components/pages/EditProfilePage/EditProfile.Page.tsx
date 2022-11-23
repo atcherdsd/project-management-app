@@ -63,10 +63,10 @@ const EditProfilePage = () => {
       deleteUser({ path: `users/${localStorage.getItem('id')}` })
         .unwrap()
         .then(() => {
-          navigate(`/${Paths.SignUp}`);
           dispatch(setSignUpDataResponse({ login: '', _id: '', name: '' }));
           localStorage.removeItem('token');
           localStorage.removeItem('id');
+          navigate(`/${Paths.SignUp}`);
         });
     }
   }
