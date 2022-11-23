@@ -1,10 +1,7 @@
 import Spinner from '../../components/UI/Spinner/Spinner';
-import dictionary from '../../dictionary/index';
-import { useAppSelector } from '../../hooks/redux';
 import { useTranslate } from '../../hooks/useTranslate';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { ISighUpFormLanguage } from 'types/dictionaryTypes';
 import { UpdateProps, FormValues } from 'types/formTypes';
 import cl from '../updateUserForm/UpdateForm.module.scss';
 import ConfirmModal from '../Modal/modals/confirmModal';
@@ -24,11 +21,7 @@ function UpdateUserForm(props: UpdateProps) {
   } = props;
 
   // Use Translate
-  const { language } = useAppSelector((state) => state.LanguageReducer);
-  const [T, setT] = useTranslate<ISighUpFormLanguage>(dictionary.SighUpForm, language);
-  useMemo(() => {
-    setT();
-  }, [language]);
+  const T = useTranslate();
   // Use Form
   const {
     register,
@@ -42,7 +35,7 @@ function UpdateUserForm(props: UpdateProps) {
   return (
     <>
       <form className={cl.form} onSubmit={onSubmit}>
-        <p className={cl.form__description}>{T.edit}</p>
+        <p className={cl.form__description}>{T('SignUpForm.edit')}</p>
         {isSuccess && (
           <div className={cl.form__group}>
             <input
@@ -53,16 +46,16 @@ function UpdateUserForm(props: UpdateProps) {
               autoComplete="off"
               defaultValue={isSuccess ? name : ''}
               {...register('name', {
-                required: { value: true, message: `${T.formRequireMsg}` },
+                required: { value: true, message: `${T('SignUpForm.formRequireMsg')}` },
                 pattern: {
                   value: /^[a-zA-Zа-я\s]+$/i,
-                  message: `${T.formOnlyLetter}`,
+                  message: `${T('SignUpForm.formOnlyLetter')}`,
                 },
-                minLength: { value: 2, message: `${T.formMinLegthNameMsg}` },
+                minLength: { value: 2, message: `${T('SignUpForm.formMinLegthNameMsg')}` },
               })}
             ></input>
             <label htmlFor={cl.name} className={cl.form__label}>
-              {T.formLabelName}
+              {T('SignUpForm.formLabelName')}
             </label>
             {errors.name?.types &&
               Object.entries(errors.name?.types).map(([type, message]) => (
@@ -82,16 +75,16 @@ function UpdateUserForm(props: UpdateProps) {
               autoComplete="off"
               defaultValue={login}
               {...register('login', {
-                required: { value: true, message: `${T.formRequireMsg}` },
+                required: { value: true, message: `${T('SignUpForm.formRequireMsg')}` },
                 pattern: {
                   value: /^[a-zA-Z0-9]+$/i,
-                  message: `${T.formLoginPatternMsg}`,
+                  message: `${T('SignUpForm.formLoginPatternMsg')}`,
                 },
-                minLength: { value: 5, message: `${T.formMinLengthMsg}` },
+                minLength: { value: 5, message: `${T('SignUpForm.formMinLengthMsg')}` },
               })}
             ></input>
             <label htmlFor={cl.login} className={cl.form__label}>
-              {T.formLogin}
+              {T('SignUpForm.formLogin')}
             </label>
             {errors.login?.types &&
               Object.entries(errors.login?.types).map(([type, message]) => (
@@ -109,21 +102,21 @@ function UpdateUserForm(props: UpdateProps) {
               className={cl.form__input}
               placeholder=" "
               {...register('password', {
-                required: { value: true, message: `${T.formRequireMsg}` },
+                required: { value: true, message: `${T('SignUpForm.formRequireMsg')}` },
                 pattern: {
                   value: /^[\w+а-я0-9]+$/i,
-                  message: `${T.formLoginPatternMsg}`,
+                  message: `${T('SignUpForm.formLoginPatternMsg')}`,
                 },
-                minLength: { value: 5, message: `${T.formMinLengthMsg}` },
+                minLength: { value: 5, message: `${T('SignUpForm.formMinLengthMsg')}` },
                 validate: (password: string) => {
                   const reg = /\d+/;
                   if (!reg.test(password) && password.length > 0)
-                    return `${T.formPasswordValidateMsg}`;
+                    return `${T('SignUpForm.formPasswordValidateMsg')}`;
                 },
               })}
             ></input>
             <label htmlFor={cl.password} className={cl.form__label}>
-              {T.formPassword}
+              {T('SignUpForm.formPassword')}
             </label>
             {errors.password?.types &&
               Object.entries(errors.password?.types).map(([type, message]) => (
@@ -139,13 +132,13 @@ function UpdateUserForm(props: UpdateProps) {
             <input
               type="submit"
               className={cl.form__button}
-              value={T.updateBtn}
+              value={T('SignUpForm.updateBtn')}
               disabled={isUpdating ? true : false}
             ></input>
             <input
               type="button"
               className={cl.form__deleteButton}
-              defaultValue={T.deleteBtn}
+              defaultValue={T('SignUpForm.deleteBtn')}
               disabled={isLoading ? true : false}
               onClick={deleteUser}
             ></input>

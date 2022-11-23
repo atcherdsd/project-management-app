@@ -33,7 +33,7 @@ const SignUpPage = () => {
       dispatch(setSignUpDataResponse(responseData as ResponseStateSignUp));
       navigate(`/${Paths.SignIn}`);
     }
-  }, [responseData]);
+  }, [dispatch, navigate, responseData]);
   function handleSubmit(data: FormValues) {
     setSignUpData(data);
   }

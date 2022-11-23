@@ -1,26 +1,26 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import cl from './confirmModal.module.scss';
 import { ModalProp } from 'types/modalType';
-import dictionary from '../../../dictionary/index';
 import { useTranslate } from '../../../hooks/useTranslate';
-import { useAppSelector } from '../../../hooks/redux';
-import { IModalLanguage } from 'types/dictionaryTypes';
 
 export default function ConfirmModal(props: ModalProp) {
   const { handler } = props;
-  // Use Translate
-  const { language } = useAppSelector((state) => state.LanguageReducer);
-  const [T, setT] = useTranslate<IModalLanguage>(dictionary.Modal, language);
-  useMemo(() => {
-    setT();
-  }, [language]);
+  const T = useTranslate();
   return (
     <div className={cl.modal__container} onClick={handler}>
       <div className={cl.modal__content}>
-        <p>{T.warning}</p>
+        <p>{T('Modal.warning')}</p>
         <div className={cl.modal__content__buttons}>
-          <input type="button" className={cl.confirmButton} defaultValue={T.confirmBtn}></input>
-          <input type="button" className={cl.confirmButton} defaultValue={T.disconfirmBtn}></input>
+          <input
+            type="button"
+            className={cl.confirmButton}
+            defaultValue={T('Modal.confirmBtn')}
+          ></input>
+          <input
+            type="button"
+            className={cl.confirmButton}
+            defaultValue={T('Modal.disconfirmBtn')}
+          ></input>
         </div>
       </div>
     </div>
