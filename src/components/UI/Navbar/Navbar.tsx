@@ -30,6 +30,7 @@ const Navbar = () => {
   };
   const signOut = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
     dispatch(setHasToken(false));
     navigate('/');
   };
