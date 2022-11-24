@@ -13,8 +13,11 @@ $clr-active: #fd9800;
     transition: 0.3s;
     background-color: inherit;
     line-height: $font-size-middle;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
     &:hover {
       color: #ffffff;
+      background-color: #4c3615;
     }
     &_active {
       color: $clr-active;
@@ -22,6 +25,7 @@ $clr-active: #fd9800;
     }
     &_active:hover {
       color: $clr-active;
+      background-color: inherit;
     }
   }
 }
@@ -56,6 +60,7 @@ $clr-active: #fd9800;
       line-height: 1.2;
       background-color: inherit;
       text-align: left;
+      padding: 0.5rem;
       &:hover {
         color: #ffffff;
       }

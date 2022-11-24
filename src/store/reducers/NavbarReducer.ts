@@ -3,6 +3,7 @@ import { NavbarState } from '../../types/navbarType';
 
 const initialState: NavbarState = {
   isOpenedMenu: false,
+  hasToken: false,
 };
 
 export const NavbarSlice = createSlice({
@@ -12,9 +13,12 @@ export const NavbarSlice = createSlice({
     setMenu(state, action: PayloadAction<boolean>) {
       state.isOpenedMenu = action.payload;
     },
+    setHasToken(state, action: PayloadAction<boolean>) {
+      state.hasToken = action.payload;
+    },
   },
 });
 
-export const { setMenu } = NavbarSlice.actions;
+export const { setMenu, setHasToken } = NavbarSlice.actions;
 
 export default NavbarSlice.reducer;
