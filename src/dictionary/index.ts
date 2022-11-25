@@ -82,6 +82,10 @@ const dictionary: Idictionary = {
       warning: 'Are you sure?',
       confirmBtn: 'Yes',
       disconfirmBtn: 'No',
+      title: 'Title',
+      owner: 'Owner',
+      createBoardBtn: 'Create board',
+      cancelBtn: 'Cancel',
     },
   },
   RU: {
@@ -164,6 +168,10 @@ const dictionary: Idictionary = {
       warning: 'Вы уверены?',
       confirmBtn: 'Да',
       disconfirmBtn: 'Нет',
+      title: 'Заглавие',
+      owner: 'Владелец',
+      createBoardBtn: 'Создать доску',
+      cancelBtn: 'Отмена',
     },
   },
 };

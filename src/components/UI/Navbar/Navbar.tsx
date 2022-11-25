@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import cl from './Navbar.module.scss';
 import { NavLink } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
@@ -10,25 +10,55 @@ import baseUrl from '../../../API/baseUrl';
 import { navbarSelector } from '../../../store/selectors/selectors';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { setMenu } from '../../../store/reducers/NavbarReducer';
+import { Modal } from '../../../components/Modal/modal';
+import CreacteNewBoardModal from '../../../components/Modal/modals/createNewBoardModal';
+import { CreateBoardModalForm } from '../../../types/modalType';
 
 const isActiveCheck = ({ isActive }: { isActive: boolean }) =>
   activeClassHandler(isActive, cl.link, cl.link_active);
 
 const Navbar = () => {
   const T = useTranslate();
-  const [createNewBoard, {}] = useCreateNewBoardMutation();
+  const [createNewBoard, { isLoading }] = useCreateNewBoardMutation();
 
   const { isOpenedMenu } = useAppSelector(navbarSelector);
   const dispatch = useAppDispatch();
-
-  const onClickCreateNewBoard = async () => {
+  //State for open or close window
+  const [isModalOpen, setModalOpen] = useState(false);
+  useEffect(() => {
+    if (isLoading) {
+      setModalOpen(false);
+    }
+  }, [isLoading]);
+  // Submit or Cancel handler for modal form
+  ///////////////////////
+  function submitHandler(data: CreateBoardModalForm) {
+    const { title } = data;
     const body = {
-      title: `NewBoards ${Date.now()}`,
-      owner: 'Artur',
-      users: ['Artur'],
+      title: `${title}`,
+      owner: 'Nikita',
+      users: ['Nikita'],
     };
     createNewBoard(body);
+  }
+
+  const onClickCreateNewBoard = async () => {
+    // const body = {
+    //   title: `NewBoards ${Date.now()}`,
+    //   owner: 'Artur',
+    //   users: ['Artur'],
+    // };
+    // createNewBoard(body);
+    setModalOpen(true);
   };
+
+  function clickHandler(e: React.MouseEvent<HTMLInputElement>) {
+    const input = (e.target as HTMLElement).closest('input');
+    const value = input?.value;
+    if (value && (value == 'Cancel' || value == 'Отмена')) {
+      setModalOpen(false);
+    }
+  }
 
   const signUp = async () => {
     const body = {
@@ -70,6 +100,15 @@ const Navbar = () => {
           {T('Navbar.signout')}
         </button>
       </nav>
+      {isModalOpen && (
+        <Modal>
+          <CreacteNewBoardModal
+            submitHandler={submitHandler}
+            isLoading={isLoading}
+            clickHandler={clickHandler}
+          ></CreacteNewBoardModal>
+        </Modal>
+      )}
     </div>
   );
 };

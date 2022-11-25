@@ -82,6 +82,10 @@ interface IModalLanguage {
   warning: string;
   confirmBtn: string;
   disconfirmBtn: string;
+  title: string;
+  owner: string;
+  createBoardBtn: string;
+  cancelBtn: string;
 }
 
 interface ILanguage {
