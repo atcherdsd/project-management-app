@@ -1,36 +1,27 @@
 import { useTranslate } from '../../../hooks/useTranslate';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import cl from './NotFoundPage.module.scss';
-import { useNavigate } from 'react-router-dom';
-
-const time = 5;
+import { NavLink } from 'react-router-dom';
+import { Paths } from '../../../helpers/routerPaths';
+import { useAppSelector } from '../../../hooks/redux';
+import { languageSelector } from '../../../store/selectors/selectors';
 
 const NotFoundPage: React.FC = (): JSX.Element => {
   const T = useTranslate();
-  const navigate = useNavigate();
-
-  const [timeLeft, setTimeLeft] = useState<number>(time);
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
-      if (timeLeft === 0) navigate('/');
-    }, 1000);
-    return () => {
-      clearInterval(timerId);
-    };
-  }, [navigate, timeLeft]);
+  const { language } = useAppSelector(languageSelector);
 
   return (
     <div className={cl.container}>
       <div className={cl.wrapper}>
         <h1 className={cl.title}>404</h1>
-        <p className={cl.declaration}>{T('NotFoundPage.declaration')}</p>
-        <div className={cl.exit_message_container}>
-          <div className={cl.exit_message}>{T('NotFoundPage.exitMessage')}</div>
-          <div className={cl.exit_count}>
-            {timeLeft} {T('NotFoundPage.seconds')}
-          </div>
-        </div>
+        <p className={language === 'EN' ? `${cl.declaration} ${cl.transform}` : cl.declaration}>
+          {T('NotFoundPage.declaration')}
+        </p>
+        <button className={cl.button}>
+          <NavLink className={cl.link} to={Paths.WelcomePage}>
+            {T('NotFoundPage.button')}
+          </NavLink>
+        </button>
       </div>
     </div>
   );

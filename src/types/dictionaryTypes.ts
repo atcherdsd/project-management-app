@@ -74,8 +74,7 @@ interface IWelcomePageLanguage {
 
 interface INotFoundPageLanguage {
   declaration: string;
-  exitMessage: string;
-  seconds: string;
+  button: string;
 }
 
 interface IModalLanguage {

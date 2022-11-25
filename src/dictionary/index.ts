@@ -75,8 +75,7 @@ const dictionary: Idictionary = {
     },
     NotFoundPage: {
       declaration: 'Requested page not found',
-      exitMessage: "You'll be redirected to the home page via",
-      seconds: 'sec',
+      button: 'Back to Home Page',
     },
     Modal: {
       warning: 'Are you sure?',
@@ -157,8 +156,7 @@ const dictionary: Idictionary = {
     },
     NotFoundPage: {
       declaration: 'Запрашиваемая страница не найдена',
-      exitMessage: 'Вы будете перенаправлены на домашнюю страницу через',
-      seconds: 'сек',
+      button: 'На главную',
     },
     Modal: {
       warning: 'Вы уверены?',

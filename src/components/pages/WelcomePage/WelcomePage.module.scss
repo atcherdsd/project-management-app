@@ -2,7 +2,7 @@
 @import "../../../styleVariablesAndMixines/fontSizes.scss";
 
 .container {
-  @include page-properties;
+  @extend %page-properties;
   .wrapper {
     display: flex;
     flex-wrap: wrap;
