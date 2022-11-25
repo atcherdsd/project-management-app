@@ -1,5 +1,4 @@
 import { Idictionary } from '../types/dictionaryTypes';
-import { benefits } from '../components/pages/WelcomePage/Description/benefitsData';
 
 const dictionary: Idictionary = {
   EN: {
@@ -59,14 +58,18 @@ const dictionary: Idictionary = {
       descriptDeclarationContent:
         'OneTeam management system allows you to plan a project and assign team members to complete tasks on time, collaborate and manage schedules',
       descriptBenefitsTitle: 'The team management system includes',
-      descriptBenefitTitle1: benefits[0].titleEn,
-      descriptBenefitContent1: benefits[0].descriptionEn,
-      descriptBenefitTitle2: benefits[1].titleEn,
-      descriptBenefitContent2: benefits[1].descriptionEn,
-      descriptBenefitTitle3: benefits[2].titleEn,
-      descriptBenefitContent3: benefits[2].descriptionEn,
-      descriptBenefitTitle4: benefits[3].titleEn,
-      descriptBenefitContent4: benefits[3].descriptionEn,
+      descriptBenefitTitle1: 'Better and faster iterations',
+      descriptBenefitContent1:
+        'OpenProject provides the perfect tool to support agile project management and methodologies such as Scrum and Kanban. Agile teams deliver better and faster. They build, measure and learn with each iteration.',
+      descriptBenefitTitle2: 'The best quality of work',
+      descriptBenefitContent2:
+        'Team Project Management Software allows you to assign a task to one or more team members. By checking which elements are assigned to whom, you can uniformly distribute the workload among team members. Collaborative teamwork leads to more informed decisions and therefore allows all members to create their best work.',
+      descriptBenefitTitle3: 'Better Time Management',
+      descriptBenefitContent3:
+        'Time management is an integral part of management team project. Project Duration Tracking allows managers to track paid working hours teams and control the budget of complex projects.',
+      descriptBenefitTitle4: 'Increasing customer satisfaction',
+      descriptBenefitContent4:
+        'Team project management apps give you the ability to control critical aspects of the project to ensure high quality work. This allows you remain competitive in the market and create strong brand image in the public eye.',
       ourTeam: 'Application development team',
       aboutCourse1:
         'This application was created by students of the RS School React 2022Q3 course, which started in September 2022. You can view the work of our team members, as well as contact us using the links above.',
@@ -147,14 +150,18 @@ const dictionary: Idictionary = {
       descriptDeclarationContent:
         'Система управления командой OneTeam позволяет планировать проект и назначать членов команды для выполнения задач в заданные сроки, сотрудничать и управлять расписаниями',
       descriptBenefitsTitle: 'Система управления командой включает',
-      descriptBenefitTitle1: benefits[0].titleRu,
-      descriptBenefitContent1: benefits[0].descriptionRu,
-      descriptBenefitTitle2: benefits[1].titleRu,
-      descriptBenefitContent2: benefits[1].descriptionRu,
-      descriptBenefitTitle3: benefits[2].titleRu,
-      descriptBenefitContent3: benefits[2].descriptionRu,
-      descriptBenefitTitle4: benefits[3].titleRu,
-      descriptBenefitContent4: benefits[3].descriptionRu,
+      descriptBenefitTitle1: 'Более качественные и быстрые итерации',
+      descriptBenefitContent1:
+        'OneTeam предоставляет идеальный инструмент для поддержки гибкого управления проектами и таких методологий, как Scrum и Kanban. Agile-команды работают лучше и быстрее. Они создают, оценивают и учатся с каждой итерацией.',
+      descriptBenefitTitle2: 'Лучшее качество работы',
+      descriptBenefitContent2:
+        'Приложение для управления проектами позволяет назначать задачу одному или нескольким членам команды. Проверяя, кому какие элементы назначены, вы можете равномерно распределить рабочую нагрузку. Совместная работа в команде приводит к более обоснованным решениям и, следовательно, позволяет всем ее участникам создавать свои лучшие работы.',
+      descriptBenefitTitle3: 'Лучшее управление временем',
+      descriptBenefitContent3:
+        'Управление временем является неотъемлемой частью управления командным проектом. Отслеживание продолжительности проекта позволяет менеджерам отслеживать оплачиваемые рабочие часы команды и контролировать бюджет сложных проектов.',
+      descriptBenefitTitle4: 'Повышение удовлетворенности клиентов',
+      descriptBenefitContent4:
+        'Приложения для управления командными проектами дают вам возможность контролировать критически важные аспекты проекта для обеспечения высокого качества работы. Это позволяет вам оставаться конкурентоспособными на рынке и создавать сильный имидж бренда в глазах общественности.',
       ourTeam: 'Команда разработчиков приложения',
       aboutCourse1:
         'Приложение создано студентами курса RS School React 2022Q3, стартовавшего в сентябре 2022 года. Посмотреть работы членов нашей команды, а также связаться с нами можно по указанным выше ссылкам.',

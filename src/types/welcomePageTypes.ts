@@ -1,8 +1,6 @@
 export interface IBenefit {
-  titleEn: string;
-  descriptionEn: string;
-  titleRu: string;
-  descriptionRu: string;
+  title: string;
+  description: string;
 }
 
 export type Benefits = IBenefit[];
