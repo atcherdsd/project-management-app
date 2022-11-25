@@ -73,6 +73,13 @@ const dictionary: Idictionary = {
       aboutCourse2:
         'Everyone can study at RS School, regardless of age, professional employment, or place of residence. School partner is EPAM',
     },
+    TeamMembers: {
+      ArturName: 'Artur Shvedenko',
+      SergeyName: 'Siarhei Charniak',
+      NikitaName: 'Nikita Yankovsky',
+      lead: 'Team lead',
+      dev: 'Developer',
+    },
     NotFoundPage: {
       declaration: 'Requested page not found',
       button: 'Back to Home Page',
@@ -153,6 +160,13 @@ const dictionary: Idictionary = {
         'Приложение создано студентами курса RS School React 2022Q3, стартовавшего в сентябре 2022 года. Посмотреть работы членов нашей команды, а также связаться с нами можно по указанным выше ссылкам.',
       aboutCourse2:
         'Учиться в RS School могут все желающие, независимо от возраста, профессиональной занятости и места жительства. Партнером школы является EPAM',
+    },
+    TeamMembers: {
+      ArturName: 'Артур Шведенко',
+      SergeyName: 'Сергей Черняк',
+      NikitaName: 'Никита Янковский',
+      lead: 'Тимлид',
+      dev: 'Разработчик',
     },
     NotFoundPage: {
       declaration: 'Запрашиваемая страница не найдена',

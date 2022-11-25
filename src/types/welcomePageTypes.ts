@@ -8,10 +8,8 @@ export interface IBenefit {
 export type Benefits = IBenefit[];
 
 export type TeamMembersData = {
-  nameEn: string;
-  nameRu: string;
-  roleEn: string;
-  roleRu: string;
+  name: string;
+  role: string;
   githubNickname: string;
   githubLink: string;
   linkedinLink: string;

@@ -72,6 +72,14 @@ interface IWelcomePageLanguage {
   aboutCourse2: string;
 }
 
+interface ITeamMembers {
+  ArturName: string;
+  SergeyName: string;
+  NikitaName: string;
+  lead: string;
+  dev: string;
+}
+
 interface INotFoundPageLanguage {
   declaration: string;
   button: string;
@@ -94,6 +102,7 @@ interface ILanguage {
   WelcomePage: IWelcomePageLanguage;
   NotFoundPage: INotFoundPageLanguage;
   Modal: IModalLanguage;
+  TeamMembers: ITeamMembers;
 }
 
 export interface Idictionary {
