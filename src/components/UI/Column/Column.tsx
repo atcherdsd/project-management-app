@@ -43,7 +43,6 @@ const Column: FC<IColumnProps> = ({ column }) => {
   };
 
   function confirmDeleteColumn(e: React.MouseEvent<HTMLElement>) {
-    e.stopPropagation();
     const target = (e.target as HTMLElement).closest('input');
     const value = target?.value;
     if (value == 'No' || value == 'Нет') {
