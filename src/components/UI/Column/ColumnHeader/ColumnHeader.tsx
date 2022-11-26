@@ -1,9 +1,11 @@
-import React, { FC, SetStateAction, Fragment } from 'react';
+import React, { FC, SetStateAction, Fragment, useState, useEffect } from 'react';
 import ColumnTitleText from './ColumnTitleText/ColumnTitleText';
 import ColumnTitleInput from './ColumnTitleInput/ColumnTitleInput';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import cl from './ColumnHeader.module.scss';
 import { useTranslate } from '../../../../hooks/useTranslate';
+import { Modal } from '../../../Modal/modal';
+import ConfirmModal from '../../../Modal/modals/confirmModal';
 
 interface IColumnHeaderProps {
   status: 'title' | 'input';
@@ -20,6 +22,9 @@ interface IColumnHeaderProps {
   deleteColumnOnClick: () => void;
   createNewTaskOnClick: () => void;
   dragHandleProps: DraggableProvidedDragHandleProps | undefined;
+  isModalOpen: boolean;
+  isDeleting: boolean;
+  confirmDeleteColumn: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const ColumnHeader: FC<IColumnHeaderProps> = ({
@@ -32,6 +37,9 @@ const ColumnHeader: FC<IColumnHeaderProps> = ({
   deleteColumnOnClick,
   createNewTaskOnClick,
   dragHandleProps,
+  isModalOpen,
+  isDeleting,
+  confirmDeleteColumn,
 }) => {
   const T = useTranslate();
   return (
@@ -59,6 +67,11 @@ const ColumnHeader: FC<IColumnHeaderProps> = ({
         </button>
       </div>
       <div className={cl.placeholder} />
+      {isModalOpen && (
+        <Modal>
+          <ConfirmModal handler={confirmDeleteColumn} isLoading={isDeleting}></ConfirmModal>
+        </Modal>
+      )}
     </Fragment>
   );
 };
