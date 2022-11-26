@@ -6,6 +6,7 @@ import Board from '../../UI/Board/Board';
 import { useTranslate } from '../../../hooks/useTranslate';
 import Searchbar from '../../UI/Searchbar/Searchbar';
 import { useAppSelector } from '../../../hooks/redux';
+import AddBoard from '../../UI/AddBoard/AddBoard';
 
 const MainPage = () => {
   const T = useTranslate();
@@ -24,6 +25,7 @@ const MainPage = () => {
             .map((board) => (
               <Board key={board._id} board={board} />
             ))}
+          <AddBoard />
         </div>
       )}
     </div>
