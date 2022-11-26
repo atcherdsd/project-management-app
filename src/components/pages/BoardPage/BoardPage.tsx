@@ -112,7 +112,7 @@ const BoardPage = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       {isLoadingData || isLoadingBoardProps ? (
         <h2 style={{ margin: 'auto' }}>Loading...</h2>
-      ) : (
+      ) : boardColumns.get(boardId) ? (
         <div className={cl.container}>
           <h1 className={cl.title}>
             {T('BoardPage.board')} {boardProps && (boardProps as IBoard).title}
@@ -138,6 +138,8 @@ const BoardPage = () => {
             {T('BoardPage.back')}
           </button>
         </div>
+      ) : (
+        <h2>Error during fetching</h2>
       )}
     </DragDropContext>
   );
