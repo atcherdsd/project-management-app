@@ -1,5 +1,6 @@
 export type ModalProp = {
   handler: (e: React.MouseEvent<HTMLParagraphElement>) => void;
+  isLoading?:boolean;
 };
 
 export type CreateBoardModalForm = {

@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, useState } from 'react';
+import React, { FC, MouseEvent, useEffect, useState } from 'react';
 import cl from './Board.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteBoardMutation } from '../../../API/boardsCalls';
@@ -18,12 +18,16 @@ interface IBoardProps {
 const Board: FC<IBoardProps> = ({ board }) => {
   const { _id: id, owner, title } = board;
   const navigate = useNavigate();
-  const [deleteBoard, {}] = useDeleteBoardMutation();
+  const [deleteBoard, { isLoading }] = useDeleteBoardMutation();
   const T = useTranslate();
   //Modal manipulations
   ////////////////////////
   const [isModalOpen, setModalOpen] = useState(false);
-
+  useEffect(() => {
+    if (!isLoading) {
+      setModalOpen(false);
+    }
+  }, [isLoading]);
   ///////////////////////////////////////////////////
   const boardOnClick = () => {
     navigate(`/main/${id}`);
@@ -42,7 +46,6 @@ const Board: FC<IBoardProps> = ({ board }) => {
       setModalOpen(false);
     }
     if (value == 'Yes' || value == 'Да') {
-      setModalOpen(false);
       deleteBoard(id);
     }
   }
@@ -58,7 +61,7 @@ const Board: FC<IBoardProps> = ({ board }) => {
       </button>
       {isModalOpen && (
         <Modal>
-          <ConfirmModal handler={confirmDeleteBoard}></ConfirmModal>
+          <ConfirmModal handler={confirmDeleteBoard} isLoading={isLoading}></ConfirmModal>
         </Modal>
       )}
     </div>
