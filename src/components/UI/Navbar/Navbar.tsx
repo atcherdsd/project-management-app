@@ -20,13 +20,12 @@ const isActiveCheck = ({ isActive }: { isActive: boolean }) =>
 const Navbar = () => {
   const T = useTranslate();
   const [createNewBoard, { isLoading }] = useCreateNewBoardMutation();
-
   const { isOpenedMenu } = useAppSelector(navbarSelector);
   const dispatch = useAppDispatch();
   //State for open or close window
   const [isModalOpen, setModalOpen] = useState(false);
   useEffect(() => {
-    if (isLoading) {
+    if (!isLoading) {
       setModalOpen(false);
     }
   }, [isLoading]);
