@@ -16,7 +16,7 @@ interface IColumnProps {
 const Column: FC<IColumnProps> = ({ column }) => {
   const { title, _id: columnId, order, boardId } = column;
   const [deleteColumn, {}] = useDeleteColumnMutation();
-  const { data } = useGetAllTasksQuery({ boardId, columnId });
+  const { data } = useGetAllTasksQuery({ boardId, columnId }, { refetchOnMountOrArgChange: true });
   const [createNewTask, {}] = useCreateNewTaskMutation();
   const { setLocalColumnTasks } = BoardSlice.actions;
   const dispatch = useAppDispatch();

@@ -20,7 +20,9 @@ const BoardPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const boardId = location.pathname.replace('/main/', '');
-  const { data, isLoading: isLoadingData } = useGetAllColumnsQuery(boardId);
+  const { data, isLoading: isLoadingData } = useGetAllColumnsQuery(boardId, {
+    refetchOnMountOrArgChange: true,
+  });
   const { data: boardProps, isLoading: isLoadingBoardProps } = useGetBoardQuery(boardId);
   const [createNewColumn, {}] = useCreateNewColumnMutation();
   const { columnsTasks, boardColumns } = useAppSelector((state) => state.BoardReducer);
@@ -39,6 +41,7 @@ const BoardPage = () => {
   };
 
   const addColumnOnClick = () => {
+    console.log((data as []).length);
     createNewColumn({
       boardId,
       body: { title: `Column ${Date.now()}`, order: (data as []).length },
