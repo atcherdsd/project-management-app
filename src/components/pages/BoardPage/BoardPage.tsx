@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import cl from './BoardPage.module.scss';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useGetAllColumnsQuery, useCreateNewColumnMutation } from '../../../API/columnsCalls';
@@ -15,6 +15,9 @@ import {
 import { sortColumnOrBoard, sortColumnsTasks } from '../../../helpers/sortColumnsTasksState';
 import { useGetBoardQuery } from '../../../API/boardsCalls';
 import { useTranslate } from '../../../hooks/useTranslate';
+import { Modal } from '../../Modal/modal';
+import CreacteNewColumnModal from '../../Modal/modals/createNewColumnModal';
+import { CreateBoardModalForm } from '../../../types/modalType';
 
 const BoardPage = () => {
   const navigate = useNavigate();
@@ -22,7 +25,7 @@ const BoardPage = () => {
   const boardId = location.pathname.replace('/main/', '');
   const { data } = useGetAllColumnsQuery(boardId);
   const { data: boardProps } = useGetBoardQuery(boardId);
-  const [createNewColumn, {}] = useCreateNewColumnMutation();
+  const [createNewColumn, { isLoading: isCreatingColumn }] = useCreateNewColumnMutation();
   const { columnsTasks, boardColumns } = useAppSelector((state) => state.BoardReducer);
   const { setLocalBoardColumns } = BoardSlice.actions;
   const dispatch = useAppDispatch();
@@ -33,17 +36,39 @@ const BoardPage = () => {
   useEffect(() => {
     if (data) dispatch(setLocalBoardColumns([boardId, [...(data as IColumn[])]]));
   }, [data]);
+  //State for open or close window
+  ///////////////////////////////////
+  const [isModalOpen, setModalOpen] = useState(false);
+  useEffect(() => {
+    if (!isCreatingColumn) {
+      setModalOpen(false);
+    }
+  }, [isCreatingColumn]);
+  //////////////////////////////
 
   const backToMainOnClick = () => {
     navigate(`/main`);
   };
 
   const addColumnOnClick = () => {
+    setModalOpen(true);
+  };
+
+  function clickHandler(e: React.MouseEvent<HTMLInputElement>) {
+    const input = (e.target as HTMLElement).closest('input');
+    const value = input?.value;
+    if (value && (value == 'Cancel' || value == 'Отмена')) {
+      setModalOpen(false);
+    }
+  }
+
+  function submitHandler(formData: CreateBoardModalForm) {
+    const { title } = formData;
     createNewColumn({
       boardId,
-      body: { title: `Column ${Date.now()}`, order: (data as []).length },
+      body: { title: `Column ${title}`, order: (data as []).length },
     });
-  };
+  }
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination, type } = result;
@@ -131,6 +156,15 @@ const BoardPage = () => {
           {T('BoardPage.back')}
         </button>
       </div>
+      {isModalOpen && (
+        <Modal>
+          <CreacteNewColumnModal
+            submitHandler={submitHandler}
+            isLoading={isCreatingColumn}
+            clickHandler={clickHandler}
+          ></CreacteNewColumnModal>
+        </Modal>
+      )}
     </DragDropContext>
   );
 };

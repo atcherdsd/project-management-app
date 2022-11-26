@@ -86,6 +86,7 @@ const dictionary: Idictionary = {
       owner: 'Owner',
       createBoardBtn: 'Create board',
       cancelBtn: 'Cancel',
+      createColumnBtn: 'Add Column',
     },
   },
   RU: {
@@ -172,6 +173,7 @@ const dictionary: Idictionary = {
       owner: 'Владелец',
       createBoardBtn: 'Создать доску',
       cancelBtn: 'Отмена',
+      createColumnBtn: 'Добавить колонку',
     },
   },
 };

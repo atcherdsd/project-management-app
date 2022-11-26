@@ -86,6 +86,7 @@ interface IModalLanguage {
   owner: string;
   createBoardBtn: string;
   cancelBtn: string;
+  createColumnBtn:string;
 }
 
 interface ILanguage {
