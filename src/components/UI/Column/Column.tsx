@@ -8,6 +8,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { BoardSlice } from '../../../store/reducers/BoardReducer';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import ColumnHeader from './ColumnHeader/ColumnHeader';
+import { CreateBoardModalForm } from '../../../types/modalType';
 
 interface IColumnProps {
   column: IColumn;
@@ -17,7 +18,7 @@ const Column: FC<IColumnProps> = ({ column }) => {
   const { title, _id: columnId, order, boardId } = column;
   const [deleteColumn, { isLoading: isDeleting }] = useDeleteColumnMutation();
   const { data } = useGetAllTasksQuery({ boardId, columnId });
-  const [createNewTask, {}] = useCreateNewTaskMutation();
+  const [createNewTask, { isLoading: isCreating }] = useCreateNewTaskMutation();
   const { setLocalColumnTasks } = BoardSlice.actions;
   const dispatch = useAppDispatch();
   const { columnsTasks } = useAppSelector((state) => state.BoardReducer);
@@ -30,23 +31,29 @@ const Column: FC<IColumnProps> = ({ column }) => {
   }, [data]);
   //Modal manipulations
   ////////////////////////
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalDeleteOpen, setModalDeleteOpen] = useState(false);
   useEffect(() => {
     if (!isDeleting) {
-      setModalOpen(false);
+      setModalDeleteOpen(false);
     }
   }, [isDeleting]);
+  const [isModalCreateTaskOpen, setModalCreateTaskOpen] = useState(false);
+  useEffect(() => {
+    if (!isCreating) {
+      setModalCreateTaskOpen(false);
+    }
+  }, [isCreating]);
   ///////////////////////////////////////////////////
 
   const deleteColumnOnClick = () => {
-    setModalOpen(true);
+    setModalDeleteOpen(true);
   };
 
   function confirmDeleteColumn(e: React.MouseEvent<HTMLElement>) {
     const target = (e.target as HTMLElement).closest('input');
     const value = target?.value;
     if (value == 'No' || value == 'Нет') {
-      setModalOpen(false);
+      setModalDeleteOpen(false);
     }
     if (value == 'Yes' || value == 'Да') {
       deleteColumn({ boardId, columnId });
@@ -54,15 +61,35 @@ const Column: FC<IColumnProps> = ({ column }) => {
   }
 
   const createNewTaskOnClick = () => {
+    setModalCreateTaskOpen(true);
+    // const body = {
+    //   title: Date.now(),
+    //   order: (data as []).length,
+    //   description: 'string',
+    //   userId: 0,
+    //   users: ['string'],
+    // };
+    // createNewTask({ boardId, columnId, body });
+  };
+  function cancelTaskHandler(e: React.MouseEvent<HTMLInputElement>) {
+    const input = (e.target as HTMLElement).closest('input');
+    const value = input?.value;
+    if (value && (value == 'Cancel' || value == 'Отмена')) {
+      setModalCreateTaskOpen(false);
+    }
+  }
+
+  function submitCreateTaskHandler(formData: CreateBoardModalForm) {
+    const { title } = formData;
     const body = {
-      title: Date.now(),
+      title: title,
       order: (data as []).length,
       description: 'string',
-      userId: 0,
+      userId: localStorage.getItem('id'),
       users: ['string'],
     };
     createNewTask({ boardId, columnId, body });
-  };
+  }
 
   return (
     <Draggable draggableId={columnId} index={order}>
@@ -78,9 +105,13 @@ const Column: FC<IColumnProps> = ({ column }) => {
             deleteColumnOnClick={deleteColumnOnClick}
             createNewTaskOnClick={createNewTaskOnClick}
             dragHandleProps={provided.dragHandleProps}
-            isModalOpen={isModalOpen}
+            isModalDeleteOpen={isModalDeleteOpen}
             isDeleting={isDeleting}
             confirmDeleteColumn={confirmDeleteColumn}
+            isCreating={isCreating}
+            isModalCreateTaskOpen={isModalCreateTaskOpen}
+            cancelTaskHandler={cancelTaskHandler}
+            submitCreateTaskHandler={submitCreateTaskHandler}
           />
           <Droppable droppableId={columnId} type="task">
             {(provided) => (
