@@ -1,9 +1,11 @@
 import React from 'react';
 import cl from './AddBoard.module.scss';
 import { useCreateNewBoardMutation } from '../../../API/boardsCalls';
+import { useTranslate } from '../../../hooks/useTranslate';
 
 const AddBoard = () => {
   const [createNewBoard, {}] = useCreateNewBoardMutation();
+  const T = useTranslate();
 
   const onClickCreateNewBoard = async () => {
     const body = {
@@ -16,7 +18,7 @@ const AddBoard = () => {
   return (
     <button className={cl.container} onClick={onClickCreateNewBoard}>
       <div className={cl.circle}>
-        <h2 className={cl.text}>Add</h2>
+        <h2 className={cl.text}>{T('AddBoard.add')}</h2>
       </div>
     </button>
   );

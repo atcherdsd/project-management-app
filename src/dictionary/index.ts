@@ -43,6 +43,9 @@ const dictionary: Idictionary = {
     Task: {
       deleteTask: 'Delete task',
     },
+    AddBoard: {
+      add: 'Add',
+    },
   },
   RU: {
     Navbar: {
@@ -85,6 +88,9 @@ const dictionary: Idictionary = {
     },
     Task: {
       deleteTask: 'Удалить задание',
+    },
+    AddBoard: {
+      add: 'Добавить',
     },
   },
 };

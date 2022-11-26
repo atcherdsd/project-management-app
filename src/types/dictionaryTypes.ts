@@ -46,6 +46,10 @@ interface ITaskLanguage {
   deleteTask: string;
 }
 
+interface IAddBoardLanguage {
+  add: string;
+}
+
 interface ILanguage {
   Navbar: INavbarLanguage;
   SignUpForm: ISignUpFormLanguage;
@@ -54,6 +58,7 @@ interface ILanguage {
   BoardPage: IBorardPageLanguage;
   ColumnHeader: IColumnHeaderLanguage;
   Task: ITaskLanguage;
+  AddBoard: IAddBoardLanguage;
 }
 
 export interface Idictionary {
