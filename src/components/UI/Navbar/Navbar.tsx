@@ -12,7 +12,9 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { setMenu } from '../../../store/reducers/NavbarReducer';
 import { Modal } from '../../../components/Modal/modal';
 import CreacteNewBoardModal from '../../../components/Modal/modals/createNewBoardModal';
-import { CreateBoardModalForm } from '../../../types/modalType';
+import { CreateBoardModalForm, UsersState, TranformUsersResponse } from '../../../types/modalType';
+import { useGetUsersQuery } from '../../../API/usersCalls';
+import { filterUsers } from '../../../helpers/filterUsersResponse';
 
 const isActiveCheck = ({ isActive }: { isActive: boolean }) =>
   activeClassHandler(isActive, cl.link, cl.link_active);
@@ -24,30 +26,53 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   //State for open or close window
   const [isModalOpen, setModalOpen] = useState(false);
+  const { data: responseUsers } = useGetUsersQuery('/users', {
+    skip: !isModalOpen,
+    refetchOnMountOrArgChange: true,
+  });
   useEffect(() => {
     if (!isLoading) {
       setModalOpen(false);
+      setInvitedUsers([]);
     }
   }, [isLoading]);
+  // Use state for autocomplete
+  ////////////////////////////
+  const [autoCompContent, setAutoCompContent] = useState<UsersState>({
+    filteredOptions: [],
+    currentValue: '',
+  });
+  const [invitedUsers, setInvitedUsers] = useState<string[]>([]);
+  function handleChange(e: React.FormEvent<HTMLInputElement>) {
+    const currentValue = (e.target as HTMLInputElement).value;
+    setAutoCompContent({
+      currentValue: currentValue,
+      filteredOptions: filterUsers((responseUsers as TranformUsersResponse).users, currentValue),
+    });
+  }
+  function onClickChooseUser(e: React.MouseEvent<HTMLParagraphElement>) {
+    const choosenUser = (e.target as HTMLParagraphElement).textContent;
+    setInvitedUsers((prevState) => {
+      if (prevState.includes(String(choosenUser))) return prevState;
+      else return [...prevState, String(choosenUser)];
+    });
+    setAutoCompContent((prevState) => {
+      return { ...prevState, currentValue: '' };
+    });
+  }
   // Submit or Cancel handler for modal form
   ///////////////////////
   function submitHandler(data: CreateBoardModalForm) {
     const { title } = data;
     const body = {
       title: `${title}`,
-      owner: 'Nikita',
-      users: ['Nikita'],
+      owner: (responseUsers as TranformUsersResponse).currentUser?.login,
+      users: invitedUsers,
     };
     createNewBoard(body);
   }
 
   const onClickCreateNewBoard = async () => {
-    // const body = {
-    //   title: `NewBoards ${Date.now()}`,
-    //   owner: 'Artur',
-    //   users: ['Artur'],
-    // };
-    // createNewBoard(body);
     setModalOpen(true);
   };
 
@@ -105,6 +130,11 @@ const Navbar = () => {
             submitHandler={submitHandler}
             isLoading={isLoading}
             clickHandler={clickHandler}
+            handleChange={handleChange}
+            autoCompContent={autoCompContent.currentValue}
+            filteredUsers={autoCompContent.filteredOptions}
+            onClickChooseUser={onClickChooseUser}
+            invitedUsers={invitedUsers}
           ></CreacteNewBoardModal>
         </Modal>
       )}

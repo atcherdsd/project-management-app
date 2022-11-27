@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { CreateBoardModalForm, CreacteNewBoardModalProps } from '../../../types/modalType';
+import {
+  CreateBoardModalForm,
+  CreacteNewBoardModalProps,
+  UsersState,
+} from '../../../types/modalType';
 import cl from './creacteNewBoardModal.module.scss';
 import { useTranslate } from '../../../hooks/useTranslate';
 import Spinner from '../../UI/Spinner/Spinner';
 
 export default function CreacteNewBoardModal(props: CreacteNewBoardModalProps) {
-  const { submitHandler, isLoading, clickHandler } = props;
+  const {
+    submitHandler,
+    isLoading,
+    clickHandler,
+    handleChange,
+    autoCompContent,
+    filteredUsers,
+    onClickChooseUser,
+    invitedUsers,
+  } = props;
   // Use Translate
   const T = useTranslate();
+  // Use ref;
+  const textInput = useRef(null);
   // Use Form
   const {
     register,
@@ -49,34 +64,6 @@ export default function CreacteNewBoardModal(props: CreacteNewBoardModalProps) {
                 </p>
               ))}
           </div>
-          {/* <div className={cl.form__group}> */}
-          {/* <input
-              type="text"
-              id={cl.owner}
-              className={cl.form__input}
-              placeholder=" "
-              autoComplete="off"
-              defaultValue={'Nikita'}
-              // disabled={true}
-              {...register('owner', {
-                // required: { value: true, message: `${T('SignUpForm.formRequireMsg')}` },
-                pattern: {
-                  value: /^[a-zA-Zа-я\s]+$/i,
-                  message: `${T('SignUpForm.formOnlyLetter')}`,
-                },
-                minLength: { value: 2, message: `${T('SignUpForm.formMinLegthNameMsg')}` },
-              })}
-            ></input>
-            <label htmlFor={cl.owner} className={cl.form__label}>
-              {T('Modal.owner')}
-            </label>
-            {errors.owner?.types &&
-              Object.entries(errors.owner?.types).map(([type, message]) => (
-                <p key={type} className={cl.error}>
-                  {message}
-                </p>
-              ))}
-          </div> */}
           <div className={cl.form__buttons}>
             {isLoading && <Spinner></Spinner>}
             <input
@@ -94,16 +81,36 @@ export default function CreacteNewBoardModal(props: CreacteNewBoardModalProps) {
             ></input>
           </div>
         </form>
+        <div className={cl.autocomplete__container}>
+          <input
+            type="text"
+            id={cl.autoComplete}
+            className={cl.form__input}
+            placeholder=" "
+            autoComplete="off"
+            defaultValue={autoCompContent}
+            onChange={handleChange}
+            ref={textInput}
+          ></input>
+          <label htmlFor={cl.autoComplete} className={cl.form__label}>
+            {T('Modal.inviteUser')}
+          </label>
+          {autoCompContent && filteredUsers!.length > 0 && (
+            <div className={cl.usersContainer} onClick={onClickChooseUser}>
+              {filteredUsers?.map((user) => {
+                return <p key={user._id}>{user.login}</p>;
+              })}
+            </div>
+          )}
+          {
+            <div className={cl.invitedUsersContainer}>
+              {invitedUsers?.map((invitedUsers) => {
+                return <p key={invitedUsers}>{invitedUsers}</p>;
+              })}
+            </div>
+          }
+        </div>
       </div>
     </div>
   );
 }
-
-// {isLoading && <Spinner></Spinner>}
-//             <input
-//               type="submit"
-//               className={cl.form__button}
-//               value={T('SignUpForm.formSignUp')}
-//               disabled={isLoading ? true : false}
-//             ></input>
-//           </div>}

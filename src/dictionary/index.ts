@@ -87,6 +87,7 @@ const dictionary: Idictionary = {
       createBoardBtn: 'Create board',
       cancelBtn: 'Cancel',
       createColumnBtn: 'Add Column',
+      inviteUser: 'Invite user',
     },
   },
   RU: {
@@ -174,6 +175,7 @@ const dictionary: Idictionary = {
       createBoardBtn: 'Создать доску',
       cancelBtn: 'Отмена',
       createColumnBtn: 'Добавить колонку',
+      inviteUser: 'Пригласить пользователя',
     },
   },
 };

@@ -10,6 +10,7 @@ import { boardsCalls } from '../API/boardsCalls';
 import { columnsCalls } from '../API/columnsCalls';
 import { tasksCalls } from '../API/tasksCalls';
 import { enableMapSet } from 'immer';
+import { usersCalls } from '../API/usersCalls';
 
 enableMapSet();
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   [boardsCalls.reducerPath]: boardsCalls.reducer,
   [columnsCalls.reducerPath]: columnsCalls.reducer,
   [tasksCalls.reducerPath]: tasksCalls.reducer,
+  [usersCalls.reducerPath]: usersCalls.reducer,
 });
 
 export const setupStore = () =>
@@ -37,7 +39,8 @@ export const setupStore = () =>
         editProfileCalls.middleware,
         boardsCalls.middleware,
         columnsCalls.middleware,
-        tasksCalls.middleware
+        tasksCalls.middleware,
+        usersCalls.middleware
       ),
   });
 
