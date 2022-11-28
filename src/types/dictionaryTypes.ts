@@ -9,7 +9,8 @@ interface INavbarLanguage {
 }
 
 export interface ISighUpFormLanguage {
-  formWelcome: string;
+  formWelcomeSignIn: string;
+  formWelcomeSignUp: string;
   formLabelName: string;
   formLogin: string;
   formPassword: string;
@@ -21,6 +22,7 @@ export interface ISighUpFormLanguage {
   formLoginPatternMsg: string;
   formPasswordValidateMsg: string;
   formRegistered: string;
+  notRegistered: string;
   formSignIn: string;
   edit?: string;
   updateBtn?: string;
