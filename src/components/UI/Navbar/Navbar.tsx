@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import cl from './Navbar.module.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
@@ -6,32 +6,24 @@ import { activeClassHandler } from '../../../helpers/activeClassHandler';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { useTranslate } from '../../../hooks/useTranslate';
 import { navbarSelector } from '../../../store/selectors/selectors';
-import { setHasToken, setMenu } from '../../../store/reducers/NavbarReducer';
+import { removeUserData, setMenu } from '../../../store/reducers/NavbarReducer';
 
 const isActiveCheck = ({ isActive }: { isActive: boolean }) =>
   activeClassHandler(isActive, cl.link, cl.link_active);
 
 const Navbar = () => {
   const T = useTranslate();
+  const { hasToken } = useAppSelector(navbarSelector);
 
-  const { isOpenedMenu, hasToken } = useAppSelector(navbarSelector);
+  const { isOpenedMenu } = useAppSelector(navbarSelector);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      dispatch(setHasToken(true));
-    }
-  }, [dispatch, hasToken]);
 
   const handleMenuClick = () => {
     isOpenedMenu ? dispatch(setMenu(!isOpenedMenu)) : null;
   };
   const signOut = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('id');
-    dispatch(setHasToken(false));
+    dispatch(removeUserData());
     navigate('/');
   };
 
