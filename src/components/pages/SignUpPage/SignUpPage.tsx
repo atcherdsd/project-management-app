@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import cl from './SignUpPage.module.scss';
 import SignUpForm from '../../SighUpForm/SignUpForm';
-import { FormValues } from '../../../types/formTypes';
+import { ResponseStateSignUp, FormValues } from '../../../types/formTypes';
 import { useSignUpAuthQuery } from '../../../API/authCalls';
 import { Modal } from '../../../components/Modal/modal';
 import ModalFormResponse from '../../Modal/modals/modalFormResponse';
@@ -30,11 +30,10 @@ const SignUpPage = () => {
   );
   useEffect(() => {
     if (responseData) {
-      dispatch(setSignUpDataResponse(responseData as FormValues));
+      dispatch(setSignUpDataResponse(responseData as ResponseStateSignUp));
       navigate(`/${Paths.SignIn}`);
     }
-  }, [responseData]);
-
+  }, [dispatch, navigate, responseData]);
   function handleSubmit(data: FormValues) {
     setSignUpData(data);
   }

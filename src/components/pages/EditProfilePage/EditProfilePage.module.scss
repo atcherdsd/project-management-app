@@ -1,6 +1,7 @@
 @import "../../../styleVariablesAndMixines/pages.scss";
 
 .container {
-  @include page-properties;
+  @extend %page-properties;
   display: flex;
+  justify-content: center;
 }

@@ -1,8 +1,8 @@
 import { Idictionary } from '../types/dictionaryTypes';
 
 const dictionary: Idictionary = {
-  Navbar: {
-    EN: {
+  EN: {
+    Navbar: {
       signin: 'Sign in',
       signup: 'Sign Up',
       welcome: 'Welcome',
@@ -11,18 +11,7 @@ const dictionary: Idictionary = {
       signout: 'Sign Out',
       newboard: 'Create new board',
     },
-    RU: {
-      signin: 'Войти',
-      signup: 'Зарегестрироваться',
-      welcome: 'Добро пожаловать',
-      main: 'Главная страница',
-      edit: 'Профиль',
-      signout: 'Выйти',
-      newboard: 'Новая доска',
-    },
-  },
-  SighUpForm: {
-    EN: {
+    SignUpForm: {
       formWelcome: 'Get unlimited access to your board',
       formLabelName: 'Name',
       formLogin: 'Login',
@@ -36,8 +25,85 @@ const dictionary: Idictionary = {
       formPasswordValidateMsg: 'Should contains one or greater then numbers',
       formRegistered: 'Already registered?',
       formSignIn: 'SignIn',
+      edit: 'Edit profile',
+      updateBtn: 'Update',
+      deleteBtn: 'Delete',
     },
-    RU: {
+    MainPage: {
+      boards: 'Boards',
+    },
+    Board: {
+      created: 'Created by',
+      delete: 'Delete',
+    },
+    BoardPage: {
+      board: 'Board',
+      addColumn: 'Add Column',
+      back: 'Back to Main',
+    },
+    ColumnHeader: {
+      deleteCol: 'Delete column',
+      createTask: 'Create task',
+    },
+    Task: {
+      deleteTask: 'Delete task',
+    },
+    WelcomePage: {
+      titleTagline: 'Easy to create, easy to follow',
+      titleProposal1:
+        'Try the most efficient processes, to organize your personal and professional life.',
+      titleProposal2: 'Discover OneTeam project management system',
+      descriptSubtitle: 'PROJECT MANAGEMENT',
+      descriptDeclarationTitle: 'Your base for classic or agile project management',
+      descriptDeclarationContent:
+        'OneTeam management system allows you to plan a project and assign team members to complete tasks on time, collaborate and manage schedules',
+      descriptBenefitsTitle: 'The team management system includes',
+      descriptBenefitTitle1: 'Better and faster iterations',
+      descriptBenefitContent1:
+        'OpenProject provides the perfect tool to support agile project management and methodologies such as Scrum and Kanban. Agile teams deliver better and faster. They build, measure and learn with each iteration.',
+      descriptBenefitTitle2: 'The best quality of work',
+      descriptBenefitContent2:
+        'Team Project Management Software allows you to assign a task to one or more team members. By checking which elements are assigned to whom, you can uniformly distribute the workload among team members. Collaborative teamwork leads to more informed decisions and therefore allows all members to create their best work.',
+      descriptBenefitTitle3: 'Better Time Management',
+      descriptBenefitContent3:
+        'Time management is an integral part of management team project. Project Duration Tracking allows managers to track paid working hours teams and control the budget of complex projects.',
+      descriptBenefitTitle4: 'Increasing customer satisfaction',
+      descriptBenefitContent4:
+        'Team project management apps give you the ability to control critical aspects of the project to ensure high quality work. This allows you remain competitive in the market and create strong brand image in the public eye.',
+      ourTeam: 'Application development team',
+      aboutCourse1:
+        'This application was created by students of the RS School React 2022Q3 course, which started in September 2022. You can view the work of our team members, as well as contact us using the links above.',
+      aboutCourse2:
+        'Everyone can study at RS School, regardless of age, professional employment, or place of residence. School partner is EPAM',
+    },
+    TeamMembers: {
+      ArturName: 'Artur Shvedenko',
+      SergeyName: 'Siarhei Charniak',
+      NikitaName: 'Nikita Yankovsky',
+      lead: 'Team lead',
+      dev: 'Developer',
+    },
+    NotFoundPage: {
+      declaration: 'Requested page not found',
+      button: 'Back to Home Page',
+    },
+    Modal: {
+      warning: 'Are you sure?',
+      confirmBtn: 'Yes',
+      disconfirmBtn: 'No',
+    },
+  },
+  RU: {
+    Navbar: {
+      signin: 'Войти',
+      signup: 'Зарегистрироваться',
+      welcome: 'Добро пожаловать',
+      main: 'Главная страница',
+      edit: 'Профиль',
+      signout: 'Выйти',
+      newboard: 'Новая доска',
+    },
+    SignUpForm: {
       formWelcome: 'Получите неограниченный доступ к вашей доске',
       formLabelName: 'Имя',
       formLogin: 'Логин',
@@ -51,6 +117,72 @@ const dictionary: Idictionary = {
       formPasswordValidateMsg: 'Должен содержать одно или больше чисел',
       formRegistered: 'Уже зарегистрированны?',
       formSignIn: 'Войти',
+      edit: 'Редактировать профиль',
+      updateBtn: 'Обновить',
+      deleteBtn: 'Удалить',
+    },
+    MainPage: {
+      boards: 'Доски',
+    },
+    Board: {
+      created: 'Создал',
+      delete: 'Удалить',
+    },
+    BoardPage: {
+      board: 'Доска',
+      addColumn: 'Добавить колонку',
+      back: 'На главную',
+    },
+    ColumnHeader: {
+      deleteCol: 'Удалить колонку',
+      createTask: 'Создать задание',
+    },
+    Task: {
+      deleteTask: 'Удалить задание',
+    },
+    WelcomePage: {
+      titleTagline: 'Легко создавать, легко следовать',
+      titleProposal1:
+        'Попробуйте самые эффективные процессы, чтобы организовать свою личную и профессиональную жизнь.',
+      titleProposal2: 'Откройте для себя систему управления проектами OneTeam',
+      descriptSubtitle: 'УПРАВЛЕНИЕ ПРОЕКТОМ',
+      descriptDeclarationTitle: 'Ваша база для классического или гибкого управления проектами',
+      descriptDeclarationContent:
+        'Система управления командой OneTeam позволяет планировать проект и назначать членов команды для выполнения задач в заданные сроки, сотрудничать и управлять расписаниями',
+      descriptBenefitsTitle: 'Система управления командой включает',
+      descriptBenefitTitle1: 'Более качественные и быстрые итерации',
+      descriptBenefitContent1:
+        'OneTeam предоставляет идеальный инструмент для поддержки гибкого управления проектами и таких методологий, как Scrum и Kanban. Agile-команды работают лучше и быстрее. Они создают, оценивают и учатся с каждой итерацией.',
+      descriptBenefitTitle2: 'Лучшее качество работы',
+      descriptBenefitContent2:
+        'Приложение для управления проектами позволяет назначать задачу одному или нескольким членам команды. Проверяя, кому какие элементы назначены, вы можете равномерно распределить рабочую нагрузку. Совместная работа в команде приводит к более обоснованным решениям и, следовательно, позволяет всем ее участникам создавать свои лучшие работы.',
+      descriptBenefitTitle3: 'Лучшее управление временем',
+      descriptBenefitContent3:
+        'Управление временем является неотъемлемой частью управления командным проектом. Отслеживание продолжительности проекта позволяет менеджерам отслеживать оплачиваемые рабочие часы команды и контролировать бюджет сложных проектов.',
+      descriptBenefitTitle4: 'Повышение удовлетворенности клиентов',
+      descriptBenefitContent4:
+        'Приложения для управления командными проектами дают вам возможность контролировать критически важные аспекты проекта для обеспечения высокого качества работы. Это позволяет вам оставаться конкурентоспособными на рынке и создавать сильный имидж бренда в глазах общественности.',
+      ourTeam: 'Команда разработчиков приложения',
+      aboutCourse1:
+        'Приложение создано студентами курса RS School React 2022Q3, стартовавшего в сентябре 2022 года. Посмотреть работы членов нашей команды, а также связаться с нами можно по указанным выше ссылкам.',
+      aboutCourse2:
+        'Учиться в RS School могут все желающие, независимо от возраста, профессиональной занятости и места жительства. Партнером школы является EPAM',
+    },
+    TeamMembers: {
+      ArturName: 'Артур Шведенко',
+      SergeyName: 'Сергей Черняк',
+      NikitaName: 'Никита Янковский',
+      lead: 'Тимлид',
+      dev: 'Разработчик',
+    },
+    NotFoundPage: {
+      declaration: 'Запрашиваемая страница не найдена',
+      button: 'На главную',
+    },
+    Modal: {
+      warning: 'Вы уверены?',
+      confirmBtn: 'Да',
+      disconfirmBtn: 'Нет',
     },
   },
 };

@@ -21,7 +21,7 @@ export const Modal = ({ children, className, el = 'div' }: IProps) => {
       modalRoot.removeChild(container);
       document.body.style.overflow = '';
     };
-  }, []);
+  }, [container]);
 
   return ReactDOM.createPortal(children, container);
 };

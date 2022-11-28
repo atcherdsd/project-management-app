@@ -8,8 +8,11 @@ import ModalFormResponse from '../../Modal/modals/modalFormResponse';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
+import { useAppDispatch } from '../../../hooks/redux';
+import { setHasToken } from '../../../store/reducers/NavbarReducer';
 
 const SignInPage = () => {
+  const dispatch = useAppDispatch();
   const [signInData, setSignInData] = useState<FormValues>({ login: '', password: '' });
   const navigate = useNavigate();
   const { isSuccess, isLoading, isError, error } = useSignInAuthQuery(
@@ -22,8 +25,9 @@ const SignInPage = () => {
   useEffect(() => {
     if (isSuccess) {
       navigate(`/${Paths.MainPage}`);
+      dispatch(setHasToken(true));
     }
-  });
+  }, [dispatch, isSuccess, navigate]);
   function handleSubmit(data: FormValues) {
     setSignInData(data);
   }
