@@ -18,6 +18,8 @@ export type CreacteNewBoardModalProps = {
   filteredUsers?: UsersResponse;
   onClickChooseUser?: (e: React.MouseEvent<HTMLParagraphElement>) => void;
   invitedUsers?: string[];
+  removeUserOnClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  isUserLoading?: boolean;
 };
 
 export type UserResponse = {

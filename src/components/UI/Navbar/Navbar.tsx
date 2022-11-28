@@ -26,15 +26,15 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   //State for open or close window
   const [isModalOpen, setModalOpen] = useState(false);
-  const { data: responseUsers } = useGetUsersQuery('/users', {
+  const { data: responseUsers, isFetching: isUserLoading } = useGetUsersQuery('/users', {
     skip: !isModalOpen,
     refetchOnMountOrArgChange: true,
   });
   useEffect(() => {
     if (!isLoading) {
       setModalOpen(false);
-      setInvitedUsers([]);
     }
+    return setInvitedUsers([]);
   }, [isLoading]);
   // Use state for autocomplete
   ////////////////////////////
@@ -43,6 +43,7 @@ const Navbar = () => {
     currentValue: '',
   });
   const [invitedUsers, setInvitedUsers] = useState<string[]>([]);
+
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
     const currentValue = (e.target as HTMLInputElement).value;
     setAutoCompContent({
@@ -50,6 +51,7 @@ const Navbar = () => {
       filteredOptions: filterUsers((responseUsers as TranformUsersResponse).users, currentValue),
     });
   }
+
   function onClickChooseUser(e: React.MouseEvent<HTMLParagraphElement>) {
     const choosenUser = (e.target as HTMLParagraphElement).textContent;
     setInvitedUsers((prevState) => {
@@ -81,6 +83,18 @@ const Navbar = () => {
     const value = input?.value;
     if (value && (value == 'Cancel' || value == 'Отмена')) {
       setModalOpen(false);
+    }
+  }
+
+  function removeUserOnClick(e: React.MouseEvent<HTMLElement>) {
+    const target = e.target as HTMLElement;
+    if (target.tagName == 'IMG') {
+      const removeUser = (target.previousSibling as HTMLParagraphElement).textContent;
+      setInvitedUsers((prevState) => {
+        return prevState.filter((invitedUser) => {
+          return invitedUser !== removeUser;
+        });
+      });
     }
   }
 
@@ -135,6 +149,8 @@ const Navbar = () => {
             filteredUsers={autoCompContent.filteredOptions}
             onClickChooseUser={onClickChooseUser}
             invitedUsers={invitedUsers}
+            removeUserOnClick={removeUserOnClick}
+            isUserLoading={isUserLoading}
           ></CreacteNewBoardModal>
         </Modal>
       )}
