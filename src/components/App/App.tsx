@@ -12,7 +12,11 @@ const App = () => {
 
   let content;
   if (isLoading) {
-    content = <div>Loading...</div>;
+    content = (
+      <div className={cl.icon_loader_wrapper}>
+        <div className={cl.icon_loader}></div>
+      </div>
+    );
   } else if (!isLoading) {
     content = <AppRouter />;
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import cl from './Navbar.module.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
@@ -13,11 +13,14 @@ const isActiveCheck = ({ isActive }: { isActive: boolean }) =>
 
 const Navbar = () => {
   const T = useTranslate();
-  const { hasToken } = useAppSelector(navbarSelector);
-
-  const { isOpenedMenu } = useAppSelector(navbarSelector);
+  const { hasToken, isOpenedMenu } = useAppSelector(navbarSelector);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   const handleMenuClick = () => {
     isOpenedMenu ? dispatch(setMenu(!isOpenedMenu)) : null;
@@ -30,7 +33,8 @@ const Navbar = () => {
   return (
     <div className={isOpenedMenu ? `${cl.overlay}` : ''} onClick={handleMenuClick}>
       <nav className={isOpenedMenu ? `${cl.container_opened_menu}` : `${cl.container}`}>
-        {!hasToken && (
+        {isLoading && <div></div>}
+        {!hasToken && !isLoading && (
           <>
             <NavLink className={isActiveCheck} to={Paths.WelcomePage}>
               {T('Navbar.welcome')}
@@ -43,7 +47,7 @@ const Navbar = () => {
             </NavLink>
           </>
         )}
-        {hasToken && (
+        {hasToken && !isLoading && (
           <>
             <NavLink className={isActiveCheck} to={Paths.MainPage}>
               {T('Navbar.main')}
