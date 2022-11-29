@@ -1,6 +1,6 @@
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { useTranslate } from '../../hooks/useTranslate';
-import React from 'react';
+import React, { RefObject, useCallback, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { UpdateProps, FormValues } from 'types/formTypes';
 import cl from '../updateUserForm/UpdateForm.module.scss';
@@ -20,6 +20,7 @@ function UpdateUserForm(props: UpdateProps) {
     confirmDeleteUser,
   } = props;
 
+  const [incorrectData, setIncorrectData] = useState(false);
   // Use Translate
   const T = useTranslate();
   // Use Form
@@ -29,12 +30,31 @@ function UpdateUserForm(props: UpdateProps) {
     formState: { errors },
   } = useForm<FormValues>({ criteriaMode: 'all', mode: 'onChange' });
 
+  const formRef = useRef() as RefObject<HTMLFormElement>;
+
   const onSubmit = handleSubmit((data) => {
     handlerSubmit(data);
   });
+
+  const handleDeleteUser = useCallback(() => {
+    if (
+      Array.from(formRef.current!.elements).some(
+        (item) => (item as HTMLInputElement).value === ''
+      ) ||
+      errors.login ||
+      errors.name ||
+      errors.password
+    ) {
+      setIncorrectData(true);
+    } else {
+      setIncorrectData(false);
+      deleteUser();
+    }
+  }, [deleteUser, errors.login, errors.name, errors.password]);
+
   return (
     <>
-      <form className={cl.form} onSubmit={onSubmit}>
+      <form className={cl.form} onSubmit={onSubmit} ref={formRef}>
         <p className={cl.form__description}>{T('SignUpForm.edit')}</p>
         {isSuccess && (
           <div className={cl.form__group}>
@@ -140,11 +160,19 @@ function UpdateUserForm(props: UpdateProps) {
               className={cl.form__deleteButton}
               defaultValue={T('SignUpForm.deleteBtn')}
               disabled={isLoading ? true : false}
-              onClick={deleteUser}
+              onClick={handleDeleteUser}
             ></input>
           </div>
         )}
       </form>
+
+      {incorrectData && (
+        <Modal>
+          <div className={cl.modal__container}>
+            <p className={cl.error__block}>{T('SignUpForm.messageBeforeDelete')}</p>
+          </div>
+        </Modal>
+      )}
       {isModalOpen && (
         <Modal>
           <ConfirmModal handler={confirmDeleteUser}></ConfirmModal>

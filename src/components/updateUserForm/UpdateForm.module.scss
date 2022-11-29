@@ -10,6 +10,31 @@ $clr-gray500: #425a65;
 /*   border radius */
 $radius: 1rem;
 
+.modal__container{
+  position: absolute;
+  min-width: 10rem;
+  background-color: rgb(178, 181, 191);
+  bottom: 80vh;
+  transform: translateX(-100%);
+  border-radius: 0.5rem;
+  animation: move 3s;
+  animation-iteration-count:2;
+  animation-direction:alternate;
+  transition-timing-function: ease-in;
+  & .error__block{
+      padding: 2rem 1rem;
+      color:rgb(149, 13, 13);
+  }
+}
+
+@keyframes move {
+  from {
+      transform: translateX(-100%);
+  }             /* от: left: 0px */
+  to { 
+      transform: translateX(+100%);
+   }
+}
 .form {
     width: 28rem;
     padding: 2rem;

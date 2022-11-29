@@ -30,6 +30,7 @@ const dictionary: Idictionary = {
       edit: 'Edit profile',
       updateBtn: 'Update',
       deleteBtn: 'Delete',
+      messageBeforeDelete: 'Enter correct data',
     },
     MainPage: {
       boards: 'Boards',
@@ -124,6 +125,7 @@ const dictionary: Idictionary = {
       edit: 'Редактировать профиль',
       updateBtn: 'Обновить',
       deleteBtn: 'Удалить',
+      messageBeforeDelete: 'Введите корректные данные',
     },
     MainPage: {
       boards: 'Доски',

@@ -27,6 +27,7 @@ export interface ISighUpFormLanguage {
   edit?: string;
   updateBtn?: string;
   deleteBtn?: string;
+  messageBeforeDelete?: string;
 }
 
 interface IMainPageLanguage {
