@@ -4,7 +4,6 @@ import { NavbarState } from '../../types/navbarType';
 const initialState: NavbarState = {
   isOpenedMenu: false,
   hasToken: false,
-  userId: null,
 };
 
 export const NavbarSlice = createSlice({
@@ -19,7 +18,6 @@ export const NavbarSlice = createSlice({
     },
     removeUserData: (state) => {
       state.hasToken = false;
-      state.userId = null;
       localStorage.removeItem('token');
       localStorage.removeItem('id');
     },
