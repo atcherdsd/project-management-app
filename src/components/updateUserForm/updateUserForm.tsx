@@ -11,7 +11,7 @@ import editLogo from '../../assets/edit-icon.svg';
 function UpdateUserForm(props: UpdateProps) {
   const {
     handlerSubmit,
-    isLoading,
+    // isLoading,
     login,
     name,
     isSuccess,

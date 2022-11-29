@@ -1,0 +1,11 @@
+@import "../../../../../styleVariablesAndMixines/fontSizes.scss";
+
+.container {
+  height: 20px;
+  grid-area: title;
+  input {
+    height: 100%;
+    font-size: $font-size-middle;
+    line-height: $font-size-middle;
+  }
+}

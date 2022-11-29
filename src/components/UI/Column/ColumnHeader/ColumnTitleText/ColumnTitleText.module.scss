@@ -1,0 +1,8 @@
+@import "../../../../../styleVariablesAndMixines/fontSizes.scss";
+
+.container {
+  grid-area: title;
+  height: 20px;
+  font-size: $font-size-middle;
+  line-height: $font-size-middle;
+}
