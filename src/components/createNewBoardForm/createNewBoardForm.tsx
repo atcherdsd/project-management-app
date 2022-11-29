@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import removeUserBtn from '../../assets/removeUserBtn.svg';
 import { CreateBoardModalForm, CreacteNewBoardModalProps } from '../../types/modalType';
@@ -22,11 +22,10 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
   // Use Translate
   const T = useTranslate();
   //Use Ref
-  const inputEl = useRef<HTMLInputElement>(null);
-  function blurHandler() {
-    console.log(inputEl.current!.defaultValue);
-    inputEl.current!.defaultValue = '';
-  }
+  // const inputEl = useRef<HTMLInputElement>(null);
+  // function blurHandler() {
+  //   // inputEl!.current!.value = '';
+  // }
   // Use Form
   const {
     register,
@@ -95,8 +94,8 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
               autoComplete="off"
               defaultValue={autoCompContent}
               onChange={handleChange}
-              ref={inputEl}
-              onBlur={blurHandler}
+              // ref={inputEl}
+              // onBlur={blurHandler}
             ></input>
             <label htmlFor={cl.autoComplete} className={cl.form__label}>
               {T('Modal.inviteUser')}

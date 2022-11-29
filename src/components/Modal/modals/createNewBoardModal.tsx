@@ -6,8 +6,11 @@ import { setModalState } from '../../../store/reducers/ModalReducer';
 import { CreateBoardModalForm, TranformUsersResponse, UsersState } from '../../../types/modalType';
 import { filterUsers } from '../../../helpers/filterUsersResponse';
 import CreateNewBoardForm from '../../createNewBoardForm/createNewBoardForm';
+import { Paths } from '../../../helpers/routerPaths';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreacteNewBoardModal() {
+  const navigate = useNavigate();
   const [invitedUsers, setInvitedUsers] = useState<string[]>([]);
   // Use state for autocomplete
   ////////////////////////////
@@ -62,6 +65,7 @@ export default function CreacteNewBoardModal() {
       users: invitedUsers,
     };
     createNewBoard(body);
+    navigate(Paths.MainPage);
   }
 
   function clickHandler(e: React.MouseEvent<HTMLInputElement>) {
