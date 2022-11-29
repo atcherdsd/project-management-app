@@ -6,6 +6,7 @@ import { UpdateProps, FormValues } from 'types/formTypes';
 import cl from '../updateUserForm/UpdateForm.module.scss';
 import ConfirmModal from '../Modal/modals/confirmModal';
 import { Modal } from '../Modal/modal';
+import editLogo from '../../assets/edit-icon.svg';
 
 function UpdateUserForm(props: UpdateProps) {
   const {
@@ -55,6 +56,9 @@ function UpdateUserForm(props: UpdateProps) {
   return (
     <>
       <form className={cl.form} onSubmit={onSubmit} ref={formRef}>
+        <div className={cl.form__avatar__wrapper}>
+          <img className={cl.form__edit__logo} src={editLogo} alt="Edit Logo"></img>
+        </div>
         <p className={cl.form__description}>{T('SignUpForm.edit')}</p>
         {isSuccess && (
           <div className={cl.form__group}>
@@ -115,7 +119,13 @@ function UpdateUserForm(props: UpdateProps) {
           </div>
         )}
         {isSuccess && (
-          <div className={cl.form__password}>
+          <div
+            className={
+              errors.login?.types
+                ? `${cl.form__password} ${cl.form__margin__pass}`
+                : `${cl.form__password}`
+            }
+          >
             <input
               type="password"
               id={cl.password}
@@ -147,7 +157,13 @@ function UpdateUserForm(props: UpdateProps) {
           </div>
         )}
         {isSuccess && (
-          <div className={cl.form__buttons}>
+          <div
+            className={
+              errors.password?.types
+                ? `${cl.form__buttons} ${cl.form__margin}`
+                : `${cl.form__buttons}`
+            }
+          >
             {isUpdating && <Spinner></Spinner>}
             <input
               type="submit"

@@ -40,7 +40,19 @@ $radius: 1rem;
     padding: 2rem;
     border-radius: $radius;
     background-color: white;
+    box-shadow: 0px 5px 34px rgb(0 0 0 / 70%);
   
+    &__avatar__wrapper {
+      width: 7rem;
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+    }
+    &__edit__logo {
+      width: 4rem;
+      padding-bottom: 1rem;
+    }
+
     &__title {
       margin-bottom: 0.5rem;
     }
@@ -48,6 +60,7 @@ $radius: 1rem;
     &__description {
       margin-bottom: 2rem;
       font-size: 2rem;
+      text-align: center;
     }
   
     &__group {
@@ -56,13 +69,13 @@ $radius: 1rem;
       margin-bottom: 1.5rem;
     }
     &__password{
-      margin-top:3rem;
+      margin-top:3.5rem;
       position: relative;
       height: 3rem;
       margin-bottom: 1.5rem;
     }
     &__login{
-      margin-top:3rem;
+      margin-top:3.5rem;
       position: relative;
       height: 3rem;
       margin-bottom: 1.5rem;
@@ -100,7 +113,7 @@ $radius: 1rem;
 
     &__buttons{
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-around;
         align-items: center;
         margin-top:5rem;
         & a{
@@ -127,7 +140,6 @@ $radius: 1rem;
   
     &__button {
       display: block;
-      margin-left: 1rem;
       padding: 0.75rem 2rem;
       background-color: $clr-primary;
       font-family: inherit;
@@ -143,9 +155,7 @@ $radius: 1rem;
       }
     }
     &__deleteButton{
-      width:30%;
       display: block;
-      margin-left: 1rem;
       padding: 0.75rem 2rem;
       background-color: $clr-primary;
       font-family: inherit;
@@ -180,8 +190,23 @@ $radius: 1rem;
     font-size: 0.8rem;
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 410px) {
     .form{
-      width: 24rem;
+      max-width: 24rem;
+      &__password {
+        margin-top: 4.1rem;
+      }
+      &__buttons {
+        margin-top: 5.5rem;
+      }
+      &__login {
+        margin-top: 4.5rem;
+      }
+      &__margin__pass {
+        margin-top: 5.1rem;
+      }
+      &__margin {
+        margin-top: 7.5rem;
+      }
     }
   }
