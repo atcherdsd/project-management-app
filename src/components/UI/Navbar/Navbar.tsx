@@ -1,12 +1,12 @@
-import React, { useEffect, useState }, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cl from './Navbar.module.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
 import { activeClassHandler } from '../../../helpers/activeClassHandler';
 import { useTranslate } from '../../../hooks/useTranslate';
 import { useCreateNewBoardMutation } from '../../../API/boardsCalls';
-import axios from 'axios';
-import baseUrl from '../../../API/baseUrl';
+// import axios from 'axios';
+// import baseUrl from '../../../API/baseUrl';
 import { navbarSelector } from '../../../store/selectors/selectors';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { removeUserData, setMenu } from '../../../store/reducers/NavbarReducer';
@@ -21,15 +21,11 @@ const isActiveCheck = ({ isActive }: { isActive: boolean }) =>
 
 const Navbar = () => {
   const T = useTranslate();
-  const [createNewBoard, { isLoading }] = useCreateNewBoardMutation();  const { hasToken, isOpenedMenu } = useAppSelector(navbarSelector);
+  const [createNewBoard, { isLoading }] = useCreateNewBoardMutation();
+  const { hasToken, isOpenedMenu } = useAppSelector(navbarSelector);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
-  //State for open or close window
   const [isModalOpen, setModalOpen] = useState(false);
   const { data: responseUsers, isFetching: isUserLoading } = useGetUsersQuery('/users', {
     skip: !isModalOpen,
@@ -103,18 +99,18 @@ const Navbar = () => {
     }
   }
 
-  const signUp = async () => {
-    const body = {
-      login: 'agtugchik',
-      password: '1qwer1',
-    };
-    const answer = await axios.post(`${baseUrl}/auth/signin`, body, {
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-    console.log(answer.data);
-  };
+  // const signUp = async () => {
+  //   const body = {
+  //     login: 'agtugchik',
+  //     password: '1qwer1',
+  //   };
+  //   const answer = await axios.post(`${baseUrl}/auth/signin`, body, {
+  //     headers: {
+  //       Accept: 'application/json',
+  //     },
+  //   });
+  //   console.log(answer.data);
+  // };
   const handleMenuClick = () => {
     isOpenedMenu ? dispatch(setMenu(!isOpenedMenu)) : null;
   };
@@ -148,9 +144,11 @@ const Navbar = () => {
             <NavLink className={isActiveCheck} to={Paths.EditProfilePage}>
               {T('Navbar.edit')}
             </NavLink>
-            <button className={cl.button}>{T('Navbar.newboard')}</button>
+            <button className={cl.button} onClick={onClickCreateNewBoard}>
+              {T('Navbar.newboard')}
+            </button>
             <button className={cl.button} onClick={signOut}>
-              {T('Navbar.signout')}{' '}
+              {T('Navbar.signout')}
             </button>
           </>
         )}

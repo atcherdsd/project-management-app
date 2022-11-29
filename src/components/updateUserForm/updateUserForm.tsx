@@ -11,7 +11,7 @@ import editLogo from '../../assets/edit-icon.svg';
 function UpdateUserForm(props: UpdateProps) {
   const {
     handlerSubmit,
-    // isLoading,
+    isLoading,
     login,
     name,
     isSuccess,
@@ -181,7 +181,7 @@ function UpdateUserForm(props: UpdateProps) {
                 type="button"
                 className={cl.form__deleteButton}
                 defaultValue={T('SignUpForm.deleteBtn')}
-                disabled={isLoading ? true : false}
+                disabled={isUpdating ? true : false}
                 onClick={handleDeleteUser}
               ></input>
             </div>

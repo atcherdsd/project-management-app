@@ -28,7 +28,7 @@ const Column: FC<IColumnProps> = ({ column }) => {
   });
   useEffect(() => {
     if (data) dispatch(setLocalColumnTasks([columnId, [...(data as ITask[])]]));
-  }, [data]);
+  }, [columnId, data, dispatch, setLocalColumnTasks]);
   //Modal manipulations
   ////////////////////////
   const [isModalDeleteOpen, setModalDeleteOpen] = useState(false);

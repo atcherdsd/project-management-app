@@ -35,7 +35,7 @@ const BoardPage = () => {
 
   useEffect(() => {
     if (data) dispatch(setLocalBoardColumns([boardId, [...(data as IColumn[])]]));
-  }, [data]);
+  }, [boardId, data, dispatch, setLocalBoardColumns]);
   //State for open or close window
   ///////////////////////////////////
   const [isModalOpen, setModalOpen] = useState(false);
