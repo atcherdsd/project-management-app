@@ -88,6 +88,7 @@ interface IModalLanguage {
   cancelBtn: string;
   createColumnBtn: string;
   inviteUser: string;
+  task: string;
 }
 
 interface ILanguage {

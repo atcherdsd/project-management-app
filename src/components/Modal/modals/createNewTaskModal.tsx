@@ -54,7 +54,7 @@ export default function CreacteNewTaskModal(props: CreacteNewBoardModalProps) {
             <input
               type="submit"
               className={cl.form__button}
-              value={T('Modal.createColumnBtn')}
+              value={T('Modal.task')}
               disabled={isLoading ? true : false}
             ></input>
             <input

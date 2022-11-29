@@ -11,6 +11,7 @@ import { columnsCalls } from '../API/columnsCalls';
 import { tasksCalls } from '../API/tasksCalls';
 import { enableMapSet } from 'immer';
 import { usersCalls } from '../API/usersCalls';
+import ModalReducer from './reducers/ModalReducer';
 
 enableMapSet();
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   SignUpDataReducer,
   BoardReducer,
   SearchbarReducer,
+  ModalReducer,
   [authCalls.reducerPath]: authCalls.reducer,
   [editProfileCalls.reducerPath]: editProfileCalls.reducer,
   [boardsCalls.reducerPath]: boardsCalls.reducer,
