@@ -62,14 +62,6 @@ const Column: FC<IColumnProps> = ({ column }) => {
 
   const createNewTaskOnClick = () => {
     setModalCreateTaskOpen(true);
-    // const body = {
-    //   title: Date.now(),
-    //   order: (data as []).length,
-    //   description: 'string',
-    //   userId: 0,
-    //   users: ['string'],
-    // };
-    // createNewTask({ boardId, columnId, body });
   };
   function cancelTaskHandler(e: React.MouseEvent<HTMLInputElement>) {
     const input = (e.target as HTMLElement).closest('input');

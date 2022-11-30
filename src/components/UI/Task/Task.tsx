@@ -29,7 +29,6 @@ const Task: FC<ITaskProps> = ({ task, boardId, columnId, index }) => {
   ///////////////////////////////////////////////////
   const deleteTaskOnClick = () => {
     setModalOpen(true);
-    // deleteTask({ boardId, columnId, id });
   };
 
   function confirmDeleteTask(e: React.MouseEvent<HTMLElement>) {

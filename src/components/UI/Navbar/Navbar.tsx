@@ -4,8 +4,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
 import { activeClassHandler } from '../../../helpers/activeClassHandler';
 import { useTranslate } from '../../../hooks/useTranslate';
-// import axios from 'axios';
-// import baseUrl from '../../../API/baseUrl';
 import { navbarSelector } from '../../../store/selectors/selectors';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { removeUserData, setMenu } from '../../../store/reducers/NavbarReducer';
@@ -34,18 +32,6 @@ const Navbar = () => {
     dispatch(setModalState(true));
   };
 
-  // const signUp = async () => {
-  //   const body = {
-  //     login: 'agtugchik',
-  //     password: '1qwer1',
-  //   };
-  //   const answer = await axios.post(`${baseUrl}/auth/signin`, body, {
-  //     headers: {
-  //       Accept: 'application/json',
-  //     },
-  //   });
-  //   console.log(answer.data);
-  // };
   const handleMenuClick = () => {
     isOpenedMenu ? dispatch(setMenu(!isOpenedMenu)) : null;
   };

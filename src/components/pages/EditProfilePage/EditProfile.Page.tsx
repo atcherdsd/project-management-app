@@ -21,12 +21,9 @@ const EditProfilePage = () => {
     isSuccess,
     isLoading,
     data: responseData,
-  } = useGetUserQuery(
-    {
-      path: `users/${localStorage.getItem('id')}`,
-    }
-    // { refetchOnMountOrArgChange: true }
-  );
+  } = useGetUserQuery({
+    path: `users/${localStorage.getItem('id')}`,
+  });
   const [updateUser, { isLoading: isUpdating, isError: isErrorUpdating, error: updateError }] =
     useUpdateUserMutation();
   const [deleteUser] = useDeleteUserMutation();

@@ -19,19 +19,17 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
     removeUserOnClick,
     isUserLoading,
   } = props;
+
   // Use Translate
   const T = useTranslate();
-  //Use Ref
-  // const inputEl = useRef<HTMLInputElement>(null);
-  // function blurHandler() {
-  //   // inputEl!.current!.value = '';
-  // }
+
   // Use Form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CreateBoardModalForm>({ criteriaMode: 'all', mode: 'onChange' });
+
   // Submit handler
   ///////////////////////////
   const onSubmit = handleSubmit(submitHandler);
@@ -94,8 +92,6 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
               autoComplete="off"
               defaultValue={autoCompContent}
               onChange={handleChange}
-              // ref={inputEl}
-              // onBlur={blurHandler}
             ></input>
             <label htmlFor={cl.autoComplete} className={cl.form__label}>
               {T('Modal.inviteUser')}
