@@ -100,6 +100,7 @@ const dictionary: Idictionary = {
       cancelBtn: 'Cancel',
       createColumnBtn: 'Add Column',
       inviteUser: 'Invite user',
+      task: 'Add Task',
     },
   },
   RU: {
@@ -201,6 +202,7 @@ const dictionary: Idictionary = {
       cancelBtn: 'Отмена',
       createColumnBtn: 'Добавить колонку',
       inviteUser: 'Пригласить пользователя',
+      task: 'Добавить задачу',
     },
   },
 };

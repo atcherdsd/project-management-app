@@ -25,10 +25,6 @@ function SignInForm(props: SignUpProps) {
   } = useForm<FormValues>({ criteriaMode: 'all', mode: 'onChange' });
   const onSubmit = handleSubmit((data) => {
     handlerSubmit(data);
-    reset({
-      login: '',
-      password: '',
-    });
   });
   return (
     <form className={cl.form} onSubmit={onSubmit}>

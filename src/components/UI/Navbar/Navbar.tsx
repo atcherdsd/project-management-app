@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import cl from './Navbar.module.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
@@ -12,9 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { removeUserData, setMenu } from '../../../store/reducers/NavbarReducer';
 import { Modal } from '../../../components/Modal/modal';
 import CreacteNewBoardModal from '../../../components/Modal/modals/createNewBoardModal';
-import { CreateBoardModalForm, UsersState, TranformUsersResponse } from '../../../types/modalType';
-import { useGetUsersQuery } from '../../../API/usersCalls';
-import { filterUsers } from '../../../helpers/filterUsersResponse';
+import { setModalState } from '../../../store/reducers/ModalReducer';
 
 const isActiveCheck = ({ isActive }: { isActive: boolean }) =>
   activeClassHandler(isActive, cl.link, cl.link_active);
@@ -24,93 +22,24 @@ const Navbar = () => {
   const [createNewBoard, { isLoading }] = useCreateNewBoardMutation();
   const { hasToken, isOpenedMenu } = useAppSelector(navbarSelector);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const [isModalOpen, setModalOpen] = useState(false);
-  const { data: responseUsers, isFetching: isUserLoading } = useGetUsersQuery('/users', {
-    skip: !isModalOpen,
-    refetchOnMountOrArgChange: true,
-  });
-  useEffect(() => {
-    if (!isLoading) {
-      setModalOpen(false);
-    }
-    return setInvitedUsers([]);
-  }, [isLoading]);
-  // Use state for autocomplete
-  ////////////////////////////
-  const [autoCompContent, setAutoCompContent] = useState<UsersState>({
-    filteredOptions: [],
-    currentValue: '',
-  });
-  const [invitedUsers, setInvitedUsers] = useState<string[]>([]);
-
-  function handleChange(e: React.FormEvent<HTMLInputElement>) {
-    const currentValue = (e.target as HTMLInputElement).value;
-    setAutoCompContent({
-      currentValue: currentValue,
-      filteredOptions: filterUsers((responseUsers as TranformUsersResponse).users, currentValue),
-    });
-  }
-
-  function onClickChooseUser(e: React.MouseEvent<HTMLParagraphElement>) {
-    const choosenUser = (e.target as HTMLParagraphElement).textContent;
-    setInvitedUsers((prevState) => {
-      if (prevState.includes(String(choosenUser))) return prevState;
-      else return [...prevState, String(choosenUser)];
-    });
-    setAutoCompContent((prevState) => {
-      return { ...prevState, currentValue: '' };
-    });
-  }
-  // Submit or Cancel handler for modal form
-  ///////////////////////
-  function submitHandler(data: CreateBoardModalForm) {
-    const { title } = data;
-    const body = {
-      title: `${title}`,
-      owner: (responseUsers as TranformUsersResponse).currentUser?.login,
-      users: invitedUsers,
-    };
-    createNewBoard(body);
-  }
-
+  //State for open or close window
+  const { isModalOpen } = useAppSelector((state) => state.ModalReducer);
   const onClickCreateNewBoard = async () => {
-    setModalOpen(true);
+    dispatch(setModalState(true));
   };
 
-  function clickHandler(e: React.MouseEvent<HTMLInputElement>) {
-    const input = (e.target as HTMLElement).closest('input');
-    const value = input?.value;
-    if (value && (value == 'Cancel' || value == 'Отмена')) {
-      setModalOpen(false);
-    }
-  }
-
-  function removeUserOnClick(e: React.MouseEvent<HTMLElement>) {
-    const target = e.target as HTMLElement;
-    if (target.tagName == 'IMG') {
-      const removeUser = (target.previousSibling as HTMLParagraphElement).textContent;
-      setInvitedUsers((prevState) => {
-        return prevState.filter((invitedUser) => {
-          return invitedUser !== removeUser;
-        });
-      });
-    }
-  }
-
-  // const signUp = async () => {
-  //   const body = {
-  //     login: 'agtugchik',
-  //     password: '1qwer1',
-  //   };
-  //   const answer = await axios.post(`${baseUrl}/auth/signin`, body, {
-  //     headers: {
-  //       Accept: 'application/json',
-  //     },
-  //   });
-  //   console.log(answer.data);
-  // };
+  const signUp = async () => {
+    const body = {
+      login: 'agtugchik',
+      password: '1qwer1',
+    };
+    const answer = await axios.post(`${baseUrl}/auth/signin`, body, {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+    console.log(answer.data);
+  };
   const handleMenuClick = () => {
     isOpenedMenu ? dispatch(setMenu(!isOpenedMenu)) : null;
   };
@@ -155,18 +84,7 @@ const Navbar = () => {
       </nav>
       {isModalOpen && (
         <Modal>
-          <CreacteNewBoardModal
-            submitHandler={submitHandler}
-            isLoading={isLoading}
-            clickHandler={clickHandler}
-            handleChange={handleChange}
-            autoCompContent={autoCompContent.currentValue}
-            filteredUsers={autoCompContent.filteredOptions}
-            onClickChooseUser={onClickChooseUser}
-            invitedUsers={invitedUsers}
-            removeUserOnClick={removeUserOnClick}
-            isUserLoading={isUserLoading}
-          ></CreacteNewBoardModal>
+          <CreacteNewBoardModal></CreacteNewBoardModal>
         </Modal>
       )}
     </div>

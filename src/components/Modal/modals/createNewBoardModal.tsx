@@ -1,125 +1,105 @@
-import React, { useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import removeUserBtn from '../../../assets/removeUserBtn.svg';
-import { CreateBoardModalForm, CreacteNewBoardModalProps } from '../../../types/modalType';
-import cl from './creacteNewBoardModal.module.scss';
-import { useTranslate } from '../../../hooks/useTranslate';
-import Spinner from '../../UI/Spinner/Spinner';
+import { useCreateNewBoardMutation } from '../../../API/boardsCalls';
+import React, { useEffect, useState } from 'react';
+import { useGetUsersQuery } from '../../../API/usersCalls';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { setModalState } from '../../../store/reducers/ModalReducer';
+import { CreateBoardModalForm, TranformUsersResponse, UsersState } from '../../../types/modalType';
+import { filterUsers } from '../../../helpers/filterUsersResponse';
+import CreateNewBoardForm from '../../createNewBoardForm/createNewBoardForm';
+import { Paths } from '../../../helpers/routerPaths';
+import { useNavigate } from 'react-router-dom';
 
-export default function CreacteNewBoardModal(props: CreacteNewBoardModalProps) {
-  const {
-    submitHandler,
-    isLoading,
-    clickHandler,
-    handleChange,
-    autoCompContent,
-    filteredUsers,
-    onClickChooseUser,
-    invitedUsers,
-    removeUserOnClick,
-    isUserLoading,
-  } = props;
-  // Use Translate
-  const T = useTranslate();
-  // Use ref;
-  const textInput = useRef(null);
-  // Use Form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CreateBoardModalForm>({ criteriaMode: 'all', mode: 'onChange' });
-  // Submit handler
-  ///////////////////////////
-  const onSubmit = handleSubmit(submitHandler);
+export default function CreacteNewBoardModal() {
+  const navigate = useNavigate();
+  const [invitedUsers, setInvitedUsers] = useState<string[]>([]);
+  // Use state for autocomplete
+  ////////////////////////////
+  const [autoCompContent, setAutoCompContent] = useState<UsersState>({
+    filteredOptions: [],
+    currentValue: '',
+  });
+
+  const [createNewBoard, { isLoading, isSuccess }] = useCreateNewBoardMutation();
+
+  // Redux state of is modal open
+  const { isModalOpen } = useAppSelector((state) => state.ModalReducer);
+  const dispatch = useAppDispatch();
+  // Get users
+  const { data: responseUsers, isFetching: isUserLoading } = useGetUsersQuery('/users', {
+    skip: !isModalOpen,
+    refetchOnMountOrArgChange: true,
+  });
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setModalState(false));
+    }
+    return setInvitedUsers([]);
+  }, [dispatch, isSuccess]);
+
+  function handleChange(e: React.FormEvent<HTMLInputElement>) {
+    const currentValue = (e.target as HTMLInputElement).value;
+    setAutoCompContent({
+      currentValue: currentValue,
+      filteredOptions: filterUsers((responseUsers as TranformUsersResponse).users, currentValue),
+    });
+  }
+
+  function onClickChooseUser(e: React.MouseEvent<HTMLParagraphElement>) {
+    const choosenUser = (e.target as HTMLParagraphElement).textContent;
+    setInvitedUsers((prevState) => {
+      if (prevState.includes(String(choosenUser))) return prevState;
+      else return [...prevState, String(choosenUser)];
+    });
+    setAutoCompContent((prevState) => {
+      return { ...prevState, currentValue: '' };
+    });
+  }
+
+  // Submit or Cancel handler for modal form
+  ///////////////////////
+  function submitHandler(data: CreateBoardModalForm) {
+    const { title } = data;
+    const body = {
+      title: `${title}`,
+      owner: (responseUsers as TranformUsersResponse).currentUser?.login,
+      users: invitedUsers,
+    };
+    createNewBoard(body);
+    navigate(Paths.MainPage);
+  }
+
+  function clickHandler(e: React.MouseEvent<HTMLInputElement>) {
+    const input = (e.target as HTMLElement).closest('input');
+    const value = input?.value;
+    if (value && (value == 'Cancel' || value == 'Отмена')) {
+      dispatch(setModalState(false));
+    }
+  }
+
+  function removeUserOnClick(e: React.MouseEvent<HTMLElement>) {
+    const target = e.target as HTMLElement;
+    if (target.tagName == 'IMG') {
+      const removeUser = (target.previousSibling as HTMLParagraphElement).textContent;
+      setInvitedUsers((prevState) => {
+        return prevState.filter((invitedUser) => {
+          return invitedUser !== removeUser;
+        });
+      });
+    }
+  }
+
   return (
-    <div className={cl.modal__container} onClick={clickHandler}>
-      <div className={cl.modal__content}>
-        {isUserLoading && <Spinner></Spinner>}
-        {!isUserLoading && (
-          <>
-            <form className={cl.form} onSubmit={onSubmit}>
-              <div className={cl.form__group}>
-                <input
-                  type="text"
-                  id={cl.title}
-                  className={cl.form__input}
-                  placeholder=" "
-                  autoComplete="off"
-                  defaultValue={''}
-                  {...register('title', {
-                    required: { value: true, message: `${T('SignUpForm.formRequireMsg')}` },
-                    pattern: {
-                      value: /^[a-zA-Zа-я\s]+$/i,
-                      message: `${T('SignUpForm.formOnlyLetter')}`,
-                    },
-                    minLength: { value: 2, message: `${T('SignUpForm.formMinLegthNameMsg')}` },
-                  })}
-                ></input>
-                <label htmlFor={cl.title} className={cl.form__label}>
-                  {T('Modal.title')}
-                </label>
-                {errors.title?.types &&
-                  Object.entries(errors.title?.types).map(([type, message]) => (
-                    <p key={type} className={cl.error}>
-                      {message}
-                    </p>
-                  ))}
-              </div>
-              <div className={cl.form__buttons}>
-                {isLoading && <Spinner></Spinner>}
-                <input
-                  type="submit"
-                  className={cl.form__button}
-                  value={T('Modal.createBoardBtn')}
-                  disabled={isLoading ? true : false}
-                ></input>
-                <input
-                  type="button"
-                  id="cancelBtn"
-                  className={cl.form__button}
-                  value={T('Modal.cancelBtn')}
-                  disabled={isLoading ? true : false}
-                ></input>
-              </div>
-            </form>
-            <div className={cl.autocomplete__container}>
-              <input
-                type="text"
-                id={cl.autoComplete}
-                className={cl.form__input}
-                placeholder=" "
-                autoComplete="off"
-                defaultValue={autoCompContent}
-                onChange={handleChange}
-                ref={textInput}
-              ></input>
-              <label htmlFor={cl.autoComplete} className={cl.form__label}>
-                {T('Modal.inviteUser')}
-              </label>
-              {autoCompContent && filteredUsers!.length > 0 && (
-                <div className={cl.usersContainer} onClick={onClickChooseUser}>
-                  {filteredUsers?.map((user) => {
-                    return <p key={user._id}>{user.login}</p>;
-                  })}
-                </div>
-              )}
-              {
-                <div className={cl.invitedUsersContainer} onClick={removeUserOnClick}>
-                  {invitedUsers?.map((invitedUsers) => {
-                    return (
-                      <div key={invitedUsers} className={cl.invitedUser}>
-                        <p>{invitedUsers}</p>
-                        <img className="removeUserBtn" src={removeUserBtn}></img>
-                      </div>
-                    );
-                  })}
-                </div>
-              }
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+    <CreateNewBoardForm
+      submitHandler={submitHandler}
+      isLoading={isLoading}
+      clickHandler={clickHandler}
+      handleChange={handleChange}
+      autoCompContent={autoCompContent.currentValue}
+      filteredUsers={autoCompContent.filteredOptions}
+      onClickChooseUser={onClickChooseUser}
+      invitedUsers={invitedUsers}
+      removeUserOnClick={removeUserOnClick}
+      isUserLoading={isUserLoading}
+    ></CreateNewBoardForm>
   );
 }
