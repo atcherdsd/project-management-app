@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import cl from './Navbar.module.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
 import { activeClassHandler } from '../../../helpers/activeClassHandler';
 import { useTranslate } from '../../../hooks/useTranslate';
-import { useCreateNewBoardMutation } from '../../../API/boardsCalls';
 // import axios from 'axios';
 // import baseUrl from '../../../API/baseUrl';
 import { navbarSelector } from '../../../store/selectors/selectors';
@@ -19,27 +18,34 @@ const isActiveCheck = ({ isActive }: { isActive: boolean }) =>
 
 const Navbar = () => {
   const T = useTranslate();
-  const [createNewBoard, { isLoading }] = useCreateNewBoardMutation();
+
   const { hasToken, isOpenedMenu } = useAppSelector(navbarSelector);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
+  useEffect(() => {
+    setIsLoadingLocal(false);
+  }, []);
+
   //State for open or close window
   const { isModalOpen } = useAppSelector((state) => state.ModalReducer);
   const onClickCreateNewBoard = async () => {
     dispatch(setModalState(true));
   };
 
-  const signUp = async () => {
-    const body = {
-      login: 'agtugchik',
-      password: '1qwer1',
-    };
-    const answer = await axios.post(`${baseUrl}/auth/signin`, body, {
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-    console.log(answer.data);
-  };
+  // const signUp = async () => {
+  //   const body = {
+  //     login: 'agtugchik',
+  //     password: '1qwer1',
+  //   };
+  //   const answer = await axios.post(`${baseUrl}/auth/signin`, body, {
+  //     headers: {
+  //       Accept: 'application/json',
+  //     },
+  //   });
+  //   console.log(answer.data);
+  // };
   const handleMenuClick = () => {
     isOpenedMenu ? dispatch(setMenu(!isOpenedMenu)) : null;
   };
@@ -51,8 +57,8 @@ const Navbar = () => {
   return (
     <div className={isOpenedMenu ? `${cl.overlay}` : ''} onClick={handleMenuClick}>
       <nav className={isOpenedMenu ? `${cl.container_opened_menu}` : `${cl.container}`}>
-        {isLoading && <div></div>}
-        {!hasToken && !isLoading && (
+        {isLoadingLocal && <div></div>}
+        {!hasToken && !isLoadingLocal && (
           <>
             <NavLink className={isActiveCheck} to={Paths.WelcomePage}>
               {T('Navbar.welcome')}
@@ -65,7 +71,7 @@ const Navbar = () => {
             </NavLink>
           </>
         )}
-        {hasToken && !isLoading && (
+        {hasToken && !isLoadingLocal && (
           <>
             <NavLink className={isActiveCheck} to={Paths.MainPage}>
               {T('Navbar.main')}
