@@ -99,6 +99,9 @@ interface IModalLanguage {
   createColumnBtn: string;
   inviteUser: string;
   task: string;
+  createBoardTitle: string;
+  boardDescription1: string;
+  boardDescription2: string;
 }
 
 interface ILanguage {

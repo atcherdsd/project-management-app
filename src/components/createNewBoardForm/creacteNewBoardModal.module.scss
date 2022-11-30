@@ -30,15 +30,36 @@ $radius: 1rem;
     border-radius: 12px;
     background-color: white;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    background: linear-gradient(45deg, #a97862, #472c15);
+}
+
+.modal__title {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: whitesmoke;
+    order: 0;
+}
+.modal__description1,
+.modal__description2 {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: whitesmoke;
+}
+.modal__description1 {
+  order: 1;
+}
+.modal__description2 {
+  order: 2;
 }
 
 .form {
     width: 28rem;
-    padding: 2rem;
+    padding: 2rem 2rem 0;
     border-radius: $radius;
-    background-color: white;
-    margin-top: 12px;
+    background-color: inherit;
+    margin-top: 2rem;
+    order: 4;
     &__group {
       position: relative;
       height: 3rem;
@@ -55,7 +76,7 @@ $radius: 1rem;
       color: inherit;
       outline: none;
       padding: 1.25rem;
-      background: none;
+      background: floralwhite;
       &:hover {
         border-color: $clr-primary;
       }
@@ -70,8 +91,9 @@ $radius: 1rem;
       left: 1rem;
       top: 0.9rem;
       padding: 0 0.5rem;
-      background-color: white;
+      background-color: floralwhite;
       transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+      border-radius: 1rem;
     }
 
     &__buttons{
@@ -88,11 +110,11 @@ $radius: 1rem;
         }
     }
   
-    &__button {
+    &__button,
+    &__button__cancel {
       display: block;
       margin-left: 1rem;
       padding: 0.75rem 2rem;
-      background-color: $clr-primary;
       font-family: inherit;
       font-weight: inherit;
       border-radius: 0.5rem;
@@ -105,6 +127,13 @@ $radius: 1rem;
         background-color: $clr-primary-dark;
       }
     }
+    &__button {
+      background-color: $clr-primary;
+    }
+    &__button__cancel { 
+      background-color: #ebe1c1;
+    }
+
     .error{
       padding-top: 5px;
       color:red;
@@ -127,9 +156,10 @@ $radius: 1rem;
 
   .autocomplete__container{
     width:24rem;
-    margin: 0 2rem 2rem 2rem;
+    margin: 3rem 2rem 2rem;
     position: relative;
     height: 3rem;
+    order: 3;
     & .usersContainer{
       position: absolute;
       width: 100%;
@@ -157,6 +187,7 @@ $radius: 1rem;
       gap: 1rem;
       height: 4rem;
       overflow: auto;
+      color: #fd9800;
       & .invitedUser{
         display: flex;
         gap:0.5rem;

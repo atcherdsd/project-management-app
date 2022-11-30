@@ -101,6 +101,9 @@ const dictionary: Idictionary = {
       createColumnBtn: 'Add Column',
       inviteUser: 'Invite user',
       task: 'Add Task',
+      createBoardTitle: 'Create new board',
+      boardDescription1: 'To create a new board, select project members',
+      boardDescription2: 'and enter a title for the board',
     },
   },
   RU: {
@@ -203,6 +206,9 @@ const dictionary: Idictionary = {
       createColumnBtn: 'Добавить колонку',
       inviteUser: 'Пригласить пользователя',
       task: 'Добавить задачу',
+      createBoardTitle: 'Создать новую доску',
+      boardDescription1: 'Чтобы создать доску, выберите членов проекта',
+      boardDescription2: 'и введите название доски',
     },
   },
 };

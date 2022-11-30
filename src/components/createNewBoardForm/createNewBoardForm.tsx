@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import removeUserBtn from '../../assets/removeUserBtn.svg';
 import { CreateBoardModalForm, CreacteNewBoardModalProps } from '../../types/modalType';
@@ -13,6 +13,7 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
     clickHandler,
     handleChange,
     autoCompContent,
+    setAutoCompContent,
     filteredUsers,
     onClickChooseUser,
     invitedUsers,
@@ -30,6 +31,12 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
     formState: { errors },
   } = useForm<CreateBoardModalForm>({ criteriaMode: 'all', mode: 'onChange' });
 
+  useEffect(() => {
+    setAutoCompContent((prevState) => {
+      return { ...prevState, currentValue: '' };
+    });
+  }, [setAutoCompContent]);
+
   // Submit handler
   ///////////////////////////
   const onSubmit = handleSubmit(submitHandler);
@@ -38,6 +45,42 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
       {isUserLoading && <Spinner typeOfModalView="center"></Spinner>}
       {!isUserLoading && (
         <div className={cl.modal__content}>
+          <h3 className={cl.modal__title}>{T('Modal.createBoardTitle')}</h3>
+          <p className={cl.modal__description1}>{T('Modal.boardDescription1')}</p>
+          <p className={cl.modal__description2}>{T('Modal.boardDescription2')}</p>
+          <div className={cl.autocomplete__container}>
+            <input
+              type="text"
+              id={cl.autoComplete}
+              className={cl.form__input}
+              placeholder=" "
+              autoComplete="off"
+              value={autoCompContent}
+              onChange={handleChange}
+            ></input>
+            <label htmlFor={cl.autoComplete} className={cl.form__label}>
+              {T('Modal.inviteUser')}
+            </label>
+            {autoCompContent && filteredUsers!.length > 0 && (
+              <div className={cl.usersContainer} onClick={onClickChooseUser}>
+                {filteredUsers?.map((user) => {
+                  return <p key={user._id}>{user.login}</p>;
+                })}
+              </div>
+            )}
+            {
+              <div className={cl.invitedUsersContainer} onClick={removeUserOnClick}>
+                {invitedUsers?.map((invitedUsers) => {
+                  return (
+                    <div key={invitedUsers} className={cl.invitedUser}>
+                      <p>{invitedUsers}</p>
+                      <img className="removeUserBtn" src={removeUserBtn}></img>
+                    </div>
+                  );
+                })}
+              </div>
+            }
+          </div>
           <form className={cl.form} onSubmit={onSubmit}>
             <div className={cl.form__group}>
               <input
@@ -77,45 +120,12 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
               <input
                 type="button"
                 id="cancelBtn"
-                className={cl.form__button}
+                className={cl.form__button__cancel}
                 value={T('Modal.cancelBtn')}
                 disabled={isLoading ? true : false}
               ></input>
             </div>
           </form>
-          <div className={cl.autocomplete__container}>
-            <input
-              type="text"
-              id={cl.autoComplete}
-              className={cl.form__input}
-              placeholder=" "
-              autoComplete="off"
-              defaultValue={autoCompContent}
-              onChange={handleChange}
-            ></input>
-            <label htmlFor={cl.autoComplete} className={cl.form__label}>
-              {T('Modal.inviteUser')}
-            </label>
-            {autoCompContent && filteredUsers!.length > 0 && (
-              <div className={cl.usersContainer} onClick={onClickChooseUser}>
-                {filteredUsers?.map((user) => {
-                  return <p key={user._id}>{user.login}</p>;
-                })}
-              </div>
-            )}
-            {
-              <div className={cl.invitedUsersContainer} onClick={removeUserOnClick}>
-                {invitedUsers?.map((invitedUsers) => {
-                  return (
-                    <div key={invitedUsers} className={cl.invitedUser}>
-                      <p>{invitedUsers}</p>
-                      <img className="removeUserBtn" src={removeUserBtn}></img>
-                    </div>
-                  );
-                })}
-              </div>
-            }
-          </div>
         </div>
       )}
     </div>

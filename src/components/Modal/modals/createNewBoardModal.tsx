@@ -96,6 +96,7 @@ export default function CreacteNewBoardModal() {
       handleChange={handleChange}
       autoCompContent={autoCompContent.currentValue}
       filteredUsers={autoCompContent.filteredOptions}
+      setAutoCompContent={setAutoCompContent}
       onClickChooseUser={onClickChooseUser}
       invitedUsers={invitedUsers}
       removeUserOnClick={removeUserOnClick}

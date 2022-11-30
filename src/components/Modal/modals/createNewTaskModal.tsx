@@ -1,11 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CreateBoardModalForm, CreacteNewBoardModalProps } from '../../../types/modalType';
+import { CreateBoardModalForm, CreacteNewColumnModalProps } from '../../../types/modalType';
 import cl from './creacteNewBoardModal.module.scss';
 import { useTranslate } from '../../../hooks/useTranslate';
 import Spinner from '../../UI/Spinner/Spinner';
 
-export default function CreacteNewTaskModal(props: CreacteNewBoardModalProps) {
+export default function CreacteNewTaskModal(props: CreacteNewColumnModalProps) {
   const { submitHandler, isLoading, clickHandler } = props;
   // Use Translate
   const T = useTranslate();
