@@ -1,3 +1,5 @@
+@import "../../styleVariablesAndMixines/fontSizes.scss";
+
 $clr-primary: #9dedff;
 $clr-primary-hover: #8ad6ff;
 $clr-primary-dark: #7bdff6;
@@ -67,14 +69,40 @@ $radius: 1rem;
     box-shadow: 0px 5px 34px rgb(0 0 0 / 70%);
   
     &__avatar__wrapper {
-      width: 7rem;
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      margin: 0 auto;
+      margin-bottom: 1.5rem;
+      gap: 2rem;
     }
     &__edit__logo {
       width: 4rem;
       padding-bottom: 1rem;
+    }
+    &__userData__wrapper {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: start;
+      font-size: $font-size-middle;
+      gap: 1rem;
+      padding-top: 0.25rem;
+    }
+    &__nameData,
+    &__loginData {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    &__nameSign,
+    &__loginSign {
+      display: inline-block;
+      min-width: 4rem;
+      color: #501414;
+    }
+    &__name__data {
+      display: inline-block;
+      color: #e19607;
+      font-weight: 600;
     }
 
     &__title {
@@ -139,7 +167,7 @@ $radius: 1rem;
         display: flex;
         justify-content: space-around;
         align-items: center;
-        margin-top:5rem;
+        margin-top: 3rem;
         & a{
           cursor: pointer;
         }
@@ -148,6 +176,10 @@ $radius: 1rem;
           border-bottom: 2px solid $clr-primary-hover;
         }
     }
+    &__margin {
+      margin-top: 5rem;
+    }
+
     &__signInButtons{
       display: flex;
         justify-content: flex-end;

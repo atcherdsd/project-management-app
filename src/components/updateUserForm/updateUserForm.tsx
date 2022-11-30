@@ -64,6 +64,16 @@ function UpdateUserForm(props: UpdateProps) {
         <form className={cl.form} onSubmit={onSubmit} ref={formRef}>
           <div className={cl.form__avatar__wrapper}>
             <img className={cl.form__edit__logo} src={editLogo} alt="Edit Logo"></img>
+            <div className={cl.form__userData__wrapper}>
+              <div className={cl.form__nameData}>
+                <span className={cl.form__nameSign}>{T('SignUpForm.formLabelName')}: </span>
+                <span className={cl.form__name__data}>{name}</span>
+              </div>
+              <div className={cl.form__loginData}>
+                <span className={cl.form__loginSign}>{T('SignUpForm.formLogin')}: </span>
+                <span className={cl.form__name__data}>{login}</span>
+              </div>
+            </div>
           </div>
           <p className={cl.form__description}>{T('SignUpForm.edit')}</p>
           {isSuccess && (
