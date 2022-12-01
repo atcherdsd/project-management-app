@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { QueryProps, ResponseStateSignUp } from '../types/formTypes';
 import baseUrl from './baseUrl';
+import getToken from './jwt';
 
 export const editProfileCalls = createApi({
   reducerPath: 'editProfileCalls',
@@ -8,7 +9,7 @@ export const editProfileCalls = createApi({
     baseUrl: baseUrl,
     prepareHeaders: (headers) => {
       headers.set('Accept', 'application/json');
-      headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+      headers.set('Authorization', `Bearer ${getToken()}`);
     },
   }),
   tagTypes: ['update'],
