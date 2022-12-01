@@ -9,7 +9,7 @@ export default function ConfirmModal(props: ModalProp) {
   return (
     <div className={cl.modal__container} onClick={handler}>
       <div className={cl.modal__content}>
-        <p>{T('Modal.warning')}</p>
+        <p className={cl.warning}>{T('Modal.warning')}</p>
         <div className={cl.modal__content__buttons}>
           <input
             type="button"
