@@ -113,7 +113,7 @@ interface IModalLanguage {
 
 interface ILanguage {
   Navbar: INavbarLanguage;
-  SignUpForm: ISignUpFormLanguage;
+  SignUpForm: ISighUpFormLanguage;
   MainPage: IMainPageLanguage;
   Board: IBoardLanguage;
   BoardPage: IBorardPageLanguage;

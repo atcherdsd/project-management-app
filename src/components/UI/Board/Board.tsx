@@ -49,7 +49,7 @@ const Board: FC<IBoardProps> = ({ board }) => {
       deleteBoard(id);
     }
   }
-  
+
   return (
     <div className={cl.container} onClick={boardOnClick}>
       <h3 className={cl.title}>{title}</h3>
