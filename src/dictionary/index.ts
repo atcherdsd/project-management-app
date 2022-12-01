@@ -52,6 +52,9 @@ const dictionary: Idictionary = {
     Task: {
       deleteTask: 'Delete task',
     },
+    AddBoard: {
+      add: 'Add',
+    },
     WelcomePage: {
       titleTagline: 'Easy to create, easy to follow',
       titleProposal1:
@@ -215,6 +218,9 @@ const dictionary: Idictionary = {
       boardDescription2: 'и введите название доски',
       createColumnTitle: 'Добавить новую колонку',
       createTaskTitle: 'Создать новую задачу',
+    },
+    AddBoard: {
+      add: 'Добавить',
     },
   },
 };

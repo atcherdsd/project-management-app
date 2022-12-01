@@ -20,6 +20,7 @@ const Navbar = () => {
   const { hasToken, isOpenedMenu } = useAppSelector(navbarSelector);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [createNewBoard, {}] = useCreateNewBoardMutation();
 
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   useEffect(() => {

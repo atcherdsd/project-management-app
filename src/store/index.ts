@@ -1,15 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import LanguageReducer from './reducers/LanguageReducer';
-import NavbarReducer from './reducers/NavbarReducer';
-import { authCalls } from '../API/authCalls';
-import { editProfileCalls } from '../API/editProfileCalls';
-import SignUpDataReducer from './reducers/SignUpDataReducer';
 import BoardReducer from './reducers/BoardReducer';
 import SearchbarReducer from './reducers/SearchbarReducer';
+import { authCalls } from '../API/authCalls';
 import { boardsCalls } from '../API/boardsCalls';
 import { columnsCalls } from '../API/columnsCalls';
 import { tasksCalls } from '../API/tasksCalls';
 import { enableMapSet } from 'immer';
+import NavbarReducer from './reducers/NavbarReducer';
+import { editProfileCalls } from '../API/editProfileCalls';
+import SignUpDataReducer from './reducers/SignUpDataReducer';
 import { usersCalls } from '../API/usersCalls';
 import ModalReducer from './reducers/ModalReducer';
 
@@ -17,10 +17,10 @@ enableMapSet();
 
 const rootReducer = combineReducers({
   LanguageReducer,
-  NavbarReducer,
-  SignUpDataReducer,
   BoardReducer,
   SearchbarReducer,
+  NavbarReducer,
+  SignUpDataReducer,
   ModalReducer,
   [authCalls.reducerPath]: authCalls.reducer,
   [editProfileCalls.reducerPath]: editProfileCalls.reducer,

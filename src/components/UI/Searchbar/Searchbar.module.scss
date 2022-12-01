@@ -1,0 +1,42 @@
+.searchbar {
+  margin-top: 10px;
+  position: relative;
+  margin: 0 auto;
+  &__line {
+    height: 2rem;
+    width: 300px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    transition: 0.3s;
+    padding-left: 25px;
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      background-image: url("../../../assets/searchbar/close.svg");
+      background-size: 1.7rem;
+      width: 1.7rem;
+      height: 1.7rem;
+      transition: 0.3s;
+      position: relative;
+      left: 1px;
+    }
+    &:focus {
+      border: 2px solid black;
+    }
+  }
+  &__submit {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    background-color: inherit;
+    background-image: url("../../../assets/searchbar/search.svg");
+    background-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: invert(0.4);
+    transition: 0.3s;
+    &:hover {
+      filter: invert(0);
+    }
+  }
+}

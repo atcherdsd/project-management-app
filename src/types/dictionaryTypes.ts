@@ -55,6 +55,10 @@ interface ITaskLanguage {
   deleteTask: string;
 }
 
+interface IAddBoardLanguage {
+  add: string;
+}
+
 interface IWelcomePageLanguage {
   titleTagline: string;
   titleProposal1: string;
@@ -109,12 +113,13 @@ interface IModalLanguage {
 
 interface ILanguage {
   Navbar: INavbarLanguage;
-  SignUpForm: ISighUpFormLanguage;
+  SignUpForm: ISignUpFormLanguage;
   MainPage: IMainPageLanguage;
   Board: IBoardLanguage;
   BoardPage: IBorardPageLanguage;
   ColumnHeader: IColumnHeaderLanguage;
   Task: ITaskLanguage;
+  AddBoard: IAddBoardLanguage;
   WelcomePage: IWelcomePageLanguage;
   NotFoundPage: INotFoundPageLanguage;
   Modal: IModalLanguage;

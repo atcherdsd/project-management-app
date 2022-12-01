@@ -14,7 +14,9 @@
     font-size: $font-size-large;
   }
   .boardsContainer {
+    padding-top: 10px;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     align-content: start;
     gap: 10px;
