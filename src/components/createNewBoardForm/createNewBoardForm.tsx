@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import removeUserBtn from '../../assets/removeUserBtn.svg';
 import { CreateBoardModalForm, CreacteNewBoardModalProps } from '../../types/modalType';
-import cl from './creacteNewBoardModal.module.scss';
+import cl from './creacteNewBoardForm.module.scss';
 import { useTranslate } from '../../hooks/useTranslate';
 import Spinner from '../UI/Spinner/Spinner';
 

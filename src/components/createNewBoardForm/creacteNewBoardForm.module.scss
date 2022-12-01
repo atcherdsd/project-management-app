@@ -23,6 +23,7 @@ $radius: 1rem;
     justify-content: center;
     border: 1px solid rgba(255,255,255,.7);
     box-shadow: 0 20px 50px -10px rgba(0,0,0,.5);
+    padding: 0 2rem;
 }
 
 .modal__content{
@@ -32,19 +33,22 @@ $radius: 1rem;
     display: flex;
     flex-direction: column;
     background: linear-gradient(45deg, #a97862, #472c15);
+    box-shadow: 0px 5px 34px rgb(0 0 0 / 70%);
 }
 
 .modal__title {
     font-size: 2rem;
     margin-bottom: 3rem;
-    color: whitesmoke;
+    color: white;
     order: 0;
+    letter-spacing: 1px;
 }
 .modal__description1,
 .modal__description2 {
     font-size: 1.2rem;
     line-height: 1.4;
     color: whitesmoke;
+    letter-spacing: 1px;
 }
 .modal__description1 {
   order: 1;
@@ -54,7 +58,7 @@ $radius: 1rem;
 }
 
 .form {
-    width: 28rem;
+    max-width: 28rem;
     padding: 2rem 2rem 0;
     border-radius: $radius;
     background-color: inherit;
@@ -136,7 +140,9 @@ $radius: 1rem;
 
     .error{
       padding-top: 5px;
-      color:red;
+      color:#ff3131;
+      font-weight: 600;
+      text-shadow: 0px 0px 9px rgb(100 100 100);
     }
   }
   
@@ -155,7 +161,6 @@ $radius: 1rem;
   }
 
   .autocomplete__container{
-    width:24rem;
     margin: 3rem 2rem 2rem;
     position: relative;
     height: 3rem;
@@ -214,11 +219,23 @@ $radius: 1rem;
     box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
    }
 
-   @media (max-width: 400px) {
+   @media (max-width: 500px) {
+    .modal__container {
+      padding: 0 1rem;
+    }
     .form {
-      width: 21rem;
+      padding: 0;
+      &__buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+      }
+      &__button,
+      &__button__cancel {
+        margin-left: 0;
+      }
     }
     .autocomplete__container{
-      width:17rem;
+      margin: 3rem 0 2rem;
     }
   }
