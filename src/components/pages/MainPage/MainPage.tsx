@@ -20,11 +20,10 @@ const MainPage = () => {
         <h2 style={{ margin: 'auto' }}>Loading...</h2>
       ) : (
         <div className={cl.boardsContainer}>
-          {(data as IBoard[])
-            .filter((board) => new RegExp(`${searchbar}`, 'i').test(board.title))
-            .map((board) => (
-              <Board key={board._id} board={board} />
-            ))}
+          {data &&
+            (data as IBoard[])
+              .filter((board) => new RegExp(`${searchbar}`, 'i').test(board.title))
+              .map((board) => <Board key={board._id} board={board} />)}
           <AddBoard />
         </div>
       )}

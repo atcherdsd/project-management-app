@@ -1,7 +1,7 @@
 @import "../../../styleVariablesAndMixines/pages.scss";
 
 .container {
-  @include page-properties;
+  @extend %page-properties;
   font-family: Montserrat, sans-serif;
   font-weight: 500;
   background-color: #79ceff;
@@ -15,5 +15,11 @@
   justify-content: center;
   align-items: center;
   color: #425a65;
+}
+
+@media (max-width: 400px) {
+  .container{
+    width: 115%;
+  }
 }
 

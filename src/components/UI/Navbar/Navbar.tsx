@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import cl from './Navbar.module.scss';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
 import { activeClassHandler } from '../../../helpers/activeClassHandler';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { useTranslate } from '../../../hooks/useTranslate';
+import { navbarSelector } from '../../../store/selectors/selectors';
+import { removeUserData, setMenu } from '../../../store/reducers/NavbarReducer';
 import { useCreateNewBoardMutation } from '../../../API/boardsCalls';
-import axios from 'axios';
-import baseUrl from '../../../API/baseUrl';
 
 const isActiveCheck = ({ isActive }: { isActive: boolean }) =>
   activeClassHandler(isActive, cl.link, cl.link_active);
 
 const Navbar = () => {
   const T = useTranslate();
+  const { hasToken, isOpenedMenu } = useAppSelector(navbarSelector);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [createNewBoard, {}] = useCreateNewBoardMutation();
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   const onClickCreateNewBoard = async () => {
     const body = {
@@ -24,43 +33,49 @@ const Navbar = () => {
     createNewBoard(body);
   };
 
-  const signUp = async () => {
-    const body = {
-      login: 'agtugchik',
-      password: '1qwer1',
-    };
-    const answer = await axios.post(`${baseUrl}/auth/signin`, body, {
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-    console.log(answer.data);
+  const handleMenuClick = () => {
+    isOpenedMenu ? dispatch(setMenu(!isOpenedMenu)) : null;
+  };
+  const signOut = () => {
+    dispatch(removeUserData());
+    navigate('/');
   };
 
   return (
-    <nav className={cl.container}>
-      <NavLink className={isActiveCheck} to={Paths.SignIn}>
-        {T('Navbar.signin')}
-      </NavLink>
-      <NavLink className={isActiveCheck} to={Paths.SignUp}>
-        {T('Navbar.signup')}
-      </NavLink>
-      <NavLink className={isActiveCheck} to={Paths.WelcomePage}>
-        {T('Navbar.welcome')}
-      </NavLink>
-      <NavLink className={isActiveCheck} to={Paths.MainPage}>
-        {T('Navbar.main')}
-      </NavLink>
-      <NavLink className={isActiveCheck} to={Paths.EditProfilePage}>
-        {T('Navbar.edit')}
-      </NavLink>
-      <button className={cl.button} onClick={onClickCreateNewBoard}>
-        {T('Navbar.newboard')}
-      </button>
-      <button className={cl.button} onClick={signUp}>
-        {T('Navbar.signout')}
-      </button>
-    </nav>
+    <div className={isOpenedMenu ? `${cl.overlay}` : ''} onClick={handleMenuClick}>
+      <nav className={isOpenedMenu ? `${cl.container_opened_menu}` : `${cl.container}`}>
+        {isLoading && <div></div>}
+        {!hasToken && !isLoading && (
+          <>
+            <NavLink className={isActiveCheck} to={Paths.WelcomePage}>
+              {T('Navbar.welcome')}
+            </NavLink>
+            <NavLink className={isActiveCheck} to={Paths.SignIn}>
+              {T('Navbar.signin')}
+            </NavLink>
+            <NavLink className={isActiveCheck} to={Paths.SignUp}>
+              {T('Navbar.signup')}
+            </NavLink>
+          </>
+        )}
+        {hasToken && !isLoading && (
+          <>
+            <NavLink className={isActiveCheck} to={Paths.MainPage}>
+              {T('Navbar.main')}
+            </NavLink>
+            <NavLink className={isActiveCheck} to={Paths.EditProfilePage}>
+              {T('Navbar.edit')}
+            </NavLink>
+            <button className={cl.button} onClick={onClickCreateNewBoard}>
+              {T('Navbar.newboard')}
+            </button>
+            <button className={cl.button} onClick={signOut}>
+              {T('Navbar.signout')}{' '}
+            </button>
+          </>
+        )}
+      </nav>
+    </div>
   );
 };
 

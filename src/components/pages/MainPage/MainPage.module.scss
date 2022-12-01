@@ -3,8 +3,7 @@
 @import "../../../styleVariablesAndMixines/headerAndFooter.scss";
 
 .container {
-  @include page-properties;
-  height: calc(100vh - $footer-height);
+  @extend %page-properties;
   display: flex;
   flex-direction: column;
   padding-bottom: 50px;

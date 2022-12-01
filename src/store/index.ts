@@ -7,6 +7,10 @@ import { boardsCalls } from '../API/boardsCalls';
 import { columnsCalls } from '../API/columnsCalls';
 import { tasksCalls } from '../API/tasksCalls';
 import { enableMapSet } from 'immer';
+import NavbarReducer from './reducers/NavbarReducer';
+import { editProfileCalls } from '../API/editProfileCalls';
+import SignUpDataReducer from './reducers/SignUpDataReducer';
+import { usersCalls } from '../API/usersCalls';
 
 enableMapSet();
 
@@ -14,7 +18,11 @@ const rootReducer = combineReducers({
   LanguageReducer,
   BoardReducer,
   SearchbarReducer,
+  NavbarReducer,
+  SignUpDataReducer,
   [authCalls.reducerPath]: authCalls.reducer,
+  [editProfileCalls.reducerPath]: editProfileCalls.reducer,
+  [usersCalls.reducerPath]: usersCalls.reducer,
   [boardsCalls.reducerPath]: boardsCalls.reducer,
   [columnsCalls.reducerPath]: columnsCalls.reducer,
   [tasksCalls.reducerPath]: tasksCalls.reducer,
@@ -28,6 +36,8 @@ export const setupStore = () =>
         serializableCheck: false,
       })
         .concat(authCalls.middleware)
+        .concat(editProfileCalls.middleware)
+        .concat(usersCalls.middleware)
         .concat(boardsCalls.middleware)
         .concat(columnsCalls.middleware)
         .concat(tasksCalls.middleware),

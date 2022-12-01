@@ -6,7 +6,7 @@ $button-height: 30px;
 $title-height: calc($font-size-large * 2);
 
 .container {
-  @include page-properties;
+  @extend %page-properties;
   display: flex;
   flex-direction: column;
   .title {

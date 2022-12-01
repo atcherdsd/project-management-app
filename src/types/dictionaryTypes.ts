@@ -8,7 +8,7 @@ interface INavbarLanguage {
   newboard: string;
 }
 
-interface ISignUpFormLanguage {
+export interface ISignUpFormLanguage {
   formWelcome: string;
   formLabelName: string;
   formLogin: string;
@@ -16,10 +16,15 @@ interface ISignUpFormLanguage {
   formSignUp: string;
   formRequireMsg: string;
   formOnlyLetter: string;
+  formMinLegthNameMsg: string;
   formMinLengthMsg: string;
   formLoginPatternMsg: string;
   formPasswordValidateMsg: string;
   formRegistered: string;
+  formSignIn: string;
+  edit?: string;
+  updateBtn?: string;
+  deleteBtn?: string;
 }
 
 interface IMainPageLanguage {
@@ -50,6 +55,46 @@ interface IAddBoardLanguage {
   add: string;
 }
 
+interface IWelcomePageLanguage {
+  titleTagline: string;
+  titleProposal1: string;
+  titleProposal2: string;
+  descriptSubtitle: string;
+  descriptDeclarationTitle: string;
+  descriptDeclarationContent: string;
+  descriptBenefitsTitle: string;
+  descriptBenefitTitle1: string;
+  descriptBenefitContent1: string;
+  descriptBenefitTitle2: string;
+  descriptBenefitContent2: string;
+  descriptBenefitTitle3: string;
+  descriptBenefitContent3: string;
+  descriptBenefitTitle4: string;
+  descriptBenefitContent4: string;
+  ourTeam: string;
+  aboutCourse1: string;
+  aboutCourse2: string;
+}
+
+interface ITeamMembers {
+  ArturName: string;
+  SergeyName: string;
+  NikitaName: string;
+  lead: string;
+  dev: string;
+}
+
+interface INotFoundPageLanguage {
+  declaration: string;
+  button: string;
+}
+
+interface IModalLanguage {
+  warning: string;
+  confirmBtn: string;
+  disconfirmBtn: string;
+}
+
 interface ILanguage {
   Navbar: INavbarLanguage;
   SignUpForm: ISignUpFormLanguage;
@@ -59,6 +104,10 @@ interface ILanguage {
   ColumnHeader: IColumnHeaderLanguage;
   Task: ITaskLanguage;
   AddBoard: IAddBoardLanguage;
+  WelcomePage: IWelcomePageLanguage;
+  NotFoundPage: INotFoundPageLanguage;
+  Modal: IModalLanguage;
+  TeamMembers: ITeamMembers;
 }
 
 export interface Idictionary {
