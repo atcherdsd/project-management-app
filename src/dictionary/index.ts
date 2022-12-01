@@ -104,6 +104,8 @@ const dictionary: Idictionary = {
       createBoardTitle: 'Create new board',
       boardDescription1: 'To create a new board, select project members',
       boardDescription2: 'and enter a title for the board',
+      createColumnTitle: 'Add new column',
+      createTaskTitle: 'Create new task',
     },
   },
   RU: {
@@ -209,6 +211,8 @@ const dictionary: Idictionary = {
       createBoardTitle: 'Создать новую доску',
       boardDescription1: 'Чтобы создать доску, выберите членов проекта',
       boardDescription2: 'и введите название доски',
+      createColumnTitle: 'Добавить новую колонку',
+      createTaskTitle: 'Создать новую задачу',
     },
   },
 };

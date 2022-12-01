@@ -23,6 +23,7 @@ $radius: 1rem;
     justify-content: center;
     border: 1px solid rgba(255,255,255,.7);
     box-shadow: 0 20px 50px -10px rgba(0,0,0,.5);
+    padding: 0 2rem;
 }
 
 .modal__content{
@@ -30,15 +31,24 @@ $radius: 1rem;
     border-radius: 12px;
     background-color: white;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    background: linear-gradient(45deg, #a97862, #472c15);
+    box-shadow: 0px 5px 34px rgb(0 0 0 / 70%);
+}
+.modal__title {
+  font-size: 2rem;
+  color: white;
+  order: 0;
+  letter-spacing: 1px;
 }
 
 .form {
     width: 28rem;
-    padding: 2rem;
+    padding: 2rem 2rem 0;
     border-radius: $radius;
-    background-color: white;
-    margin-top: 12px;
+    background-color: inherit;
+    margin-top: 2rem;
+    order: 2;
     &__group {
       position: relative;
       height: 3rem;
@@ -55,7 +65,7 @@ $radius: 1rem;
       color: inherit;
       outline: none;
       padding: 1.25rem;
-      background: none;
+      background: floralwhite;
       &:hover {
         border-color: $clr-primary;
       }
@@ -70,10 +80,14 @@ $radius: 1rem;
       left: 1rem;
       top: 0.9rem;
       padding: 0 0.5rem;
-      background-color: white;
+      background-color: floralwhite;
       transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+      border-radius: 1rem;
     }
 
+    &__spinner {
+      margin: 0 auto;
+    }
     &__buttons{
         display: flex;
         justify-content: flex-end;
@@ -88,7 +102,8 @@ $radius: 1rem;
         }
     }
   
-    &__button {
+    &__button,
+    &__button__cancel {
       display: block;
       margin-left: 1rem;
       padding: 0.75rem 2rem;
@@ -105,9 +120,18 @@ $radius: 1rem;
         background-color: $clr-primary-dark;
       }
     }
+    &__button {
+      background-color: $clr-primary;
+    }
+    &__button__cancel { 
+      background-color: #ebe1c1;
+    }
+
     .error{
       padding-top: 5px;
-      color:red;
+      color:#ff3131;
+      font-weight: 600;
+      text-shadow: 0px 0px 9px rgb(100 100 100);
     }
   }
   
@@ -126,10 +150,10 @@ $radius: 1rem;
   }
 
   .autocomplete__container{
-    width:24rem;
-    margin: 0 2rem 2rem 2rem;
+    margin: 3rem 2rem 2rem;
     position: relative;
     height: 3rem;
+    order: 1;
     & .usersContainer{
       position: absolute;
       width: 100%;
@@ -157,6 +181,7 @@ $radius: 1rem;
       gap: 1rem;
       height: 4rem;
       overflow: auto;
+      color: #fd9800;
       & .invitedUser{
         display: flex;
         gap:0.5rem;
@@ -181,14 +206,44 @@ $radius: 1rem;
     background: rgb(206, 146, 6);
     border-radius: 10px;
     box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
-   }
+  }
 
-   @media (max-width: 400px) {
+  @media (max-width: 500px) {
+    .modal__container {
+      padding: 0 1rem;
+    }
     .form {
-      width: 21rem;
+      padding: 0;
+      width: 24rem;
+      &__buttons {
+        position: relative;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+      &__button,
+      &__button__cancel {
+        margin-left: 0;
+      }
     }
     .autocomplete__container{
-      width:17rem;
+      margin: 3rem 0 2rem;
+    }
+  }
+  @media (max-width: 430px) {
+    .form {
+      padding: 0;
+      min-width: 17rem;
+      width: 100%;
+      &__spinner {
+        position: absolute;
+        top: -2rem;
+        left: 50%;
+      }
+      &__buttons {
+        flex-direction: column;
+        align-items: initial;
+        justify-content: center;
+      }
     }
   }
 

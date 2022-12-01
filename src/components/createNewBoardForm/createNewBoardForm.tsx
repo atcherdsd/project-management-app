@@ -110,7 +110,11 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
                 ))}
             </div>
             <div className={cl.form__buttons}>
-              {isLoading && <Spinner></Spinner>}
+              {isLoading && (
+                <div className={cl.form__spinner}>
+                  <Spinner />
+                </div>
+              )}
               <input
                 type="submit"
                 className={cl.form__button}

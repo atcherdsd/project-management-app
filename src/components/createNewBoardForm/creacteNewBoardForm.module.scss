@@ -100,6 +100,9 @@ $radius: 1rem;
       border-radius: 1rem;
     }
 
+    &__spinner {
+      margin: 0 auto;
+    }
     &__buttons{
         display: flex;
         justify-content: flex-end;
@@ -217,18 +220,25 @@ $radius: 1rem;
     background: rgb(206, 146, 6);
     border-radius: 10px;
     box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
-   }
+  }
 
-   @media (max-width: 500px) {
+  @media (max-width: 500px) {
     .modal__container {
       padding: 0 1rem;
     }
     .form {
       padding: 0;
+      &__spinner {
+        position: absolute;
+        top: -2rem;
+        left: 50%;
+      }
       &__buttons {
+        position: relative;
         flex-wrap: wrap;
-        justify-content: center;
         gap: 2rem;
+        flex-direction: column;
+        justify-content: center;
       }
       &__button,
       &__button__cancel {
@@ -237,5 +247,10 @@ $radius: 1rem;
     }
     .autocomplete__container{
       margin: 3rem 0 2rem;
+    }
+  }
+  @media (max-width: 430px) {
+    .form__buttons {
+      align-items: initial;
     }
   }

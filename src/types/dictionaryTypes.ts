@@ -102,6 +102,8 @@ interface IModalLanguage {
   createBoardTitle: string;
   boardDescription1: string;
   boardDescription2: string;
+  createColumnTitle: string;
+  createTaskTitle: string;
 }
 
 interface ILanguage {

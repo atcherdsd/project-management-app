@@ -21,6 +21,7 @@ export default function CreacteNewTaskModal(props: CreacteNewColumnModalProps) {
   return (
     <div className={cl.modal__container} onClick={clickHandler}>
       <div className={cl.modal__content}>
+        <h3 className={cl.modal__title}>{T('Modal.createTaskTitle')}</h3>
         <form className={cl.form} onSubmit={onSubmit}>
           <div className={cl.form__group}>
             <input
@@ -50,7 +51,11 @@ export default function CreacteNewTaskModal(props: CreacteNewColumnModalProps) {
               ))}
           </div>
           <div className={cl.form__buttons}>
-            {isLoading && <Spinner></Spinner>}
+            {isLoading && (
+              <div className={cl.form__spinner}>
+                <Spinner />
+              </div>
+            )}
             <input
               type="submit"
               className={cl.form__button}
@@ -60,7 +65,7 @@ export default function CreacteNewTaskModal(props: CreacteNewColumnModalProps) {
             <input
               type="button"
               id="cancelBtn"
-              className={cl.form__button}
+              className={cl.form__button__cancel}
               value={T('Modal.cancelBtn')}
               disabled={isLoading ? true : false}
             ></input>
