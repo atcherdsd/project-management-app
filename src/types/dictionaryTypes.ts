@@ -8,7 +8,7 @@ interface INavbarLanguage {
   newboard: string;
 }
 
-export interface ISighUpFormLanguage {
+export interface ISignUpFormLanguage {
   formWelcome: string;
   formLabelName: string;
   formLogin: string;
@@ -49,6 +49,10 @@ interface IColumnHeaderLanguage {
 
 interface ITaskLanguage {
   deleteTask: string;
+}
+
+interface IAddBoardLanguage {
+  add: string;
 }
 
 interface IWelcomePageLanguage {
@@ -93,12 +97,13 @@ interface IModalLanguage {
 
 interface ILanguage {
   Navbar: INavbarLanguage;
-  SignUpForm: ISighUpFormLanguage;
+  SignUpForm: ISignUpFormLanguage;
   MainPage: IMainPageLanguage;
   Board: IBoardLanguage;
   BoardPage: IBorardPageLanguage;
   ColumnHeader: IColumnHeaderLanguage;
   Task: ITaskLanguage;
+  AddBoard: IAddBoardLanguage;
   WelcomePage: IWelcomePageLanguage;
   NotFoundPage: INotFoundPageLanguage;
   Modal: IModalLanguage;

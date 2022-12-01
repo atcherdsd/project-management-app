@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { useTranslate } from '../../../hooks/useTranslate';
 import { navbarSelector } from '../../../store/selectors/selectors';
 import { removeUserData, setMenu } from '../../../store/reducers/NavbarReducer';
+import { useCreateNewBoardMutation } from '../../../API/boardsCalls';
 
 const isActiveCheck = ({ isActive }: { isActive: boolean }) =>
   activeClassHandler(isActive, cl.link, cl.link_active);
@@ -16,11 +17,21 @@ const Navbar = () => {
   const { hasToken, isOpenedMenu } = useAppSelector(navbarSelector);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [createNewBoard, {}] = useCreateNewBoardMutation();
 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(false);
   }, []);
+
+  const onClickCreateNewBoard = async () => {
+    const body = {
+      title: `NewBoards ${Date.now()}`,
+      owner: 'Artur',
+      users: ['Artur'],
+    };
+    createNewBoard(body);
+  };
 
   const handleMenuClick = () => {
     isOpenedMenu ? dispatch(setMenu(!isOpenedMenu)) : null;
@@ -55,7 +66,9 @@ const Navbar = () => {
             <NavLink className={isActiveCheck} to={Paths.EditProfilePage}>
               {T('Navbar.edit')}
             </NavLink>
-            <button className={cl.button}>{T('Navbar.newboard')}</button>
+            <button className={cl.button} onClick={onClickCreateNewBoard}>
+              {T('Navbar.newboard')}
+            </button>
             <button className={cl.button} onClick={signOut}>
               {T('Navbar.signout')}{' '}
             </button>

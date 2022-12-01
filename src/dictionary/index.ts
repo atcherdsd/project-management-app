@@ -48,6 +48,9 @@ const dictionary: Idictionary = {
     Task: {
       deleteTask: 'Delete task',
     },
+    AddBoard: {
+      add: 'Add',
+    },
     WelcomePage: {
       titleTagline: 'Easy to create, easy to follow',
       titleProposal1:
@@ -183,6 +186,9 @@ const dictionary: Idictionary = {
       warning: 'Вы уверены?',
       confirmBtn: 'Да',
       disconfirmBtn: 'Нет',
+    },
+    AddBoard: {
+      add: 'Добавить',
     },
   },
 };

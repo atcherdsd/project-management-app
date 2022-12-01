@@ -1,0 +1,10 @@
+@import "../../../../../styleVariablesAndMixines/fontSizes.scss";
+
+.container {
+  grid-area: title;
+  height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: $font-size-middle;
+  line-height: $font-size-middle;
+}
