@@ -17,6 +17,7 @@ export interface ISighUpFormLanguage {
   formSignUp: string;
   formRequireMsg: string;
   formOnlyLetter: string;
+  formOnlyLetterNumber: string;
   formMinLegthNameMsg: string;
   formMinLengthMsg: string;
   formLoginPatternMsg: string;

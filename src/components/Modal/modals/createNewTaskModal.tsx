@@ -34,8 +34,8 @@ export default function CreacteNewTaskModal(props: CreacteNewColumnModalProps) {
               {...register('title', {
                 required: { value: true, message: `${T('SignUpForm.formRequireMsg')}` },
                 pattern: {
-                  value: /^[a-zA-Zа-я\s]+$/i,
-                  message: `${T('SignUpForm.formOnlyLetter')}`,
+                  value: /^[a-zA-Zа-я0-9\s]+$/i,
+                  message: `${T('SignUpForm.formOnlyLetterNumber')}`,
                 },
                 minLength: { value: 2, message: `${T('SignUpForm.formMinLegthNameMsg')}` },
               })}
