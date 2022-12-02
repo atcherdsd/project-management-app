@@ -20,7 +20,11 @@ const BoardPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const boardId = location.pathname.replace('/main/', '');
-  const { data, isLoading: isLoadingData } = useGetAllColumnsQuery(boardId, {
+  const {
+    data,
+    isLoading: isLoadingData,
+    refetch,
+  } = useGetAllColumnsQuery(boardId, {
     refetchOnMountOrArgChange: true,
   });
   const { data: boardProps, isLoading: isLoadingBoardProps } = useGetBoardQuery(boardId);
@@ -65,7 +69,7 @@ const BoardPage = () => {
 
       reorderLocalColumnsState(source.droppableId, columns);
 
-      reorderColumnsCall(columns);
+      reorderColumnsCall(columns, refetch);
 
       return;
     }

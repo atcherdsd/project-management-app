@@ -48,11 +48,12 @@ const reorderColumns = (columns: IReorderColumnsArray) => {
   return newOrderedColumns;
 };
 
-export const reorderColumnsCall = (columns: IReorderColumnsArray) => {
+export const reorderColumnsCall = async (columns: IReorderColumnsArray, refetch: () => void) => {
   const body = reorderColumns(columns);
-  axios.patch(`${baseUrl}/columnsSet`, body, {
+  await axios.patch(`${baseUrl}/columnsSet`, body, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+  refetch();
 };
