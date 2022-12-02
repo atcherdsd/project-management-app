@@ -20,20 +20,22 @@
     color: #ff9900;
     min-height: 3.5rem;
     line-height: 1.1;
+    text-shadow: 2px 2px 3px rgb(100 100 100 / 70%);
   }
   .subtitle {
     font-size: $font-size-small;
     color: cornsilk;
   }
   .delete {
-    background-color: #c52516;
+    background-color: #9dedff;
     width: 60px;
     height: 30px;
     align-self: end;
     border-radius: 0.5rem;
-    color: whitesmoke;
+    color: black;
     &:hover {
     background-color: #ed2612;
+    transition: 0.3s;
     }
   }
 }

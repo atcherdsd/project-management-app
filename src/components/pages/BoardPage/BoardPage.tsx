@@ -148,7 +148,9 @@ const BoardPage = () => {
                   .sort((a, b) => a.order - b.order)
                   .map((column) => <Column key={column._id} column={column} />)}
               {provided.placeholder}
-              <button onClick={addColumnOnClick}>{T('BoardPage.addColumn')}</button>
+              <button className={cl.addColumn} onClick={addColumnOnClick}>
+                {T('BoardPage.addColumn')}
+              </button>
             </div>
           )}
         </Droppable>

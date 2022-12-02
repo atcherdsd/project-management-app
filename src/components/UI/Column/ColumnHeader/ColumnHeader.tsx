@@ -76,7 +76,6 @@ const ColumnHeader: FC<IColumnHeaderProps> = ({
           {T('ColumnHeader.createTask')}
         </button>
       </div>
-      <div className={cl.placeholder} />
       {isModalDeleteOpen && (
         <Modal>
           <ConfirmModal handler={confirmDeleteColumn} isLoading={isDeleting}></ConfirmModal>
