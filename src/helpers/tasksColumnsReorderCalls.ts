@@ -26,18 +26,22 @@ const reorderTasks = (
   return newOrderedSource;
 };
 
-export const reorderTasksCall = (
+export const reorderTasksCall = async (
   sourse: IReorderTasksArray,
   sourceId: string,
+  sourceRefetch: () => void,
   destination?: IReorderTasksArray,
-  destinationId?: string
+  destinationId?: string,
+  destinationRefetch?: () => void
 ) => {
   const body = reorderTasks(sourse, sourceId, destination, destinationId);
-  axios.patch(`${baseUrl}/tasksSet`, body, {
+  await axios.patch(`${baseUrl}/tasksSet`, body, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+  sourceRefetch();
+  if (destinationRefetch) destinationRefetch();
 };
 
 const reorderColumns = (columns: IReorderColumnsArray) => {

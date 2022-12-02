@@ -11,12 +11,13 @@ import ColumnHeader from './ColumnHeader/ColumnHeader';
 
 interface IColumnProps {
   column: IColumn;
+  refetchAdd: (key: string, value: () => void) => void;
 }
 
-const Column: FC<IColumnProps> = ({ column }) => {
+const Column: FC<IColumnProps> = ({ column, refetchAdd }) => {
   const { title, _id: columnId, order, boardId } = column;
   const [deleteColumn, {}] = useDeleteColumnMutation();
-  const { data } = useGetAllTasksQuery({ boardId, columnId }, { refetchOnMountOrArgChange: true });
+  const { data, refetch } = useGetAllTasksQuery({ boardId, columnId });
   const [createNewTask, {}] = useCreateNewTaskMutation();
   const { setLocalColumnTasks } = BoardSlice.actions;
   const dispatch = useAppDispatch();
@@ -25,6 +26,9 @@ const Column: FC<IColumnProps> = ({ column }) => {
     status: 'title',
     value: title,
   });
+
+  refetchAdd(columnId, refetch);
+
   useEffect(() => {
     if (data) dispatch(setLocalColumnTasks([columnId, [...(data as ITask[])]]));
   }, [data]);
