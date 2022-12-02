@@ -35,6 +35,7 @@ const dictionary: Idictionary = {
     },
     MainPage: {
       boards: 'Boards',
+      boardSearch: 'Board search',
     },
     Board: {
       created: 'Created by',
@@ -53,7 +54,7 @@ const dictionary: Idictionary = {
       deleteTask: 'Delete task',
     },
     AddBoard: {
-      add: 'Add',
+      add: 'Add board',
     },
     WelcomePage: {
       titleTagline: 'Easy to create, easy to follow',
@@ -146,6 +147,7 @@ const dictionary: Idictionary = {
     },
     MainPage: {
       boards: 'Доски',
+      boardSearch: 'Поиск доски',
     },
     Board: {
       created: 'Создал',
@@ -220,7 +222,7 @@ const dictionary: Idictionary = {
       createTaskTitle: 'Создать новую задачу',
     },
     AddBoard: {
-      add: 'Добавить',
+      add: 'Добавить доску',
     },
   },
 };

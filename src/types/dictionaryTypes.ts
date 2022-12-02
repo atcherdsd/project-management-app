@@ -33,6 +33,7 @@ export interface ISighUpFormLanguage {
 
 interface IMainPageLanguage {
   boards: string;
+  boardSearch: string;
 }
 
 interface IBoardLanguage {
