@@ -162,12 +162,17 @@ $radius: 1rem;
       background-color: white;
       transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
     }
-
+    &__spinner {
+      position: absolute;
+      top: -2rem;
+      left: 50%;
+    }
     &__buttons{
         display: flex;
         justify-content: space-around;
         align-items: center;
         margin-top: 3rem;
+        position: relative;
         & a{
           cursor: pointer;
         }
@@ -254,6 +259,7 @@ $radius: 1rem;
       }
       &__buttons {
         margin-top: 5.5rem;
+        position: relative;
       }
       &__login {
         margin-top: 4.5rem;

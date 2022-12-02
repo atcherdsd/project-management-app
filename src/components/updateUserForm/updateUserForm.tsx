@@ -180,7 +180,11 @@ function UpdateUserForm(props: UpdateProps) {
                   : `${cl.form__buttons}`
               }
             >
-              {isUpdating && <Spinner></Spinner>}
+              {isUpdating && (
+                <div className={cl.form__spinner}>
+                  <Spinner />
+                </div>
+              )}
               <input
                 type="submit"
                 className={cl.form__button}
