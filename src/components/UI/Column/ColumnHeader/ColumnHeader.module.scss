@@ -12,7 +12,7 @@ $column-header-height: 40px;
     "btndelcol btncrttsk";
   .buttonDeleteColumn {
     grid-area: btndelcol;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     font-size: 1rem;
     margin-left: 0.5rem;
     background-color: #9dedff;
@@ -23,7 +23,7 @@ $column-header-height: 40px;
   }
   .buttonCreateTask {
     grid-area: btncrttsk;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     font-size: 1rem;
     margin-left: 0.5rem;
     background-color: #9dedff;
