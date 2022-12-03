@@ -39,6 +39,7 @@ interface IMainPageLanguage {
 interface IBoardLanguage {
   created: string;
   delete: string;
+  invitedUsers: string;
 }
 
 interface IBorardPageLanguage {

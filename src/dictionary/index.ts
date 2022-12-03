@@ -40,6 +40,7 @@ const dictionary: Idictionary = {
     Board: {
       created: 'Created by',
       delete: 'Delete',
+      invitedUsers: 'Invited users',
     },
     BoardPage: {
       board: 'Board',
@@ -152,6 +153,7 @@ const dictionary: Idictionary = {
     Board: {
       created: 'Создал',
       delete: 'Удалить',
+      invitedUsers: 'Приглашенные пользователи',
     },
     BoardPage: {
       board: 'Доска',

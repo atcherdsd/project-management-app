@@ -16,7 +16,7 @@ interface IBoardProps {
 }
 
 const Board: FC<IBoardProps> = ({ board }) => {
-  const { _id: id, owner, title } = board;
+  const { _id: id, owner, title, users } = board;
   const navigate = useNavigate();
   const [deleteBoard, { isLoading }] = useDeleteBoardMutation();
   const T = useTranslate();
@@ -56,6 +56,12 @@ const Board: FC<IBoardProps> = ({ board }) => {
       <h4 className={cl.subtitle}>
         {T('Board.created')} {owner}
       </h4>
+      <p>{T('Board.invitedUsers')}</p>
+      <ul>
+        {users.map((user) => {
+          return <li key={user + owner}>{user}</li>;
+        })}
+      </ul>
       <button className={cl.delete} onClick={(e) => deleteOnClick(e)}>
         {T('Board.delete')}
       </button>
