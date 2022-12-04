@@ -20,9 +20,7 @@ const BoardPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const boardId = location.pathname.replace('/main/', '');
-  const { data, isLoading: isLoadingData } = useGetAllColumnsQuery(boardId, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data, isLoading: isLoadingData, refetch } = useGetAllColumnsQuery(boardId);
   const { data: boardProps, isLoading: isLoadingBoardProps } = useGetBoardQuery(boardId);
   const [createNewColumn, {}] = useCreateNewColumnMutation();
   const { columnsTasks, boardColumns } = useAppSelector((state) => state.BoardReducer);
@@ -31,9 +29,15 @@ const BoardPage = () => {
   const reorderLocalTasksState = useSetLocalColumnTasks();
   const reorderLocalColumnsState = useSetLocalBoardColumns();
   const T = useTranslate();
+  const refetchColumns: Map<string, () => void> = new Map();
+
+  const refetchAdd = (key: string, value: () => void) => {
+    refetchColumns.set(key, value);
+  };
 
   useEffect(() => {
-    if (data) dispatch(setLocalBoardColumns([boardId, [...(data as IColumn[])]]));
+    if (data && !(boardColumns.get(boardId)?.length === [...(data as IColumn[])].length))
+      dispatch(setLocalBoardColumns([boardId, [...(data as IColumn[])]]));
   }, [data]);
 
   const backToMainOnClick = () => {
@@ -41,7 +45,6 @@ const BoardPage = () => {
   };
 
   const addColumnOnClick = () => {
-    console.log((data as []).length);
     createNewColumn({
       boardId,
       body: { title: `Column ${Date.now()}`, order: (data as []).length },
@@ -65,7 +68,7 @@ const BoardPage = () => {
 
       reorderLocalColumnsState(source.droppableId, columns);
 
-      reorderColumnsCall(columns);
+      reorderColumnsCall(columns, refetch);
 
       return;
     }
@@ -79,7 +82,11 @@ const BoardPage = () => {
 
       reorderLocalTasksState(source.droppableId, column);
 
-      reorderTasksCall(column, source.droppableId);
+      reorderTasksCall(
+        column,
+        source.droppableId,
+        refetchColumns.get(source.droppableId) as () => void
+      );
 
       return;
     } else if (destination.droppableId !== source.droppableId) {
@@ -100,8 +107,10 @@ const BoardPage = () => {
       reorderTasksCall(
         columnSource,
         source.droppableId,
+        refetchColumns.get(source.droppableId) as () => void,
         columnDestination,
-        destination.droppableId
+        destination.droppableId,
+        refetchColumns.get(destination.droppableId) as () => void
       );
 
       return;
@@ -127,7 +136,7 @@ const BoardPage = () => {
                 {[...(boardColumns.get(boardId) as IColumn[])]
                   .sort((a, b) => a.order - b.order)
                   .map((column) => (
-                    <Column key={column._id} column={column} />
+                    <Column refetchAdd={refetchAdd} key={column._id} column={column} />
                   ))}
                 {provided.placeholder}
                 <button onClick={addColumnOnClick}>{T('BoardPage.addColumn')}</button>

@@ -11,12 +11,13 @@ import ColumnHeader from './ColumnHeader/ColumnHeader';
 
 interface IColumnProps {
   column: IColumn;
+  refetchAdd: (key: string, value: () => void) => void;
 }
 
-const Column: FC<IColumnProps> = ({ column }) => {
+const Column: FC<IColumnProps> = ({ column, refetchAdd }) => {
   const { title, _id: columnId, order, boardId } = column;
   const [deleteColumn, {}] = useDeleteColumnMutation();
-  const { data } = useGetAllTasksQuery({ boardId, columnId }, { refetchOnMountOrArgChange: true });
+  const { data, refetch } = useGetAllTasksQuery({ boardId, columnId });
   const [createNewTask, {}] = useCreateNewTaskMutation();
   const { setLocalColumnTasks } = BoardSlice.actions;
   const dispatch = useAppDispatch();
@@ -25,15 +26,20 @@ const Column: FC<IColumnProps> = ({ column }) => {
     status: 'title',
     value: title,
   });
+
+  refetchAdd(columnId, refetch);
+
   useEffect(() => {
-    if (data) dispatch(setLocalColumnTasks([columnId, [...(data as ITask[])]]));
+    if (data && !columnsTasks.get(columnId)) {
+      dispatch(setLocalColumnTasks([columnId, [...(data as ITask[])]]));
+    }
   }, [data]);
 
   const deleteColumnOnClick = () => {
     deleteColumn({ boardId, columnId });
   };
 
-  const createNewTaskOnClick = () => {
+  const createNewTaskOnClick = async () => {
     const body = {
       title: Date.now(),
       order: (data as []).length,
@@ -41,7 +47,9 @@ const Column: FC<IColumnProps> = ({ column }) => {
       userId: 0,
       users: ['string'],
     };
-    createNewTask({ boardId, columnId, body });
+    const newTask = await createNewTask({ boardId, columnId, body }).unwrap();
+    const newColumnTasks = [...(columnsTasks.get(columnId) as ITask[]), newTask];
+    dispatch(setLocalColumnTasks([columnId, newColumnTasks as ITask[]]));
   };
   return (
     <Draggable draggableId={columnId} index={order}>
