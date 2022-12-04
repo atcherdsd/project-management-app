@@ -34,7 +34,7 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
   ///////////////////////////
   const onSubmit = handleSubmit(submitHandler);
   return (
-    <div className={cl.modal__container} onClick={clickHandler}>
+    <div className={cl.modal__container}>
       {isUserLoading && <Spinner typeOfModalView="center"></Spinner>}
       {!isUserLoading && (
         <div className={cl.modal__content}>
@@ -119,6 +119,7 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
                 id="cancelBtn"
                 className={cl.form__button__cancel}
                 value={T('Modal.cancelBtn')}
+                onClick={clickHandler}
                 disabled={isLoading ? true : false}
               ></input>
             </div>
