@@ -30,14 +30,16 @@ const Column: FC<IColumnProps> = ({ column, refetchAdd }) => {
   refetchAdd(columnId, refetch);
 
   useEffect(() => {
-    if (data) dispatch(setLocalColumnTasks([columnId, [...(data as ITask[])]]));
+    if (data && !columnsTasks.get(columnId)) {
+      dispatch(setLocalColumnTasks([columnId, [...(data as ITask[])]]));
+    }
   }, [data]);
 
   const deleteColumnOnClick = () => {
     deleteColumn({ boardId, columnId });
   };
 
-  const createNewTaskOnClick = () => {
+  const createNewTaskOnClick = async () => {
     const body = {
       title: Date.now(),
       order: (data as []).length,
@@ -45,7 +47,9 @@ const Column: FC<IColumnProps> = ({ column, refetchAdd }) => {
       userId: 0,
       users: ['string'],
     };
-    createNewTask({ boardId, columnId, body });
+    const newTask = await createNewTask({ boardId, columnId, body }).unwrap();
+    const newColumnTasks = [...(columnsTasks.get(columnId) as ITask[]), newTask];
+    dispatch(setLocalColumnTasks([columnId, newColumnTasks as ITask[]]));
   };
   return (
     <Draggable draggableId={columnId} index={order}>

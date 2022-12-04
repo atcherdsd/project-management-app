@@ -36,7 +36,8 @@ const BoardPage = () => {
   };
 
   useEffect(() => {
-    if (data) dispatch(setLocalBoardColumns([boardId, [...(data as IColumn[])]]));
+    if (data && !(boardColumns.get(boardId)?.length === [...(data as IColumn[])].length))
+      dispatch(setLocalBoardColumns([boardId, [...(data as IColumn[])]]));
   }, [data]);
 
   const backToMainOnClick = () => {
