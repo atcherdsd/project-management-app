@@ -93,7 +93,7 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
                 {...register('title', {
                   required: { value: true, message: `${T('SignUpForm.formRequireMsg')}` },
                   pattern: {
-                    value: /^[a-zA-Zа-я0-9\s]+$/i,
+                    value: /^[a-zA-Zа-я0-9\s,.!?:'"]+$/i,
                     message: `${T('SignUpForm.formOnlyLetterNumber')}`,
                   },
                   minLength: { value: 2, message: `${T('SignUpForm.formMinLegthNameMsg')}` },
