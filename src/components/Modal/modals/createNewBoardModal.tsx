@@ -34,7 +34,6 @@ export default function CreacteNewBoardModal() {
     if (isSuccess) {
       dispatch(setModalState(false));
     }
-    return setInvitedUsers([]);
   }, [dispatch, isSuccess]);
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {

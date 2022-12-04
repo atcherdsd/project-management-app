@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import removeUserBtn from '../../assets/removeUserBtn.svg';
 import { CreateBoardModalForm, CreacteNewBoardModalProps } from '../../types/modalType';
@@ -13,7 +13,6 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
     clickHandler,
     handleChange,
     autoCompContent,
-    setAutoCompContent,
     filteredUsers,
     onClickChooseUser,
     invitedUsers,
@@ -30,12 +29,6 @@ export default function CreateNewBoardForm(props: CreacteNewBoardModalProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<CreateBoardModalForm>({ criteriaMode: 'all', mode: 'onChange' });
-
-  useEffect(() => {
-    setAutoCompContent((prevState) => {
-      return { ...prevState, currentValue: '' };
-    });
-  }, [setAutoCompContent]);
 
   // Submit handler
   ///////////////////////////
