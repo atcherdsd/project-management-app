@@ -35,7 +35,7 @@ const Column: FC<IColumnProps> = ({ column, refetchAdd }) => {
     if (data && !columnsTasks.get(columnId)) {
       dispatch(setLocalColumnTasks([columnId, [...(data as ITask[])]]));
     }
-  }, [columnId, data, dispatch, setLocalColumnTasks]);
+  }, [columnId, columnsTasks, data, dispatch, setLocalColumnTasks]);
   //Modal manipulations
   ////////////////////////
   const [isModalDeleteOpen, setModalDeleteOpen] = useState(false);
@@ -91,7 +91,7 @@ const Column: FC<IColumnProps> = ({ column, refetchAdd }) => {
     const newColumnTasks = [...(columnsTasks.get(columnId) as ITask[]), newTask];
     dispatch(setLocalColumnTasks([columnId, newColumnTasks as ITask[]]));
   }
-  
+
   return (
     <Draggable draggableId={columnId} index={order}>
       {(provided) => (

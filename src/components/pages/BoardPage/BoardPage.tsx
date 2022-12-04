@@ -41,7 +41,7 @@ const BoardPage = () => {
   useEffect(() => {
     if (data && !(boardColumns.get(boardId)?.length === [...(data as IColumn[])].length))
       dispatch(setLocalBoardColumns([boardId, [...(data as IColumn[])]]));
-  }, [boardId, data, dispatch, setLocalBoardColumns]);
+  }, [boardColumns, boardId, data, dispatch, setLocalBoardColumns]);
   //State for open or close window
   ///////////////////////////////////
   const [isModalOpen, setModalOpen] = useState(false);
@@ -144,7 +144,7 @@ const BoardPage = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      {boardColumns.get(boardId) ? (
+      {boardColumns.get(boardId) && (
         <div className={cl.container}>
           <h1 className={cl.title}>
             {T('BoardPage.board')} {boardProps && (boardProps as IBoard).title}
@@ -169,12 +169,10 @@ const BoardPage = () => {
               </div>
             )}
           </Droppable>
-        <button className={cl.button} onClick={backToMainOnClick}>
-          {T('BoardPage.back')}
-        </button>
-      </div>
-      ) : (
-        <h2>Error during fetching</h2>
+          <button className={cl.button} onClick={backToMainOnClick}>
+            {T('BoardPage.back')}
+          </button>
+        </div>
       )}
       {isModalOpen && (
         <Modal>
