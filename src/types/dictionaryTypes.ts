@@ -8,32 +8,38 @@ interface INavbarLanguage {
   newboard: string;
 }
 
-export interface ISignUpFormLanguage {
-  formWelcome: string;
+export interface ISighUpFormLanguage {
+  formWelcomeSignIn: string;
+  formWelcomeSignUp: string;
   formLabelName: string;
   formLogin: string;
   formPassword: string;
   formSignUp: string;
   formRequireMsg: string;
   formOnlyLetter: string;
+  formOnlyLetterNumber: string;
   formMinLegthNameMsg: string;
   formMinLengthMsg: string;
   formLoginPatternMsg: string;
   formPasswordValidateMsg: string;
   formRegistered: string;
+  notRegistered: string;
   formSignIn: string;
   edit?: string;
   updateBtn?: string;
   deleteBtn?: string;
+  messageBeforeDelete?: string;
 }
 
 interface IMainPageLanguage {
   boards: string;
+  boardSearch: string;
 }
 
 interface IBoardLanguage {
   created: string;
   delete: string;
+  invitedUsers: string;
 }
 
 interface IBorardPageLanguage {
@@ -93,11 +99,23 @@ interface IModalLanguage {
   warning: string;
   confirmBtn: string;
   disconfirmBtn: string;
+  title: string;
+  owner: string;
+  createBoardBtn: string;
+  cancelBtn: string;
+  createColumnBtn: string;
+  inviteUser: string;
+  task: string;
+  createBoardTitle: string;
+  boardDescription1: string;
+  boardDescription2: string;
+  createColumnTitle: string;
+  createTaskTitle: string;
 }
 
 interface ILanguage {
   Navbar: INavbarLanguage;
-  SignUpForm: ISignUpFormLanguage;
+  SignUpForm: ISighUpFormLanguage;
   MainPage: IMainPageLanguage;
   Board: IBoardLanguage;
   BoardPage: IBorardPageLanguage;

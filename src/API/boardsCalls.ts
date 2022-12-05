@@ -1,14 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import baseUrl from './baseUrl';
 import { IBoard } from '../types/boardTypes';
-import token from './jwt';
+import getToken from './jwt';
 
 export const boardsCalls = createApi({
   reducerPath: 'boardsCalls',
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: (headers) => {
-      headers.set('authorization', `Bearer ${token}`);
+      headers.set('authorization', `Bearer ${getToken()}`);
     },
   }),
   tagTypes: ['Boards'],

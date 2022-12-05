@@ -12,12 +12,28 @@ export type CreateBoardModalForm = {
 export type CreacteNewBoardModalProps = {
   submitHandler: (data: CreateBoardModalForm) => void;
   clickHandler: (e: React.MouseEvent<HTMLInputElement>) => void;
+  handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  isLoading: boolean;
+  autoCompContent?: string;
+  setAutoCompContent: React.Dispatch<React.SetStateAction<UsersState>>;
+  filteredUsers?: UsersResponse;
+  onClickChooseUser?: (e: React.MouseEvent<HTMLParagraphElement>) => void;
+  invitedUsers?: string[];
+  removeUserOnClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  isUserLoading?: boolean;
+};
+
+export type CreacteNewColumnModalProps = {
+  submitHandler: (data: CreateBoardModalForm) => void;
+  clickHandler: (e: React.MouseEvent<HTMLInputElement>) => void;
   handleChange?: (e: React.FormEvent<HTMLInputElement>) => void;
   isLoading: boolean;
   autoCompContent?: string;
   filteredUsers?: UsersResponse;
   onClickChooseUser?: (e: React.MouseEvent<HTMLParagraphElement>) => void;
   invitedUsers?: string[];
+  removeUserOnClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  isUserLoading?: boolean;
 };
 
 export type UserResponse = {

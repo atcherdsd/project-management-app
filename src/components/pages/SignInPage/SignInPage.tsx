@@ -15,7 +15,7 @@ const SignInPage = () => {
   const dispatch = useAppDispatch();
   const [signInData, setSignInData] = useState<FormValues>({ login: '', password: '' });
   const navigate = useNavigate();
-  const { isSuccess, isLoading, isError, error } = useSignInAuthQuery(
+  const { data, isSuccess, isLoading, isError, error } = useSignInAuthQuery(
     {
       path: 'auth/signin',
       patch: signInData,
@@ -24,10 +24,12 @@ const SignInPage = () => {
   );
   useEffect(() => {
     if (isSuccess) {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('id', data._id);
       navigate(`/${Paths.MainPage}`);
       dispatch(setHasToken(true));
     }
-  }, [dispatch, isSuccess, navigate]);
+  }, [data?._id, data?.token, dispatch, isSuccess, navigate]);
   function handleSubmit(data: FormValues) {
     setSignInData(data);
   }

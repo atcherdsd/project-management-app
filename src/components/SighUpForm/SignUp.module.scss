@@ -11,33 +11,50 @@ $clr-gray500: #425a65;
 $radius: 1rem;
 
 .form {
-    width: 28rem;
-    padding: 2rem;
+    max-width: 28rem;
+    padding: 1.5rem 2rem 2rem;
     border-radius: $radius;
     background-color: white;
-  
+    box-shadow: 0px 5px 34px rgb(0 0 0 / 70%);
+
+    &__avatar__wrapper {
+      width: 7rem;
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+    }
+    &__avatar {
+      width: 5rem;
+      padding: 0.5rem 0 2rem;
+    }
+    &__reg_logo {
+      width: 5rem;
+      padding-bottom: 1rem;
+    }
     &__title {
       margin-bottom: 0.5rem;
     }
   
     &__description {
       margin-bottom: 2rem;
-      font-size: 2rem;
+      font-size: 1.5rem;
+      text-align: center;
+      line-height: 1.2;
+      min-height: 3.7rem;
     }
   
     &__group {
       position: relative;
       height: 3rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 3.5rem;
     }
     &__password{
-      margin-top:3rem;
+      margin-top:3.5rem;
       position: relative;
       height: 3rem;
       margin-bottom: 1.5rem;
     }
     &__login{
-      margin-top:3rem;
       position: relative;
       height: 3rem;
       margin-bottom: 1.5rem;
@@ -88,7 +105,7 @@ $radius: 1rem;
     }
     &__signInButtons{
       display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
         margin-top:5rem;
         & a{
@@ -137,8 +154,27 @@ $radius: 1rem;
     font-size: 0.8rem;
   }
 
-  @media (max-width: 400px) {
-    .form{
-      width: 24rem;
+  @media (max-width: 910px) {
+    .form__login {
+      margin-bottom: 4.5rem;
+    }
+  }
+  @media (max-width: 450px) {
+    .form__login {
+      margin-bottom: 3.5rem;
+    }
+  }
+  @media (max-width: 410px) {
+    .form {
+      max-width: 24rem;
+    }
+    .form__login {
+      margin-top: 4.5rem;
+    }
+    .form__margin {
+      margin-top: 7.5rem;
+    }
+    .form__password {
+      margin-top: 6rem;
     }
   }

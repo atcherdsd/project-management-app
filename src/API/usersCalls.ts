@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { UsersResponse, TranformUsersResponse } from '../types/modalType';
 import baseUrl from './baseUrl';
-import { filterUsersResponse } from '../helpers/filterUsersResponse';
+import { filterUsersResponse, excludeCurrentUser } from '../helpers/filterUsersResponse';
+import getToken from './jwt';
 
 export const usersCalls = createApi({
   reducerPath: 'usersCalls',
@@ -9,7 +10,7 @@ export const usersCalls = createApi({
     baseUrl: baseUrl,
     prepareHeaders: (headers) => {
       headers.set('Accept', 'application/json');
-      headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+      headers.set('Authorization', `Bearer ${getToken()}`);
     },
   }),
   endpoints: (builder) => ({
@@ -21,7 +22,7 @@ export const usersCalls = createApi({
       transformResponse: (response: UsersResponse) => {
         const transformResponse = {
           currentUser: filterUsersResponse(response),
-          users: response,
+          users: excludeCurrentUser(response),
         };
         return transformResponse;
       },

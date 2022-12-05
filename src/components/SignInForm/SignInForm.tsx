@@ -5,9 +5,14 @@ import { useForm } from 'react-hook-form';
 import { SignUpProps, FormValues } from 'types/formTypes';
 import cl from '../SighUpForm/SignUp.module.scss';
 import { useAppSelector } from '../../hooks/redux';
+import userLogo from '../../assets/user-icon.svg';
+import { Paths } from '../../helpers/routerPaths';
+import { useNavigate } from 'react-router-dom';
 
 function SignInForm(props: SignUpProps) {
   const { handlerSubmit, isLoading } = props;
+
+  const navigate = useNavigate();
   // Use Translate
   const { login } = useAppSelector((state) => state.SignUpDataReducer.signUpData);
   const T = useTranslate();
@@ -16,18 +21,16 @@ function SignInForm(props: SignUpProps) {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<FormValues>({ criteriaMode: 'all', mode: 'onChange' });
   const onSubmit = handleSubmit((data) => {
     handlerSubmit(data);
-    reset({
-      login: '',
-      password: '',
-    });
   });
   return (
     <form className={cl.form} onSubmit={onSubmit}>
-      <p className={cl.form__description}>{T('SignUpForm.formWelcome')}</p>
+      <div className={cl.form__avatar__wrapper}>
+        <img className={cl.form__avatar} src={userLogo} alt="User Logo"></img>
+      </div>
+      <p className={cl.form__description}>{T('SignUpForm.formWelcomeSignIn')}</p>
       <div className={cl.form__login}>
         <input
           type="text"
@@ -86,7 +89,14 @@ function SignInForm(props: SignUpProps) {
             </p>
           ))}
       </div>
-      <div className={cl.form__signInButtons}>
+      <div
+        className={
+          errors.password?.types
+            ? `${cl.form__signInButtons} ${cl.form__margin}`
+            : `${cl.form__signInButtons}`
+        }
+      >
+        <a onClick={() => navigate(`/${Paths.SignUp}`)}>{T('SignUpForm.notRegistered')}</a>
         {isLoading && <Spinner></Spinner>}
         <input
           type="submit"

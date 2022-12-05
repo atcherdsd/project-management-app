@@ -13,21 +13,30 @@ const MainPage = () => {
   const { searchbar } = useAppSelector((state) => state.SearchbarReducer);
   const { data, isLoading } = useGetAllBoardsQuery(null);
   return (
-    <div className={cl.container}>
-      <h1 className={cl.title}>{T('MainPage.boards')}</h1>
-      <Searchbar />
+    <>
       {isLoading ? (
-        <h2 style={{ margin: 'auto' }}>Loading...</h2>
+        <div className={cl.icon_loader_wrapper}>
+          <div className={cl.icon_loader}></div>
+        </div>
       ) : (
-        <div className={cl.boardsContainer}>
-          {data &&
-            (data as IBoard[])
-              .filter((board) => new RegExp(`${searchbar}`, 'i').test(board.title))
-              .map((board) => <Board key={board._id} board={board} />)}
-          <AddBoard />
+        <div className={cl.container}>
+          <h1 className={cl.title}>{T('MainPage.boards')}</h1>
+          <Searchbar />
+          <div className={cl.boardsContainer}>
+            {data &&
+              (data as IBoard[])
+                .filter(
+                  (board: IBoard): boolean =>
+                    board.title.toLowerCase().includes(searchbar.toLowerCase()) ||
+                    board.owner.toLowerCase().includes(searchbar.toLowerCase()) ||
+                    board.users.toString().toLowerCase().includes(searchbar.toLowerCase())
+                )
+                .map((board) => <Board key={board._id} board={board} />)}
+            <AddBoard />
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

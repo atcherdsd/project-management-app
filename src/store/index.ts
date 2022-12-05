@@ -11,6 +11,7 @@ import NavbarReducer from './reducers/NavbarReducer';
 import { editProfileCalls } from '../API/editProfileCalls';
 import SignUpDataReducer from './reducers/SignUpDataReducer';
 import { usersCalls } from '../API/usersCalls';
+import ModalReducer from './reducers/ModalReducer';
 
 enableMapSet();
 
@@ -20,12 +21,13 @@ const rootReducer = combineReducers({
   SearchbarReducer,
   NavbarReducer,
   SignUpDataReducer,
+  ModalReducer,
   [authCalls.reducerPath]: authCalls.reducer,
   [editProfileCalls.reducerPath]: editProfileCalls.reducer,
-  [usersCalls.reducerPath]: usersCalls.reducer,
   [boardsCalls.reducerPath]: boardsCalls.reducer,
   [columnsCalls.reducerPath]: columnsCalls.reducer,
   [tasksCalls.reducerPath]: tasksCalls.reducer,
+  [usersCalls.reducerPath]: usersCalls.reducer,
 });
 
 export const setupStore = () =>
@@ -34,13 +36,14 @@ export const setupStore = () =>
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: false,
-      })
-        .concat(authCalls.middleware)
-        .concat(editProfileCalls.middleware)
-        .concat(usersCalls.middleware)
-        .concat(boardsCalls.middleware)
-        .concat(columnsCalls.middleware)
-        .concat(tasksCalls.middleware),
+      }).concat(
+        authCalls.middleware,
+        editProfileCalls.middleware,
+        boardsCalls.middleware,
+        columnsCalls.middleware,
+        tasksCalls.middleware,
+        usersCalls.middleware
+      ),
   });
 
 export type RootState = ReturnType<typeof rootReducer>;

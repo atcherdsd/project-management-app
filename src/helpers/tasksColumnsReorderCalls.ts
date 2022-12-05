@@ -1,6 +1,6 @@
 import axios from 'axios';
 import baseUrl from '../API/baseUrl';
-import token from '../API/jwt';
+import getToken from '../API/jwt';
 import { IReorderTasksArray, IReorderColumnsArray } from '../types/ReorderCallsTypes';
 
 const reorderTasks = (
@@ -37,7 +37,7 @@ export const reorderTasksCall = async (
   const body = reorderTasks(sourse, sourceId, destination, destinationId);
   await axios.patch(`${baseUrl}/tasksSet`, body, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getToken()}`,
     },
   });
   sourceRefetch();
@@ -56,7 +56,7 @@ export const reorderColumnsCall = async (columns: IReorderColumnsArray, refetch:
   const body = reorderColumns(columns);
   await axios.patch(`${baseUrl}/columnsSet`, body, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getToken()}`,
     },
   });
   refetch();

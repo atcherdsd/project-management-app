@@ -1,10 +1,9 @@
 $column-header-height: 40px;
 
 .container {
-  position: fixed;
   min-height: 40px;
   width: 280px;
-  background: white;
+  background: inherit;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -13,11 +12,26 @@ $column-header-height: 40px;
     "btndelcol btncrttsk";
   .buttonDeleteColumn {
     grid-area: btndelcol;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    background-color: #9dedff;
+    height: 2rem;
+    &:hover {
+      background-color: #ed2612;
+      transition: 0.3s;
+    }
   }
   .buttonCreateTask {
     grid-area: btncrttsk;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    background-color: #9dedff;
+    height: 2rem;
+    &:hover {
+      background-color: #7bdff6;
+      transition: 0.3s;
+    }
   }
-}
-.placeholder {
-  min-height: 40px;
 }

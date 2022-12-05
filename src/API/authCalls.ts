@@ -24,12 +24,6 @@ export const authCalls = createApi({
         method: 'POST',
         body: props.patch,
       }),
-      transformResponse: (response: SighInResponse) => {
-        const { token, _id } = response;
-        localStorage.setItem('token', token);
-        localStorage.setItem('id', _id);
-        return response;
-      },
     }),
   }),
 });

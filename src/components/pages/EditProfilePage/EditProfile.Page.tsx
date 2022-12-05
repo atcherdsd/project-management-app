@@ -12,23 +12,18 @@ import { setSignUpDataResponse } from '../../../store/reducers/SignUpDataReducer
 import { Modal } from '../../../components/Modal/modal';
 import ModalFormResponse from '../../Modal/modals/modalFormResponse';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
-import { useNavigate } from 'react-router-dom';
-import { Paths } from '../../../helpers/routerPaths';
+import { removeUserData } from '../../../store/reducers/NavbarReducer';
 
 const EditProfilePage = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
   const {
     isSuccess,
     isLoading,
     data: responseData,
-  } = useGetUserQuery(
-    {
-      path: `users/${localStorage.getItem('id')}`,
-    }
-    // { refetchOnMountOrArgChange: true }
-  );
+  } = useGetUserQuery({
+    path: `users/${localStorage.getItem('id')}`,
+  });
   const [updateUser, { isLoading: isUpdating, isError: isErrorUpdating, error: updateError }] =
     useUpdateUserMutation();
   const [deleteUser] = useDeleteUserMutation();
@@ -64,9 +59,7 @@ const EditProfilePage = () => {
         .unwrap()
         .then(() => {
           dispatch(setSignUpDataResponse({ login: '', _id: '', name: '' }));
-          localStorage.removeItem('token');
-          localStorage.removeItem('id');
-          navigate(`/${Paths.SignUp}`);
+          dispatch(removeUserData());
         });
     }
   }

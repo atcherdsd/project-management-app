@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import cl from './BoardPage.module.scss';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useGetAllColumnsQuery, useCreateNewColumnMutation } from '../../../API/columnsCalls';
@@ -15,14 +15,17 @@ import {
 import { sortColumnOrBoard, sortColumnsTasks } from '../../../helpers/sortColumnsTasksState';
 import { useGetBoardQuery } from '../../../API/boardsCalls';
 import { useTranslate } from '../../../hooks/useTranslate';
+import { Modal } from '../../Modal/modal';
+import CreacteNewColumnModal from '../../Modal/modals/createNewColumnModal';
+import { CreateBoardModalForm } from '../../../types/modalType';
 
 const BoardPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const boardId = location.pathname.replace('/main/', '');
-  const { data, isLoading: isLoadingData, refetch } = useGetAllColumnsQuery(boardId);
-  const { data: boardProps, isLoading: isLoadingBoardProps } = useGetBoardQuery(boardId);
-  const [createNewColumn, {}] = useCreateNewColumnMutation();
+  const [createNewColumn, { isLoading: isCreatingColumn }] = useCreateNewColumnMutation();
+  const { data, refetch } = useGetAllColumnsQuery(boardId);
+  const { data: boardProps } = useGetBoardQuery(boardId);
   const { columnsTasks, boardColumns } = useAppSelector((state) => state.BoardReducer);
   const { setLocalBoardColumns } = BoardSlice.actions;
   const dispatch = useAppDispatch();
@@ -38,18 +41,40 @@ const BoardPage = () => {
   useEffect(() => {
     if (data && !(boardColumns.get(boardId)?.length === [...(data as IColumn[])].length))
       dispatch(setLocalBoardColumns([boardId, [...(data as IColumn[])]]));
-  }, [data]);
+  }, [boardColumns, boardId, data, dispatch, setLocalBoardColumns]);
+  //State for open or close window
+  ///////////////////////////////////
+  const [isModalOpen, setModalOpen] = useState(false);
+  useEffect(() => {
+    if (!isCreatingColumn) {
+      setModalOpen(false);
+    }
+  }, [isCreatingColumn]);
+  //////////////////////////////
 
   const backToMainOnClick = () => {
     navigate(`/main`);
   };
 
   const addColumnOnClick = () => {
+    setModalOpen(true);
+  };
+
+  function clickHandler(e: React.MouseEvent<HTMLInputElement>) {
+    const input = (e.target as HTMLElement).closest('input');
+    const value = input?.value;
+    if (value && (value == 'Cancel' || value == 'Отмена')) {
+      setModalOpen(false);
+    }
+  }
+
+  function submitHandler(formData: CreateBoardModalForm) {
+    const { title } = formData;
     createNewColumn({
       boardId,
-      body: { title: `Column ${Date.now()}`, order: (data as []).length },
+      body: { title: `${title}`, order: (data as []).length },
     });
-  };
+  }
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination, type } = result;
@@ -119,9 +144,7 @@ const BoardPage = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      {isLoadingData || isLoadingBoardProps ? (
-        <h2 style={{ margin: 'auto' }}>Loading...</h2>
-      ) : boardColumns.get(boardId) ? (
+      {boardColumns.get(boardId) && (
         <div className={cl.container}>
           <h1 className={cl.title}>
             {T('BoardPage.board')} {boardProps && (boardProps as IBoard).title}
@@ -133,13 +156,16 @@ const BoardPage = () => {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {[...(boardColumns.get(boardId) as IColumn[])]
-                  .sort((a, b) => a.order - b.order)
-                  .map((column) => (
-                    <Column refetchAdd={refetchAdd} key={column._id} column={column} />
-                  ))}
+                {boardColumns.get(boardId) &&
+                  [...(boardColumns.get(boardId) as IColumn[])]
+                    .sort((a, b) => a.order - b.order)
+                    .map((column) => (
+                      <Column refetchAdd={refetchAdd} key={column._id} column={column} />
+                    ))}
                 {provided.placeholder}
-                <button onClick={addColumnOnClick}>{T('BoardPage.addColumn')}</button>
+                <button className={cl.addColumn} onClick={addColumnOnClick}>
+                  {T('BoardPage.addColumn')}
+                </button>
               </div>
             )}
           </Droppable>
@@ -147,8 +173,15 @@ const BoardPage = () => {
             {T('BoardPage.back')}
           </button>
         </div>
-      ) : (
-        <h2>Error during fetching</h2>
+      )}
+      {isModalOpen && (
+        <Modal>
+          <CreacteNewColumnModal
+            submitHandler={submitHandler}
+            isLoading={isCreatingColumn}
+            clickHandler={clickHandler}
+          ></CreacteNewColumnModal>
+        </Modal>
       )}
     </DragDropContext>
   );

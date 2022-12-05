@@ -3,34 +3,33 @@ import cl from './Navbar.module.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Paths } from '../../../helpers/routerPaths';
 import { activeClassHandler } from '../../../helpers/activeClassHandler';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { useTranslate } from '../../../hooks/useTranslate';
 import { navbarSelector } from '../../../store/selectors/selectors';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { removeUserData, setMenu } from '../../../store/reducers/NavbarReducer';
-import { useCreateNewBoardMutation } from '../../../API/boardsCalls';
+import { Modal } from '../../../components/Modal/modal';
+import CreacteNewBoardModal from '../../../components/Modal/modals/createNewBoardModal';
+import { setModalState } from '../../../store/reducers/ModalReducer';
 
 const isActiveCheck = ({ isActive }: { isActive: boolean }) =>
   activeClassHandler(isActive, cl.link, cl.link_active);
 
 const Navbar = () => {
   const T = useTranslate();
+
   const { hasToken, isOpenedMenu } = useAppSelector(navbarSelector);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [createNewBoard, {}] = useCreateNewBoardMutation();
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   useEffect(() => {
-    setIsLoading(false);
+    setIsLoadingLocal(false);
   }, []);
 
+  //State for open or close window
+  const { isModalOpen } = useAppSelector((state) => state.ModalReducer);
   const onClickCreateNewBoard = async () => {
-    const body = {
-      title: `NewBoards ${Date.now()}`,
-      owner: 'Artur',
-      users: ['Artur'],
-    };
-    createNewBoard(body);
+    dispatch(setModalState(true));
   };
 
   const handleMenuClick = () => {
@@ -44,8 +43,7 @@ const Navbar = () => {
   return (
     <div className={isOpenedMenu ? `${cl.overlay}` : ''} onClick={handleMenuClick}>
       <nav className={isOpenedMenu ? `${cl.container_opened_menu}` : `${cl.container}`}>
-        {isLoading && <div></div>}
-        {!hasToken && !isLoading && (
+        {!hasToken && !isLoadingLocal && (
           <>
             <NavLink className={isActiveCheck} to={Paths.WelcomePage}>
               {T('Navbar.welcome')}
@@ -58,7 +56,7 @@ const Navbar = () => {
             </NavLink>
           </>
         )}
-        {hasToken && !isLoading && (
+        {hasToken && !isLoadingLocal && (
           <>
             <NavLink className={isActiveCheck} to={Paths.MainPage}>
               {T('Navbar.main')}
@@ -70,11 +68,16 @@ const Navbar = () => {
               {T('Navbar.newboard')}
             </button>
             <button className={cl.button} onClick={signOut}>
-              {T('Navbar.signout')}{' '}
+              {T('Navbar.signout')}
             </button>
           </>
         )}
       </nav>
+      {isModalOpen && (
+        <Modal>
+          <CreacteNewBoardModal></CreacteNewBoardModal>
+        </Modal>
+      )}
     </div>
   );
 };

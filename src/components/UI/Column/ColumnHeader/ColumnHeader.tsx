@@ -4,6 +4,10 @@ import ColumnTitleInput from './ColumnTitleInput/ColumnTitleInput';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import cl from './ColumnHeader.module.scss';
 import { useTranslate } from '../../../../hooks/useTranslate';
+import { Modal } from '../../../Modal/modal';
+import ConfirmModal from '../../../Modal/modals/confirmModal';
+import CreacteNewTaskModal from '../../../Modal/modals/createNewTaskModal';
+import { CreateBoardModalForm } from '../../../../types/modalType';
 
 interface IColumnHeaderProps {
   status: 'title' | 'input';
@@ -20,6 +24,13 @@ interface IColumnHeaderProps {
   deleteColumnOnClick: () => void;
   createNewTaskOnClick: () => void;
   dragHandleProps: DraggableProvidedDragHandleProps | undefined;
+  isModalDeleteOpen: boolean;
+  isDeleting: boolean;
+  confirmDeleteColumn: (e: React.MouseEvent<HTMLElement>) => void;
+  isCreating: boolean;
+  isModalCreateTaskOpen: boolean;
+  cancelTaskHandler: (e: React.MouseEvent<HTMLInputElement>) => void;
+  submitCreateTaskHandler: (formData: CreateBoardModalForm) => void;
 }
 
 const ColumnHeader: FC<IColumnHeaderProps> = ({
@@ -32,6 +43,13 @@ const ColumnHeader: FC<IColumnHeaderProps> = ({
   deleteColumnOnClick,
   createNewTaskOnClick,
   dragHandleProps,
+  isModalDeleteOpen,
+  isDeleting,
+  confirmDeleteColumn,
+  isModalCreateTaskOpen,
+  isCreating,
+  cancelTaskHandler,
+  submitCreateTaskHandler,
 }) => {
   const T = useTranslate();
   return (
@@ -58,7 +76,20 @@ const ColumnHeader: FC<IColumnHeaderProps> = ({
           {T('ColumnHeader.createTask')}
         </button>
       </div>
-      <div className={cl.placeholder} />
+      {isModalDeleteOpen && (
+        <Modal>
+          <ConfirmModal handler={confirmDeleteColumn} isLoading={isDeleting}></ConfirmModal>
+        </Modal>
+      )}
+      {isModalCreateTaskOpen && (
+        <Modal>
+          <CreacteNewTaskModal
+            submitHandler={submitCreateTaskHandler}
+            clickHandler={cancelTaskHandler}
+            isLoading={isCreating}
+          ></CreacteNewTaskModal>
+        </Modal>
+      )}
     </Fragment>
   );
 };

@@ -6,6 +6,7 @@ import cl from './SignUp.module.scss';
 import { useTranslate } from '../../hooks/useTranslate';
 import { Paths } from '../../helpers/routerPaths';
 import Spinner from '../UI/Spinner/Spinner';
+import registrLogo from '../../assets/registr-icon.svg';
 
 function SignUpForm(props: SignUpProps) {
   // Navigate
@@ -30,7 +31,10 @@ function SignUpForm(props: SignUpProps) {
   });
   return (
     <form className={cl.form} onSubmit={onSubmit}>
-      <p className={cl.form__description}>{T('SignUpForm.formWelcome')}</p>
+      <div className={cl.form__avatar__wrapper}>
+        <img className={cl.form__reg_logo} src={registrLogo} alt="User Logo"></img>
+      </div>
+      <p className={cl.form__description}>{T('SignUpForm.formWelcomeSignUp')}</p>
       <div className={cl.form__group}>
         <input
           type="text"
@@ -115,7 +119,11 @@ function SignUpForm(props: SignUpProps) {
             </p>
           ))}
       </div>
-      <div className={cl.form__buttons}>
+      <div
+        className={
+          errors.password?.types ? `${cl.form__buttons} ${cl.form__margin}` : `${cl.form__buttons}`
+        }
+      >
         <a onClick={() => navigate(`/${Paths.SignIn}`)}>{T('SignUpForm.formRegistered')}</a>
         {isLoading && <Spinner></Spinner>}
         <input
